@@ -2,8 +2,8 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Spaans Buffer Layout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Spaans Smart Layout</title>
     <style>
         body, html {
             margin: 0;
@@ -12,6 +12,7 @@
             background-color: #e6fffa;
             font-family: -apple-system, sans-serif;
             text-align: center;
+            overflow: hidden; /* Voorkomt handmatig scrollen door de gebruiker */
         }
 
         .container {
@@ -19,33 +20,19 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
+            height: 100%;
         }
 
-        /* De Buffer: Deze ruimte schuift achter het Dynamic Island */
-        .spacer {
-            height: 200px; /* Pas dit aan als de tekst nog steeds te hoog komt */
+        /* Dynamische spacer: 200px standaard, 20px als toetsenbord open is */
+        #dynamic-spacer {
+            height: 200px;
+            transition: height 0.3s ease; /* Zorgt voor een vloeiende overgang */
             width: 100%;
         }
 
-        h1 { 
-            font-size: 1.8rem; 
-            color: #2d3748; 
-            margin: 10px 0 0 0; 
-            text-transform: uppercase;
-        }
-
-        p { 
-            font-size: 1.2rem; 
-            color: #4a5568; 
-            margin: 5px 0 10px 0;
-        }
-
-        #feedback { 
-            font-size: 1.3rem; 
-            font-weight: bold; 
-            min-height: 2rem; 
-            margin-bottom: 10px;
-        }
+        h1 { font-size: 1.8rem; color: #2d3748; margin: 10px 0 0 0; text-transform: uppercase; }
+        p { font-size: 1.2rem; color: #4a5568; margin: 5px 0 10px 0; }
+        #feedback { font-size: 1.3rem; font-weight: bold; min-height: 2.2rem; margin-bottom: 10px; }
 
         input {
             font-size: 1.5rem;
@@ -55,7 +42,6 @@
             border-radius: 12px;
             outline: none;
             background: white;
-            /* Voorkomt inzoomen op iPhone */
         }
 
         button {
@@ -66,20 +52,13 @@
             color: white;
             border: none;
             border-radius: 12px;
-            box-shadow: 0 4px 0 #2f855a;
-        }
-
-        button:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #2f855a;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- De onzichtbare buffer -->
-    <div class="spacer"></div>
+    <div id="dynamic-spacer"></div>
 
     <h1 id="verb">Laden...</h1>
     <p id="info"></p>
@@ -92,9 +71,22 @@
 </div>
 
 <script>
-    // Gebruik je eigen Gist link hier:
+    const spacer = document.getElementById('dynamic-spacer');
+    const inputField = document.getElementById('answer');
+
+    // --- TOETSENBORD LOGICA ---
+    // Wanneer het invoerveld focus krijgt (toetsenbord opent)
+    inputField.addEventListener('focus', () => {
+        spacer.style.height = "20px"; // Maak spacer klein zodat tekst naar beneden zakt
+    });
+
+    // Wanneer het invoerveld focus verliest (toetsenbord sluit)
+    inputField.addEventListener('blur', () => {
+        spacer.style.height = "200px"; // Herstel spacer
+    });
+
+    // --- PROGRAMMA LOGICA ---
     const jsonUrl = "https://gist.githubusercontent.com/Brainsnake/f9b6841f2705d38bb1164ce6c054cb81/raw/9b246b0cd6b250b5eedcc6ec006876fc490c56dd/werkwoorden.json"; 
-    
     let verbData = {};
     const pronouns = ["yo", "tú", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
     let currentCorrect = "";
@@ -119,11 +111,9 @@
         const personIdx = Math.floor(Math.random() * 6);
 
         currentCorrect = verbData[verb][tense][personIdx];
-
         document.getElementById('verb').innerText = verb;
         document.getElementById('info').innerText = `${tense} (${pronouns[personIdx]})`;
         
-        const inputField = document.getElementById('answer');
         inputField.value = "";
         inputField.style.backgroundColor = "white";
         document.getElementById('feedback').innerText = "";
@@ -132,7 +122,6 @@
     }
 
     function checkAnswer() {
-        const inputField = document.getElementById('answer');
         const userAns = inputField.value.trim().toLowerCase();
         const feedback = document.getElementById('feedback');
         const btn = document.getElementById('mainButton');
@@ -143,7 +132,7 @@
         }
 
         if (userAns === currentCorrect.toLowerCase()) {
-            feedback.innerHTML = "<span style='color:green'>✅ ¡Muy bien!</span>";
+            feedback.innerHTML = "<span style='color:green'>✅ ¡Bien!</span>";
             inputField.style.backgroundColor = "#c6f6d5";
             setTimeout(nextQuestion, 1200);
         } else {
@@ -154,7 +143,7 @@
         }
     }
 
-    document.getElementById('answer').addEventListener('keypress', (e) => {
+    inputField.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') checkAnswer();
     });
 
