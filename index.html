@@ -60,19 +60,24 @@
 </div>
 
 <script>
-    // In plaats van een los .json bestand, zetten we de data hier 
-    // zodat het direct in de cloud werkt zonder server-fouten.
-    const verbData = {
-        "Hablar": {
-            "Presente": ["hablo", "hablas", "habla", "hablamos", "habláis", "hablan"],
-            "Pretérito Indefinido": ["hablé", "hablaste", "habló", "hablamos", "hablasteis", "hablaron"]
-        },
-        "Ir": {
-            "Presente": ["voy", "vas", "va", "vamos", "vais", "van"],
-            "Pretérito Indefinido": ["fui", "fuiste", "fue", "fuimos", "fuisteis", "fueron"]
+// VERVANG DEZE LINK door jouw eigen "Raw" Gist-link:
+    const jsonUrl = "https://gist.githubusercontent.com/Brainsnake/f9b6841f2705d38bb1164ce6c054cb81/raw/9b246b0cd6b250b5eedcc6ec006876fc490c56dd/werkwoorden.json";
+
+    let verbData = {};
+    const pronouns = ["yo", "tú", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
+    let currentCorrect = "";
+
+    // Functie om de data in te laden van de cloud
+    async function fetchData() {
+        try {
+            const response = await fetch(jsonUrl);
+            verbData = await response.json();
+            nextQuestion(); // Start het spel zodra de data er is
+        } catch (error) {
+            document.getElementById('verb').innerText = "Fout bij laden!";
+            console.error("Kon JSON niet laden:", error);
         }
-        // Voeg hier de rest van je JSON data toe...
-    };
+    }
 
     const pronouns = ["yo", "tú", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
     let currentCorrect = "";
