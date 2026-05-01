@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Spaans Rock-Solid Centered</title>
+    <title>Spaans met Score</title>
     <style>
         /* Voorkom scrollen en zet de basis vast */
         html, body {
@@ -74,6 +74,13 @@
             border-radius: 12px;
             cursor: pointer;
         }
+        /* Score sectie styling */
+        #score-container {
+            margin-top: 25px;
+            font-size: 1rem;
+            color: #718096;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -87,24 +94,26 @@
     <input type="text" id="answer" placeholder="Typ..." autocomplete="off" autocapitalize="none" spellcheck="false">
     <br>
     <button id="mainButton" onclick="checkAnswer()">Controleer</button>
+
+    <div id="score-container">
+        Score: <span id="correct-count">0</span>/<span id="total-count">0</span> (<span id="percentage">0</span>%)
+    </div>
 </div>
 
 <script>
     const inputField = document.getElementById('answer');
 
+    // Score variabelen
+    let correctAttempts = 0;
+    let totalAttempts = 0;
     // Functie om de pagina bovenaan te vergrendelen
-    const lockScroll = () => {
-        window.scrollTo(0, 0);
-    };
+    const lockScroll = () => { window.scrollTo(0, 0); };
 
     // Events om verschuiven tegen te gaan
     inputField.addEventListener('focus', () => setTimeout(lockScroll, 50));
     inputField.addEventListener('blur', () => setTimeout(lockScroll, 50));
     window.visualViewport.addEventListener('resize', lockScroll);
-    window.visualViewport.addEventListener('scroll', () => {
-        if (window.scrollY !== 0) lockScroll();
-    });
-
+    window.visualViewport.addEventListener('scroll', () => { if (window.scrollY !== 0) lockScroll(); });
     // --- PROGRAMMA LOGICA ---
     const jsonUrl = "https://gist.githubusercontent.com/Brainsnake/f9b6841f2705d38bb1164ce6c054cb81/raw/9b246b0cd6b250b5eedcc6ec006876fc490c56dd/werkwoorden.json"; 
     let verbData = {};
@@ -120,6 +129,13 @@
         } catch (error) {
             document.getElementById('verb').innerText = "Fout!";
         }
+    }
+
+    function updateScoreDisplay() {
+        document.getElementById('correct-count').innerText = correctAttempts;
+        document.getElementById('total-count').innerText = totalAttempts;
+        const perc = totalAttempts === 0 ? 0 : Math.round((correctAttempts / totalAttempts) * 100);
+        document.getElementById('percentage').innerText = perc;
     }
 
     function nextQuestion() {
@@ -153,15 +169,20 @@
             return;
         }
 
+        totalAttempts++; // Verhoog totaal aantal vragen
+
         if (userAns === currentCorrect.toLowerCase()) {
+            correctAttempts++; // Verhoog goed-teller
             feedback.innerHTML = "<span style='color:green'>✅ ¡Muy bien!</span>";
             inputField.style.backgroundColor = "#c6f6d5";
+            updateScoreDisplay();
             setTimeout(nextQuestion, 1200);
         } else {
             feedback.innerHTML = `<span style="color:red">❌ ${currentCorrect}</span>`;
             inputField.style.backgroundColor = "#fed7d7";
             btn.innerText = "Volgende";
             showingError = true;
+            updateScoreDisplay();
         }
     }
 
