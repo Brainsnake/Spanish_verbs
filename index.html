@@ -2,79 +2,91 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Spaans Compact</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Spaans Compact Pro</title>
     <style>
         body {
             background-color: #e6fffa;
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; 
+            justify-content: flex-start;
             min-height: 100vh;
             margin: 0;
-            padding: 5px; /* Minimale padding */
+            /* Extra marge bovenaan om onder de camera weg te blijven */
+            padding-top: 45px; 
             text-align: center;
-            overflow: hidden; /* Voorkomt onnodig scrollen */
+            overflow: hidden;
         }
 
         .container {
-            width: 100%;
+            width: 95%;
             max-width: 400px;
         }
 
-        /* Werkwoord en info op één regel of heel dicht bij elkaar */
-        h1 { 
-            font-size: 1.6rem; 
-            color: #2d3748; 
-            margin: 5px 0 0 0; 
-            display: inline-block;
+        /* Alles op één regel: Werkwoord + Info */
+        .header-row {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 5px;
         }
 
-        p { 
-            font-size: 1.1rem; 
-            color: #4a5568; 
-            margin: 0 0 5px 0;
+        #verb { 
+            font-size: 1.4rem; 
+            color: #2d3748; 
+            margin: 0;
+            text-transform: uppercase;
             font-weight: bold;
         }
 
-        /* Feedback ruimte verkleind */
+        #info { 
+            font-size: 1rem; 
+            color: #4a5568; 
+            margin: 0;
+        }
+
+        /* Feedback zeer compact */
         #feedback { 
-            font-size: 1.2rem; 
-            margin: 5px 0; 
-            min-height: 2.5rem; 
-            line-height: 1.2;
+            font-size: 1.1rem; 
+            margin-bottom: 8px; 
+            min-height: 1.4rem;
+            font-weight: bold;
         }
 
         input {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             padding: 8px;
-            width: 80%;
+            width: 85%;
             border: 2px solid #48bb78;
             border-radius: 8px;
             outline: none;
+            background: white;
         }
 
         button {
-            font-size: 1.2rem;
-            padding: 8px 20px;
-            margin-top: 10px;
+            font-size: 1.1rem;
+            padding: 6px 20px;
+            margin-top: 8px;
             background-color: #48bb78;
             color: white;
             border: none;
             border-radius: 8px;
         }
 
-        /* Extra kleine letters voor de hulptekst bij fouten */
-        .small-tip { font-size: 0.8rem; display: block; margin-top: 2px; }
+        /* Kleine correctie voor de feedback tekst */
+        .correct-answer { font-size: 1.2rem; color: #e53e3e; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1 id="verb">Laden...</h1>
-    <p id="info"></p>
+    <div class="header-row">
+        <span id="verb">Laden...</span>
+        <span id="info"></span>
+    </div>
     
     <div id="feedback"></div>
 
@@ -98,7 +110,7 @@
             verbData = await response.json();
             nextQuestion();
         } catch (error) {
-            document.getElementById('verb').innerText = "Fout!";
+            document.getElementById('verb').innerText = "Fout bij laden!";
         }
     }
 
@@ -112,9 +124,8 @@
 
         currentCorrect = verbData[verb][tense][personIdx];
 
-        document.getElementById('verb').innerText = verb.toUpperCase();
-        // Tijd en persoon korter achter elkaar
-        document.getElementById('info').innerText = `${tense} (${pronouns[personIdx]})`;
+        document.getElementById('verb').innerText = verb;
+        document.getElementById('info').innerText = `| ${tense} (${pronouns[personIdx]})`;
         
         const inputField = document.getElementById('answer');
         inputField.value = "";
@@ -140,7 +151,7 @@
             inputField.style.backgroundColor = "#c6f6d5";
             setTimeout(nextQuestion, 1000);
         } else {
-            feedback.innerHTML = `<span style="color:red; font-size:1rem;">❌ Fout: ${currentCorrect}</span><span class="small-tip">(Enter voor volgende)</span>`;
+            feedback.innerHTML = `<span class="correct-answer">❌ ${currentCorrect}</span>`;
             inputField.style.backgroundColor = "#fed7d7";
             btn.innerText = "Volgende";
             showingError = true;
