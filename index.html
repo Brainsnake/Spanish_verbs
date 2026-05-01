@@ -3,36 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Spaans Smart Layout</title>
+    <title>Spaans Fixed Layout</title>
     <style>
-        body, html {
+        /* Voorkom dat de pagina kan scrollen */
+        html, body {
             margin: 0;
             padding: 0;
+            width: 100%;
             height: 100%;
+            overflow: hidden;
             background-color: #e6fffa;
             font-family: -apple-system, sans-serif;
-            text-align: center;
-            overflow: hidden; /* Voorkomt handmatig scrollen door de gebruiker */
         }
 
+        /* De container vult het scherm en centreert de inhoud bovenaan */
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
             height: 100%;
+            /* Deze padding zorgt dat tekst onder het Dynamic Island blijft */
+            padding-top: 60px; 
+            box-sizing: border-box;
         }
 
-        /* Dynamische spacer: 200px standaard, 20px als toetsenbord open is */
-        #dynamic-spacer {
-            height: 200px;
-            transition: height 0.3s ease; /* Zorgt voor een vloeiende overgang */
-            width: 100%;
+        h1 { 
+            font-size: 1.8rem; 
+            color: #2d3748; 
+            margin: 0; 
+            text-transform: uppercase;
         }
 
-        h1 { font-size: 1.8rem; color: #2d3748; margin: 10px 0 0 0; text-transform: uppercase; }
-        p { font-size: 1.2rem; color: #4a5568; margin: 5px 0 10px 0; }
-        #feedback { font-size: 1.3rem; font-weight: bold; min-height: 2.2rem; margin-bottom: 10px; }
+        p { 
+            font-size: 1.2rem; 
+            color: #4a5568; 
+            margin: 5px 0 15px 0;
+        }
+
+        #feedback { 
+            font-size: 1.3rem; 
+            font-weight: bold; 
+            min-height: 2.5rem; 
+            margin-bottom: 10px;
+            width: 90%;
+        }
 
         input {
             font-size: 1.5rem;
@@ -42,14 +57,15 @@
             border-radius: 12px;
             outline: none;
             background: white;
-            text-align: center; 
+            text-align: center;
+            /* Voorkom inzoomen en iOS schaduwen */
             -webkit-appearance: none;
         }
 
         button {
             font-size: 1.3rem;
             padding: 12px 30px;
-            margin-top: 15px;
+            margin-top: 20px;
             background-color: #48bb78;
             color: white;
             border: none;
@@ -60,8 +76,6 @@
 <body>
 
 <div class="container">
-    <div id="dynamic-spacer"></div>
-
     <h1 id="verb">Laden...</h1>
     <p id="info"></p>
     
@@ -73,25 +87,19 @@
 </div>
 
 <script>
-    const spacer = document.getElementById('dynamic-spacer');
     const inputField = document.getElementById('answer');
 
-    // --- TOETSENBORD LOGICA MET SCROLL RESET ---
-    inputField.addEventListener('focus', () => {
-        // 1. Maak de spacer kleiner
-        spacer.style.height = "20px"; 
-        
-        // 2. Forceer de browser om NIET omhoog te scrollen
-        // We wachten 10ms zodat iOS klaar is met zijn eigen animatie
-        setTimeout(() => {
-            window.scrollTo(0, 0);
-            document.body.scrollTop = 0;
-        }, 10);
-    });
-
-    inputField.addEventListener('blur', () => {
-        spacer.style.height = "200px";
+    // FORCEER DE PAGINA OM ALTIJD BOVENAAN TE BLIJVEN
+    const lockScroll = () => {
         window.scrollTo(0, 0);
+    };
+
+    // Luister naar alles wat de layout kan veranderen
+    inputField.addEventListener('focus', () => setTimeout(lockScroll, 50));
+    inputField.addEventListener('blur', () => setTimeout(lockScroll, 50));
+    window.visualViewport.addEventListener('resize', lockScroll);
+    window.visualViewport.addEventListener('scroll', () => {
+        if (window.scrollY !== 0) lockScroll();
     });
 
     // --- PROGRAMMA LOGICA ---
@@ -128,8 +136,7 @@
         document.getElementById('feedback').innerText = "";
         document.getElementById('mainButton').innerText = "Controleer";
         
-        // Bij een nieuwe vraag scrollen we ook altijd even naar boven
-        window.scrollTo(0, 0);
+        lockScroll();
         inputField.focus();
     }
 
@@ -144,7 +151,7 @@
         }
 
         if (userAns === currentCorrect.toLowerCase()) {
-            feedback.innerHTML = "<span style='color:green'>✅ ¡Bien!</span>";
+            feedback.innerHTML = "<span style='color:green'>✅ ¡Muy bien!</span>";
             inputField.style.backgroundColor = "#c6f6d5";
             setTimeout(nextQuestion, 1200);
         } else {
