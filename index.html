@@ -3,81 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Spaans Compact Pro</title>
+    <title>Spaans Fixed</title>
     <style>
-        body {
+        :root {
+            --app-height: 100%;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: var(--app-height);
+            overflow: hidden; /* Voorkomt dat de hele pagina schuift */
             background-color: #e6fffa;
             font-family: -apple-system, sans-serif;
+        }
+
+        body {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            /* Extra marge bovenaan om onder de camera weg te blijven */
-            padding-top: 45px; 
-            text-align: center;
-            overflow: hidden;
+            padding-top: 50px; /* Blijft onder de iPhone camera */
         }
 
         .container {
-            width: 95%;
+            width: 90%;
             max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Alles op één regel: Werkwoord + Info */
         .header-row {
             display: flex;
             justify-content: center;
             align-items: baseline;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 5px;
         }
 
-        #verb { 
-            font-size: 1.4rem; 
-            color: #2d3748; 
-            margin: 0;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
+        #verb { font-size: 1.4rem; font-weight: bold; text-transform: uppercase; color: #2d3748; }
+        #info { font-size: 1rem; color: #4a5568; }
 
-        #info { 
-            font-size: 1rem; 
-            color: #4a5568; 
-            margin: 0;
-        }
-
-        /* Feedback zeer compact */
         #feedback { 
-            font-size: 1.1rem; 
-            margin-bottom: 8px; 
-            min-height: 1.4rem;
+            font-size: 1.2rem; 
+            margin-bottom: 10px; 
+            min-height: 1.5rem;
             font-weight: bold;
         }
 
         input {
             font-size: 1.3rem;
-            padding: 8px;
-            width: 85%;
+            padding: 10px;
+            width: 80%;
             border: 2px solid #48bb78;
-            border-radius: 8px;
+            border-radius: 10px;
             outline: none;
             background: white;
+            -webkit-tap-highlight-color: transparent;
         }
 
         button {
-            font-size: 1.1rem;
-            padding: 6px 20px;
-            margin-top: 8px;
+            font-size: 1.2rem;
+            padding: 10px 25px;
+            margin-top: 15px;
             background-color: #48bb78;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
         }
-
-        /* Kleine correctie voor de feedback tekst */
-        .correct-answer { font-size: 1.2rem; color: #e53e3e; }
     </style>
 </head>
 <body>
@@ -90,15 +85,27 @@
     
     <div id="feedback"></div>
 
-    <input type="text" id="answer" placeholder="Antwoord..." autocomplete="off" autocapitalize="none" spellcheck="false">
+    <input type="text" id="answer" placeholder="Typ..." autocomplete="off" autocapitalize="none" spellcheck="false">
     <br>
     <button id="mainButton" onclick="checkAnswer()">Controleer</button>
 </div>
 
 <script>
-    // Gebruik je eigen Gist link hier:
+    // --- 1. De Fix voor het Toetsenbord-schuiven ---
+    const updateHeight = () => {
+        // Gebruik de VisualViewport API om de werkelijk zichtbare hoogte te bepalen
+        const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        document.documentElement.style.setProperty('--app-height', `${vh}px`);
+    };
+
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', updateHeight);
+        window.visualViewport.addEventListener('scroll', (e) => e.preventDefault()); // Blokkeer scroll
+    }
+    window.addEventListener('load', updateHeight);
+
+    // --- 2. Programma Logica ---
     const jsonUrl = "https://gist.githubusercontent.com/Brainsnake/f9b6841f2705d38bb1164ce6c054cb81/raw/9b246b0cd6b250b5eedcc6ec006876fc490c56dd/werkwoorden.json"; 
-    
     let verbData = {};
     const pronouns = ["yo", "tú", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
     let currentCorrect = "";
@@ -110,7 +117,7 @@
             verbData = await response.json();
             nextQuestion();
         } catch (error) {
-            document.getElementById('verb').innerText = "Fout bij laden!";
+            document.getElementById('verb').innerText = "Fout!";
         }
     }
 
@@ -123,7 +130,6 @@
         const personIdx = Math.floor(Math.random() * 6);
 
         currentCorrect = verbData[verb][tense][personIdx];
-
         document.getElementById('verb').innerText = verb;
         document.getElementById('info').innerText = `| ${tense} (${pronouns[personIdx]})`;
         
@@ -151,14 +157,14 @@
             inputField.style.backgroundColor = "#c6f6d5";
             setTimeout(nextQuestion, 1000);
         } else {
-            feedback.innerHTML = `<span class="correct-answer">❌ ${currentCorrect}</span>`;
+            feedback.innerHTML = `<span style="color:red">❌ ${currentCorrect}</span>`;
             inputField.style.backgroundColor = "#fed7d7";
             btn.innerText = "Volgende";
             showingError = true;
         }
     }
 
-    document.getElementById('answer').addEventListener('keypress', function (e) {
+    document.getElementById('answer').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') checkAnswer();
     });
 
