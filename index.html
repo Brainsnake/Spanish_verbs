@@ -91,18 +91,23 @@
         document.getElementById('answer').focus();
     }
 
-    function checkAnswer() {
-        const userAns = document.getElementById('answer').value.trim().toLowerCase();
-        const feedback = document.getElementById('feedback');
+function checkAnswer() {
+    const userAns = document.getElementById('answer').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback');
 
-        if (userAns === currentCorrect.toLowerCase()) {
-            feedback.innerText = "✅ ¡Muy bien!";
-            feedback.style.color = "green";
-            setTimeout(nextQuestion, 1200);
-        } else {
-            feedback.innerText = `❌ Fout: ${currentCorrect}`;
-            feedback.style.color = "red";
-        }
+    // Als de feedback al een foutmelding laat zien, betekent een klik/enter: "Volgende vraag"
+    if (feedback.innerText.includes("❌")) {
+        nextQuestion();
+        return;
+    }
+
+    if (userAns === currentCorrect.toLowerCase()) {
+        feedback.innerText = "✅ ¡Muy bien!";
+        feedback.style.color = "green";
+        setTimeout(nextQuestion, 1200);
+    } else {
+        feedback.innerText = `❌ Fout: ${currentCorrect} (Klik/Enter voor volgende)`;
+        feedback.style.color = "red";
     }
 
     // VOEG DIT TOE VOOR DE ENTER-TOETS
