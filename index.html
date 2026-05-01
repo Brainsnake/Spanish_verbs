@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Spaans Fixed Layout</title>
+    <title>Spaans Rock-Solid Centered</title>
     <style>
-        /* Voorkom dat de pagina kan scrollen */
+        /* Voorkom scrollen en zet de basis vast */
         html, body {
             margin: 0;
             padding: 0;
@@ -16,15 +16,13 @@
             font-family: -apple-system, sans-serif;
         }
 
-        /* De container vult het scherm en centreert de inhoud bovenaan */
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
             height: 100%;
-            /* Deze padding zorgt dat tekst onder het Dynamic Island blijft */
-            padding-top: 60px; 
+            padding-top: 60px; /* Ruimte onder Dynamic Island */
             box-sizing: border-box;
         }
 
@@ -41,12 +39,17 @@
             margin: 5px 0 15px 0;
         }
 
+        /* Feedback nu volledig gecentreerd */
         #feedback { 
             font-size: 1.3rem; 
             font-weight: bold; 
             min-height: 2.5rem; 
             margin-bottom: 10px;
             width: 90%;
+            text-align: center; /* Zorgt dat de rode/groene tekst in het midden staat */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         input {
@@ -57,8 +60,7 @@
             border-radius: 12px;
             outline: none;
             background: white;
-            text-align: center;
-            /* Voorkom inzoomen en iOS schaduwen */
+            text-align: center; /* Tekst die je typt staat in het midden */
             -webkit-appearance: none;
         }
 
@@ -70,6 +72,7 @@
             color: white;
             border: none;
             border-radius: 12px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -89,12 +92,12 @@
 <script>
     const inputField = document.getElementById('answer');
 
-    // FORCEER DE PAGINA OM ALTIJD BOVENAAN TE BLIJVEN
+    // Functie om de pagina bovenaan te vergrendelen
     const lockScroll = () => {
         window.scrollTo(0, 0);
     };
 
-    // Luister naar alles wat de layout kan veranderen
+    // Events om verschuiven tegen te gaan
     inputField.addEventListener('focus', () => setTimeout(lockScroll, 50));
     inputField.addEventListener('blur', () => setTimeout(lockScroll, 50));
     window.visualViewport.addEventListener('resize', lockScroll);
@@ -103,7 +106,7 @@
     });
 
     // --- PROGRAMMA LOGICA ---
-    const jsonUrl = "https://gist.githubusercontent.com/Brainsnake/f9b6841f2705d38bb1164ce6c054cb81/raw/9b246b0cd6b250b5eedcc6ec006876fc490c56dd/werkwoorden.json"; 
+    const jsonUrl = "Jhttps://gist.githubusercontent.com/Brainsnake/f9b6841f2705d38bb1164ce6c054cb81/raw/9b246b0cd6b250b5eedcc6ec006876fc490c56dd/werkwoorden.json"; 
     let verbData = {};
     const pronouns = ["yo", "tú", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
     let currentCorrect = "";
