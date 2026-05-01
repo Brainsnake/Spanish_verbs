@@ -60,22 +60,29 @@
 </div>
 
 <script>
+    // 1. Configuratie
     const jsonUrl = "https://gist.githubusercontent.com/Brainsnake/f9b6841f2705d38bb1164ce6c054cb81/raw/9b246b0cd6b250b5eedcc6ec006876fc490c56dd/werkwoorden.json"; 
     let verbData = {};
     const pronouns = ["yo", "tú", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
     let currentCorrect = "";
+    let showingError = false; // Nieuwe 'schakelaar' om de status bij te houden
 
+    // 2. Data ophalen
     async function fetchData() {
         try {
             const response = await fetch(jsonUrl);
+            if (!response.ok) throw new Error("Link werkt niet");
             verbData = await response.json();
             nextQuestion();
         } catch (error) {
-            document.getElementById('verb').innerText = "Fout bij laden!";
+            document.getElementById('verb').innerText = "Laadfout!";
+            console.error(error);
         }
     }
 
+    // 3. Volgende vraag genereren
     function nextQuestion() {
+        showingError = false; // Reset de fout-status
         const verbs = Object.keys(verbData);
         const verb = verbs[Math.floor(Math.random() * verbs.length)];
         const tenses = Object.keys(verbData[verb]);
@@ -88,29 +95,44 @@
         document.getElementById('info').innerText = `${tense} \n (${pronouns[personIdx]})`;
         document.getElementById('answer').value = "";
         document.getElementById('feedback').innerText = "";
+        document.getElementById('answer').style.backgroundColor = "white";
         document.getElementById('answer').focus();
     }
 
-function checkAnswer() {
-    const userAns = document.getElementById('answer').value.trim().toLowerCase();
-    const feedback = document.getElementById('feedback');
+    // 4. Controleer antwoord (De Optie 2 logica)
+    function checkAnswer() {
+        const inputField = document.getElementById('answer');
+        const userAns = inputField.value.trim().toLowerCase();
+        const feedback = document.getElementById('feedback');
 
-    // Als de feedback al een foutmelding laat zien, betekent een klik/enter: "Volgende vraag"
-    if (feedback.innerText.includes("❌")) {
-        nextQuestion();
-        return;
+        // ALS er al een fout getoond wordt -> ga naar de volgende vraag
+        if (showingError) {
+            nextQuestion();
+            return;
+        }
+
+        // Controleer of het antwoord goed is
+        if (userAns === currentCorrect.toLowerCase()) {
+            feedback.innerText = "✅ ¡Muy bien!";
+            feedback.style.color = "green";
+            inputField.style.backgroundColor = "#c6f6d5"; // Lichtgroen bij succes
+            setTimeout(nextQuestion, 1200);
+        } else {
+            // Fout antwoord
+            feedback.innerText = `❌ Fout. Het was: ${currentCorrect}`;
+            feedback.style.color = "red";
+            inputField.style.backgroundColor = "#fed7d7"; // Lichtrood bij fout
+            showingError = true; // Zet de schakelaar op 'fout getoond'
+            
+            // Instructie toevoegen voor de gebruiker
+            const tip = document.createElement("div");
+            tip.innerText = "(Druk Enter voor de volgende)";
+            tip.style.fontSize = "1rem";
+            feedback.appendChild(tip);
+        }
     }
 
-    if (userAns === currentCorrect.toLowerCase()) {
-        feedback.innerText = "✅ ¡Muy bien!";
-        feedback.style.color = "green";
-        setTimeout(nextQuestion, 1200);
-    } else {
-        feedback.innerText = `❌ Fout: ${currentCorrect} (Klik/Enter voor volgende)`;
-        feedback.style.color = "red";
-    }
-
-    // VOEG DIT TOE VOOR DE ENTER-TOETS
+    // 5. Event Listeners
     document.getElementById('answer').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             checkAnswer();
@@ -119,6 +141,5 @@ function checkAnswer() {
 
     fetchData();
 </script>
-
 </body>
 </html>
