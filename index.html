@@ -25,7 +25,7 @@
 
         /* Dynamische spacer: 200px standaard, 20px als toetsenbord open is */
         #dynamic-spacer {
-            height: 100px;
+            height: 200px;
             transition: height 0.3s ease; /* Zorgt voor een vloeiende overgang */
             width: 100%;
         }
@@ -76,15 +76,22 @@
     const spacer = document.getElementById('dynamic-spacer');
     const inputField = document.getElementById('answer');
 
-    // --- TOETSENBORD LOGICA ---
-    // Wanneer het invoerveld focus krijgt (toetsenbord opent)
+    // --- TOETSENBORD LOGICA MET SCROLL RESET ---
     inputField.addEventListener('focus', () => {
-        spacer.style.height = "0px"; // Maak spacer klein zodat tekst naar beneden zakt
+        // 1. Maak de spacer kleiner
+        spacer.style.height = "20px"; 
+        
+        // 2. Forceer de browser om NIET omhoog te scrollen
+        // We wachten 10ms zodat iOS klaar is met zijn eigen animatie
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+            document.body.scrollTop = 0;
+        }, 10);
     });
 
-    // Wanneer het invoerveld focus verliest (toetsenbord sluit)
     inputField.addEventListener('blur', () => {
-        spacer.style.height = "100px"; // Herstel spacer
+        spacer.style.height = "200px";
+        window.scrollTo(0, 0);
     });
 
     // --- PROGRAMMA LOGICA ---
@@ -120,6 +127,9 @@
         inputField.style.backgroundColor = "white";
         document.getElementById('feedback').innerText = "";
         document.getElementById('mainButton').innerText = "Controleer";
+        
+        // Bij een nieuwe vraag scrollen we ook altijd even naar boven
+        window.scrollTo(0, 0);
         inputField.focus();
     }
 
