@@ -2,86 +2,87 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Spaans Fixed</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Spaans Buffer Layout</title>
     <style>
-        :root {
-            --app-height: 100%;
-        }
-
         body, html {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: var(--app-height);
-            overflow: hidden; /* Voorkomt dat de hele pagina schuift */
+            height: 100%;
             background-color: #e6fffa;
             font-family: -apple-system, sans-serif;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding-top: 50px; /* Blijft onder de iPhone camera */
+            text-align: center;
         }
 
         .container {
-            width: 90%;
-            max-width: 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
         }
 
-        .header-row {
-            display: flex;
-            justify-content: center;
-            align-items: baseline;
-            gap: 8px;
-            margin-bottom: 5px;
+        /* De Buffer: Deze ruimte schuift achter het Dynamic Island */
+        .spacer {
+            height: 100px; /* Pas dit aan als de tekst nog steeds te hoog komt */
+            width: 100%;
         }
 
-        #verb { font-size: 1.4rem; font-weight: bold; text-transform: uppercase; color: #2d3748; }
-        #info { font-size: 1rem; color: #4a5568; }
+        h1 { 
+            font-size: 1.8rem; 
+            color: #2d3748; 
+            margin: 10px 0 0 0; 
+            text-transform: uppercase;
+        }
+
+        p { 
+            font-size: 1.2rem; 
+            color: #4a5568; 
+            margin: 5px 0 10px 0;
+        }
 
         #feedback { 
-            font-size: 1.2rem; 
-            margin-bottom: 10px; 
-            min-height: 1.5rem;
-            font-weight: bold;
+            font-size: 1.3rem; 
+            font-weight: bold; 
+            min-height: 2rem; 
+            margin-bottom: 10px;
         }
 
         input {
-            font-size: 1.3rem;
-            padding: 10px;
+            font-size: 1.5rem;
+            padding: 12px;
             width: 80%;
             border: 2px solid #48bb78;
-            border-radius: 10px;
+            border-radius: 12px;
             outline: none;
             background: white;
-            -webkit-tap-highlight-color: transparent;
+            /* Voorkomt inzoomen op iPhone */
         }
 
         button {
-            font-size: 1.2rem;
-            padding: 10px 25px;
+            font-size: 1.3rem;
+            padding: 12px 30px;
             margin-top: 15px;
             background-color: #48bb78;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 0 #2f855a;
+        }
+
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #2f855a;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header-row">
-        <span id="verb">Laden...</span>
-        <span id="info"></span>
-    </div>
+    <!-- De onzichtbare buffer -->
+    <div class="spacer"></div>
+
+    <h1 id="verb">Laden...</h1>
+    <p id="info"></p>
     
     <div id="feedback"></div>
 
@@ -91,21 +92,9 @@
 </div>
 
 <script>
-    // --- 1. De Fix voor het Toetsenbord-schuiven ---
-    const updateHeight = () => {
-        // Gebruik de VisualViewport API om de werkelijk zichtbare hoogte te bepalen
-        const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-        document.documentElement.style.setProperty('--app-height', `${vh}px`);
-    };
-
-    if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', updateHeight);
-        window.visualViewport.addEventListener('scroll', (e) => e.preventDefault()); // Blokkeer scroll
-    }
-    window.addEventListener('load', updateHeight);
-
-    // --- 2. Programma Logica ---
+    // Gebruik je eigen Gist link hier:
     const jsonUrl = "https://gist.githubusercontent.com/Brainsnake/f9b6841f2705d38bb1164ce6c054cb81/raw/9b246b0cd6b250b5eedcc6ec006876fc490c56dd/werkwoorden.json"; 
+    
     let verbData = {};
     const pronouns = ["yo", "tú", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
     let currentCorrect = "";
@@ -130,8 +119,9 @@
         const personIdx = Math.floor(Math.random() * 6);
 
         currentCorrect = verbData[verb][tense][personIdx];
+
         document.getElementById('verb').innerText = verb;
-        document.getElementById('info').innerText = `| ${tense} (${pronouns[personIdx]})`;
+        document.getElementById('info').innerText = `${tense} (${pronouns[personIdx]})`;
         
         const inputField = document.getElementById('answer');
         inputField.value = "";
@@ -153,9 +143,9 @@
         }
 
         if (userAns === currentCorrect.toLowerCase()) {
-            feedback.innerHTML = "<span style='color:green'>✅ ¡Bien!</span>";
+            feedback.innerHTML = "<span style='color:green'>✅ ¡Muy bien!</span>";
             inputField.style.backgroundColor = "#c6f6d5";
-            setTimeout(nextQuestion, 1000);
+            setTimeout(nextQuestion, 1200);
         } else {
             feedback.innerHTML = `<span style="color:red">❌ ${currentCorrect}</span>`;
             inputField.style.backgroundColor = "#fed7d7";
