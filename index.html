@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spaans Leren</title>
+    <style>
+        body {
+            background-color: #e6fffa; /* De zeer lichtgroene kleur */
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+        }
+        h1 { font-size: 3rem; color: #2d3748; margin-bottom: 10px; }
+        p { font-size: 1.8rem; color: #4a5568; }
+        input {
+            font-size: 2rem;
+            padding: 15px;
+            width: 80%;
+            border: 2px solid #48bb78;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        button {
+            font-size: 1.8rem;
+            padding: 15px 30px;
+            margin-top: 20px;
+            background-color: #48bb78;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        #feedback {
+            font-size: 2rem;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 id="verb">Laden...</h1>
+    <p id="info"></p>
+    <input type="text" id="answer" placeholder="Typ antwoord..." autocomplete="off">
+    <br>
+    <button onclick="checkAnswer()">Controleer</button>
+    <div id="feedback"></div>
+</div>
+
+<script>
+    // In plaats van een los .json bestand, zetten we de data hier 
+    // zodat het direct in de cloud werkt zonder server-fouten.
+    const verbData = {
+        "Hablar": {
+            "Presente": ["hablo", "hablas", "habla", "hablamos", "habláis", "hablan"],
+            "Pretérito Indefinido": ["hablé", "hablaste", "habló", "hablamos", "hablasteis", "hablaron"]
+        },
+        "Ir": {
+            "Presente": ["voy", "vas", "va", "vamos", "vais", "van"],
+            "Pretérito Indefinido": ["fui", "fuiste", "fue", "fuimos", "fuisteis", "fueron"]
+        }
+        // Voeg hier de rest van je JSON data toe...
+    };
+
+    const pronouns = ["yo", "tú", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
+    let currentCorrect = "";
+
+    function nextQuestion() {
+        const verbs = Object.keys(verbData);
+        const verb = verbs[Math.floor(Math.random() * verbs.length)];
+        const tenses = Object.keys(verbData[verb]);
+        const tense = tenses[Math.floor(Math.random() * tenses.length)];
+        const personIdx = Math.floor(Math.random() * 6);
+
+        currentCorrect = verbData[verb][tense][personIdx];
+
+        document.getElementById('verb').innerText = verb.toUpperCase();
+        document.getElementById('info').innerText = `${tense} \n (${pronouns[personIdx]})`;
+        document.getElementById('answer').value = "";
+        document.getElementById('feedback').innerText = "";
+    }
+
+    function checkAnswer() {
+        const userAns = document.getElementById('answer').value.trim().toLowerCase();
+        const feedback = document.getElementById('feedback');
+
+        if (userAns === currentCorrect.toLowerCase()) {
+            feedback.innerText = "✅ ¡Muy bien!";
+            feedback.style.color = "green";
+            setTimeout(nextQuestion, 1200);
+        } else {
+            feedback.innerText = `❌ Fout: ${currentCorrect}`;
+            feedback.style.color = "red";
+        }
+    }
+
+    // Start de eerste vraag
+    nextQuestion();
+</script>
+
+</body>
+</html>
