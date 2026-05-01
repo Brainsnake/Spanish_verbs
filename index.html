@@ -67,6 +67,12 @@
     const pronouns = ["yo", "tú", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
     let currentCorrect = "";
 
+// Luister naar de Enter-toets in het tekstveld
+document.getElementById('answer').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        checkAnswer();
+    }
+});
     // Functie om de data in te laden van de cloud
     async function fetchData() {
         try {
