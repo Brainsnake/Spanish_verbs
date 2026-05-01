@@ -25,7 +25,7 @@
 
         /* Dynamische spacer: 200px standaard, 20px als toetsenbord open is */
         #dynamic-spacer {
-            height: 180px;
+            height: 100px;
             transition: height 0.3s ease; /* Zorgt voor een vloeiende overgang */
             width: 100%;
         }
@@ -84,7 +84,7 @@
 
     // Wanneer het invoerveld focus verliest (toetsenbord sluit)
     inputField.addEventListener('blur', () => {
-        spacer.style.height = "180px"; // Herstel spacer
+        spacer.style.height = "100px"; // Herstel spacer
     });
 
     // --- PROGRAMMA LOGICA ---
