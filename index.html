@@ -1,44 +1,81 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spaans Leren</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Spaans Leren - Mobiel</title>
     <style>
+        /* Styling geoptimaliseerd voor iPhone (voorkomt scrollen) */
         body {
-            background-color: #e6fffa; /* Lichtgroene achtergrond */
+            background-color: #e6fffa; /* Lichtgroen */
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
+            justify-content: flex-start; /* Start bovenaan het scherm */
+            min-height: 100vh;
             margin: 0;
+            padding-top: env(safe-area-inset-top, 20px);
             text-align: center;
         }
-        .container { width: 90%; max-width: 600px; }
-        h1 { font-size: 3rem; color: #2d3748; margin-bottom: 10px; }
-        p { font-size: 1.8rem; color: #4a5568; }
+
+        .container {
+            width: 95%;
+            max-width: 500px;
+            padding: 10px;
+        }
+
+        h1 { 
+            font-size: 2.2rem; 
+            color: #2d3748; 
+            margin-bottom: 5px; 
+        }
+
+        p { 
+            font-size: 1.4rem; 
+            color: #4a5568; 
+            margin-top: 0;
+            white-space: pre-line; 
+        }
+
+        /* Feedback boven het invoerveld zodat toetsenbord het niet bedekt */
+        #feedback { 
+            font-size: 1.5rem; 
+            margin-bottom: 15px; 
+            font-weight: bold; 
+            min-height: 4rem; /* Ruimte reserveren */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
         input {
-            font-size: 2rem;
-            padding: 15px;
-            width: 80%;
+            font-size: 1.6rem;
+            padding: 12px;
+            width: 85%;
             border: 2px solid #48bb78;
             border-radius: 10px;
-            margin-top: 20px;
-            text-align: center;
+            outline: none;
+            -webkit-appearance: none; /* Voorkomt standaard iOS styling */
         }
+
         button {
-            font-size: 1.8rem;
-            padding: 15px 30px;
-            margin-top: 20px;
+            font-size: 1.5rem;
+            padding: 12px 30px;
+            margin-top: 15px;
             background-color: #48bb78;
             color: white;
             border: none;
             border-radius: 10px;
             cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        #feedback { font-size: 1.8rem; margin-top: 30px; font-weight: bold; min-height: 4rem; }
+
+        button:active {
+            background-color: #38a169;
+            transform: translateY(2px);
+        }
     </style>
 </head>
 <body>
@@ -46,32 +83,39 @@
 <div class="container">
     <h1 id="verb">Laden...</h1>
     <p id="info"></p>
-    <input type="text" id="answer" placeholder="Typ antwoord..." autocomplete="off">
-    <br>
-    <!-- HIER IS DE BUTTON -->
-    <button id="mainButton" onclick="checkAnswer()">Controleer</button>
+    
+    <!-- Belangrijk: Feedback staat hier veilig boven het toetsenbord -->
     <div id="feedback"></div>
+
+    <input type="text" id="answer" placeholder="Typ antwoord..." autocomplete="off" autocapitalize="none">
+    <br>
+    <button id="mainButton" onclick="checkAnswer()">Controleer</button>
 </div>
 
 <script>
+    // 1. Configuratie - VERVANG DEZE LINK door jouw eigen Gist Raw link
     const jsonUrl = "https://gist.githubusercontent.com/Brainsnake/f9b6841f2705d38bb1164ce6c054cb81/raw/9b246b0cd6b250b5eedcc6ec006876fc490c56dd/werkwoorden.json"; 
+    
     let verbData = {};
     const pronouns = ["yo", "tú", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
     let currentCorrect = "";
     let showingError = false;
 
+    // 2. Data inladen
     async function fetchData() {
         try {
             const response = await fetch(jsonUrl);
-            if (!response.ok) throw new Error("Link werkt niet");
+            if (!response.ok) throw new Error("Kon data niet ophalen");
             verbData = await response.json();
             nextQuestion();
         } catch (error) {
-            document.getElementById('verb').innerText = "Laadfout!";
+            document.getElementById('verb').innerText = "Fout bij laden";
+            document.getElementById('info').innerText = "Check je Gist link in de code.";
             console.error(error);
         }
     }
 
+    // 3. Spel logica
     function nextQuestion() {
         showingError = false;
         const verbs = Object.keys(verbData);
@@ -83,12 +127,17 @@
         currentCorrect = verbData[verb][tense][personIdx];
 
         document.getElementById('verb').innerText = verb.toUpperCase();
-        document.getElementById('info').innerText = `${tense} \n (${pronouns[personIdx]})`;
-        document.getElementById('answer').value = "";
-        document.getElementById('answer').style.backgroundColor = "white";
+        document.getElementById('info').innerText = `${tense}\n(${pronouns[personIdx]})`;
+        
+        const inputField = document.getElementById('answer');
+        inputField.value = "";
+        inputField.style.backgroundColor = "white";
+        
         document.getElementById('feedback').innerText = "";
-        document.getElementById('mainButton').innerText = "Controleer"; // Reset knop tekst
-        document.getElementById('answer').focus();
+        document.getElementById('mainButton').innerText = "Controleer";
+        
+        // Focus op het veld zodat je direct kunt typen
+        inputField.focus();
     }
 
     function checkAnswer() {
@@ -97,6 +146,7 @@
         const feedback = document.getElementById('feedback');
         const btn = document.getElementById('mainButton');
 
+        // Als er een fout staat, dient de volgende klik/enter voor de volgende vraag
         if (showingError) {
             nextQuestion();
             return;
@@ -108,20 +158,22 @@
             inputField.style.backgroundColor = "#c6f6d5";
             setTimeout(nextQuestion, 1200);
         } else {
-            feedback.innerText = `❌ Fout. Het was: ${currentCorrect}`;
-            feedback.style.color = "red";
+            // Fout antwoord: toon correcte vorm en verander knop
+            feedback.innerHTML = `<span style="color:red">❌ Fout. Het was:</span><br><span style="font-size:2rem">${currentCorrect}</span>`;
             inputField.style.backgroundColor = "#fed7d7";
-            btn.innerText = "Volgende"; // Verander knop tekst bij fout
+            btn.innerText = "Volgende";
             showingError = true;
         }
     }
 
+    // Luister naar de Enter-toets
     document.getElementById('answer').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             checkAnswer();
         }
     });
 
+    // Start het programma
     fetchData();
 </script>
 
