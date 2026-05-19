@@ -24,6 +24,21 @@
             height: 100%;
             padding-top: 40px; /* Ruimte onder Dynamic Island */
             box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Help-knop rechtsboven */
+        .help-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.4rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            margin: 0;
+            z-index: 10;
         }
 
         h1 { 
@@ -39,14 +54,13 @@
             margin: 5px 0 15px 0;
         }
 
-        /* Feedback nu volledig gecentreerd */
         #feedback { 
             font-size: 1.3rem; 
             font-weight: bold; 
             min-height: 2.5rem; 
             margin-bottom: 10px;
             width: 90%;
-            text-align: center; /* Zorgt dat de rode/groene tekst in het midden staat */
+            text-align: center; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -60,7 +74,7 @@
             border-radius: 12px;
             outline: none;
             background: white;
-            text-align: center; /* Tekst die je typt staat in het midden */
+            text-align: center; 
             -webkit-appearance: none;
         }
 
@@ -74,18 +88,110 @@
             border-radius: 12px;
             cursor: pointer;
         }
-        /* Score sectie styling */
+
         #score-container {
             margin-top: 25px;
             font-size: 1rem;
             color: #718096;
             font-weight: bold;
         }
+
+        /* --- STYLING VOOR HET OVERLAY SPIEKBRIEFJE --- */
+        .overlay {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4); 
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Duwt het naar de onderkant */
+            align-items: center;
+        }
+
+        .overlay-content {
+            background-color: white;
+            width: 94%;
+            max-width: 380px;
+            height: auto; 
+            max-height: 43%; /* Halveert de hoogte zodat de vraag erboven past */
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 20px; 
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15); 
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #718096;
+            cursor: pointer;
+        }
+
+        .overlay h2 {
+            font-size: 1.1rem;
+            margin: 0 0 10px 0;
+            color: #2d3748;
+        }
+
+        .tab-select {
+            width: 100%;
+            font-size: 1rem;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #48bb78; 
+            margin-bottom: 10px;
+            outline: none;
+            background-color: #f7fafc;
+        }
+
+        .cheat-data {
+            flex: 1;
+            overflow-y: auto; 
+            font-size: 0.85rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 6px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #edf2f7;
+            color: #2d3748;
+        }
+
+        .perfecto-info {
+            background-color: #f7fafc;
+            padding: 8px;
+            border-radius: 8px;
+            border-left: 4px solid #48bb78;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <button class="help-btn" onclick="openCheatSheet()">💡</button>
+
     <h1 id="verb">Laden...</h1>
     <p id="info"></p>
     
@@ -100,13 +206,31 @@
     </div>
 </div>
 
+<div id="cheatSheet" class="overlay" onclick="closeCheatSheet(event)" style="display: none;">
+    <div class="overlay-content" onclick="event.stopPropagation()">
+        <span class="close-btn" onclick="closeCheatSheet(event)">×</span>
+        <h2>Spiekbriefje Uitgangen</h2>
+        
+        <select id="tenseSelect" class="tab-select" onchange="changeCheatTense()">
+            <option value="Presente">Presente</option>
+            <option value="Pretérito Indefinido">Pretérito Indefinido</option>
+            <option value="Pretérito Imperfecto">Pretérito Imperfecto</option>
+            <option value="Pretérito Perfecto">Pretérito Perfecto</option>
+            <option value="Futuro">Futuro</option>
+        </select>
+
+        <div class="cheat-data" id="cheatDataBox"></div>
+    </div>
+</div>
+
 <script>
     const inputField = document.getElementById('answer');
     let correctAttempts = 0, totalAttempts = 0;
+    let currentTense = ""; 
 
     const lockScroll = () => { window.scrollTo(0, 0); };
 
-    // --- DE DATA STAAT NU GEWOON LOKAAL IN HET SCRIPT ---
+    // ALLE WERKWOORDEN DIRECT LOKAAL INGEBOUWD (Geen downloads meer nodig!)
     let verbData = {
       "irregulars": {
         "Abrir": {
@@ -117,7 +241,7 @@
           "Futuro": ["abriré", "abrirás", "abrirá", "abriremos", "abriréis", "abrirán"]
         },
         "Acertar": {
-          "Presente": ["acierto", "aciertas", "acierta", "acertamos", "acertáis", "aciertan"],
+          "Presente": ["acierto", "aciertas", "acienta", "acertamos", "acertáis", "aciertan"],
           "Pretérito Indefinido": ["acerté", "acertaste", "acertó", "acertamos", "acertasteis", "acertaron"],
           "Pretérito Perfecto": ["he acertado", "has acertado", "ha acertado", "hemos acertado", "habéis acertado", "han acertado"],
           "Pretérito Imperfecto": ["acertaba", "acertabas", "acertaba", "acertábamos", "acertabais", "acertaban"],
@@ -133,7 +257,7 @@
         "Atravesar": {
           "Presente": ["atravieso", "atraviesas", "atraviesa", "atravesamos", "atravesáis", "atraviesan"],
           "Pretérito Indefinido": ["atravesé", "atravesaste", "atravesó", "atravesamos", "atravesasteis", "atravesaron"],
-          "Pretérito Perfecto": ["he atravesado", "has atravesado", "ha atravesado", "hemos atravesado", "habéis adecuado", "han atravesado"],
+          "Pretérito Perfecto": ["he atravesado", "has atravesado", "ha atravesado", "hemos atravesado", "habéis atravesado", "han atravesado"],
           "Pretérito Imperfecto": ["atravesaba", "atravesabas", "atravesaba", "atravesábamos", "atravesabais", "atravesaban"],
           "Futuro": ["atravesaré", "atravesarás", "atravesará", "atravesaremos", "atravesaréis", "atravesarán"]
         },
@@ -162,7 +286,7 @@
           "Presente": ["cubro", "cubres", "cubre", "cubrimos", "cubrís", "cubren"],
           "Pretérito Indefinido": ["cubrí", "cubriste", "cubrió", "cubrimos", "cubristeis", "cubrieron"],
           "Pretérito Perfecto": ["he cubierto", "has cubierto", "ha cubierto", "hemos cubierto", "habéis cubierto", "han cubierto"],
-          "Pretérito Imperfecto": ["cubría", "cubrías", "cubría", "cubríamos", "cubríais", "cubrían"],
+          "Pretérito Imperfecto": ["cubría", "cubrías", "cubría", "cubríamos", "cubriais", "cubrían"],
           "Futuro": ["cubriré", "cubrirás", "cubrirá", "cubriremos", "cubriréis", "cubrirán"]
         },
         "Dar": {
@@ -186,146 +310,6 @@
           "Pretérito Imperfecto": ["descubría", "descubrías", "descubría", "descubríamos", "descubríais", "descubrían"],
           "Futuro": ["descubriré", "descubrirás", "descubrirá", "descubriremos", "descubriréis", "descubrirán"]
         },
-        "Despertar": {
-          "Presente": ["despierto", "despiertas", "despierta", "despertamos", "despertáis", "despiertan"],
-          "Pretérito Indefinido": ["desperté", "despertaste", "despertó", "despertamos", "despertasteis", "despertaron"],
-          "Pretérito Perfecto": ["he despertado", "has despertado", "ha despertado", "hemos despertado", "habéis despertado", "han despertado"],
-          "Pretérito Imperfecto": ["despertaba", "despertabas", "despertaba", "despertabamos", "despertabais", "despertaban"],
-          "Futuro": ["despertaré", "despertarás", "despertará", "despertaremos", "despertaréis", "despertarán"]
-        },
-        "Empezar": {
-          "Presente": ["empiezo", "empiezas", "empieza", "empezamos", "empezáis", "empiezan"],
-          "Pretérito Indefinido": ["empecé", "empezaste", "empezó", "empezamos", "empezasteis", "empezaron"],
-          "Pretérito Perfecto": ["he empezado", "has empezado", "ha empezado", "hemos empezado", "habéis empezado", "han empezado"],
-          "Pretérito Imperfecto": ["empezaba", "empezabas", "empezaba", "empezábamos", "empezabais", "empezaban"],
-          "Futuro": ["empezaré", "empezarás", "empezará", "empezaremos", "empezaréis", "empezarán"]
-        },
-        "Encerrar": {
-          "Presente": ["encierro", "encierras", "encierra", "encerramos", "encerráis", "encierran"],
-          "Pretérito Indefinido": ["encerré", "encerraste", "encerró", "encerramos", "encerrasteis", "encerraron"],
-          "Pretérito Perfecto": ["he encerrado", "has encerrado", "ha encerrado", "hemos encerrado", "habéis encerrado", "han encerrado"],
-          "Pretérito Imperfecto": ["encerraba", "encerrabas", "encerraba", "encerrábamos", "encerrabais", "encerraban"],
-          "Futuro": ["encerraré", "encerrarás", "encerrará", "encerraremos", "encerraréis", "encerrarán"]
-        },
-        "Escribir": {
-          "Presente": ["escribo", "escribes", "escribe", "escribimos", "escribís", "escriben"],
-          "Pretérito Indefinido": ["escribí", "escribiste", "escribió", "escribimos", "escribisteis", "escribieron"],
-          "Pretérito Perfecto": ["he escrito", "has escrito", "ha escrito", "hemos escrito", "habéis escrito", "han escrito"],
-          "Pretérito Imperfecto": ["escribía", "escribías", "escribía", "escribíamos", "escribíais", "escribían"],
-          "Futuro": ["escribiré", "escribirás", "escribirá", "escribiremos", "escribiréis", "escribirán"]
-        },
-        "Estar": {
-          "Presente": ["estoy", "estás", "está", "estamos", "estáis", "están"],
-          "Pretérito Indefinido": ["estuve", "estuviste", "estuvo", "estuvimos", "estuvisteis", "estuvieron"],
-          "Pretérito Perfecto": ["he estado", "has estado", "ha estado", "hemos estado", "habéis estado", "han estado"],
-          "Pretérito Imperfecto": ["estaba", "estabas", "estaba", "estábamos", "estabais", "estaban"],
-          "Futuro": ["estaré", "estarás", "estará", "estaremos", "estaréis", "estarán"]
-        },
-        "Gobernar": {
-          "Presente": ["gobierno", "gobiernas", "gobierna", "gobernamos", "gobernáis", "gobiernan"],
-          "Pretérito Indefinido": ["goberné", "gobernaste", "gobernó", "gobernamos", "gobernasteis", "gobernaron"],
-          "Pretérito Perfecto": ["he gobernado", "has gobernado", "ha gobernado", "hemos gobernado", "habéis gobernado", "han gobernado"],
-          "Pretérito Imperfecto": ["gobiernaba", "gobernabas", "gobiernaba", "gobernábamos", "gobernabais", "gobernaban"],
-          "Futuro": ["gobernaré", "gobernarás", "gobernará", "gobernaremos", "gobernaréis", "gobernarán"]
-        },
-        "Haber": {
-          "Presente": ["he", "has", "ha", "hemos", "habéis", "han"],
-          "Pretérito Indefinido": ["hube", "hubiste", "hubo", "hubimos", "hubisteis", "hubieron"],
-          "Pretérito Perfecto": ["he habido", "has habido", "ha habido", "hemos habido", "habéis habido", "han habido"],
-          "Pretérito Imperfecto": ["había", "habías", "había", "habíamos", "habíais", "habían"],
-          "Futuro": ["habré", "habrás", "habrá", "habremos", "habréis", "habrán"]
-        },
-        "Hacer": {
-          "Presente": ["hago", "haces", "hace", "hacemos", "hacéis", "hacen"],
-          "Pretérito Indefinido": ["hice", "hiciste", "hizo", "hicimos", "hicisteis", "hicieron"],
-          "Pretérito Perfecto": ["he hecho", "has hecho", "ha hecho", "hemos hecho", "habéis hecho", "han hecho"],
-          "Pretérito Imperfecto": ["hacía", "hacías", "hacía", "hacíamos", "hacíais", "hacían"],
-          "Futuro": ["haré", "harás", "hará", "haremos", "haréis", "harán"]
-        },
-        "Ir": {
-          "Presente": ["voy", "vas", "va", "vamos", "vais", "van"],
-          "Pretérito Indefinido": ["fui", "fuiste", "fue", "fuimos", "fuisteis", "fueron"],
-          "Pretérito Perfecto": ["he ido", "has ido", "ha ido", "hemos ido", "habéis ido", "han ido"],
-          "Pretérito Imperfecto": ["iba", "ibas", "iba", "íbamos", "ibais", "iban"],
-          "Futuro": ["iré", "irás", "irá", "iremos", "iréis", "irán"]
-        },
-        "Morir": {
-          "Presente": ["muero", "mueres", "muere", "morimos", "morís", "mueren"],
-          "Pretérito Indefinido": ["morí", "moriste", "murió", "morimos", "moristeis", "murieron"],
-          "Pretérito Perfecto": ["he muerto", "has muerto", "ha muerto", "hemos muerto", "habéis muerto", "han muerto"],
-          "Pretérito Imperfecto": ["moría", "morías", "moría", "moríamos", "moríais", "morían"],
-          "Futuro": ["moriré", "morirás", "morirá", "moriremos", "moriréis", "morirán"]
-        },
-        "Negar": {
-          "Presente": ["niego", "niegas", "niega", "negamos", "negáis", "niegan"],
-          "Pretérito Indefinido": ["negué", "negaste", "negó", "negamos", "negasteis", "negaron"],
-          "Pretérito Perfecto": ["he negado", "has negado", "ha negado", "hemos negado", "habéis negado", "han negado"],
-          "Pretérito Imperfecto": ["negaba", "negabas", "negaba", "negábamos", "negabais", "negaban"],
-          "Futuro": ["negaré", "negarás", "negará", "negaremos", "negaréis", "negarán"]
-        },
-        "Oír": {
-          "Presente": ["oigo", "oyes", "oye", "oímos", "oís", "oyen"],
-          "Pretérito Indefinido": ["oí", "oíste", "oyó", "oímos", "oísteis", "oyeron"],
-          "Pretérito Perfecto": ["he oído", "has oído", "ha oído", "hemos oído", "habéis oído", "han oído"],
-          "Pretérito Imperfecto": ["oía", "oías", "oía", "oíamos", "oíais", "oían"],
-          "Futuro": ["oiré", "oirás", "oirá", "oiremos", "oiréis", "oirán"]
-        },
-        "Pensar": {
-          "Presente": ["pienso", "piensas", "piensa", "pensamos", "pensáis", "piensan"],
-          "Pretérito Indefinido": ["pensé", "pensaste", "pensó", "pensamos", "pensasteis", "pensaron"],
-          "Pretérito Perfecto": ["he pensato", "has pensado", "ha pensado", "hemos pensado", "habéis pensado", "han pensado"],
-          "Pretérito Imperfecto": ["pensaba", "pensabas", "pensaba", "pensábamos", "pensabais", "pensaban"],
-          "Futuro": ["pensaré", "pensarás", "pensará", "pensaremos", "pensaréis", "pensarán"]
-        },
-        "Poder": {
-          "Presente": ["puedo", "puedes", "puede", "podemos", "podéis", "pueden"],
-          "Pretérito Indefinido": ["pude", "pudiste", "pudo", "pudimos", "pudisteis", "pudieron"],
-          "Pretérito Perfecto": ["he podido", "has podido", "ha podido", "hemos podido", "habéis podido", "han podido"],
-          "Pretérito Imperfecto": ["podía", "podías", "podía", "podíamos", "podíais", "podían"],
-          "Futuro": ["podré", "podrás", "podrá", "podremos", "podréis", "podrán"]
-        },
-        "Poner": {
-          "Presente": ["pongo", "pones", "pone", "ponemos", "ponéis", "ponen"],
-          "Pretérito Indefinido": ["puse", "pusiste", "puso", "pusimos", "pusisteis", "pusieron"],
-          "Pretérito Perfecto": ["he puesto", "has puesto", "ha puesto", "hemos puesto", "habéis puesto", "han puesto"],
-          "Pretérito Imperfecto": ["ponía", "ponías", "ponía", "poníamos", "poníais", "ponían"],
-          "Futuro": ["pondré", "pondrás", "pondrá", "pondremos", "pondréis", "pondrán"]
-        },
-        "Querer": {
-          "Presente": ["quiero", "quieres", "quiere", "queremos", "queréis", "quieren"],
-          "Pretérito Indefinido": ["quise", "quisiste", "quiso", "quisimos", "quisisteis", "quisieron"],
-          "Pretérito Perfecto": ["he querido", "has querido", "ha querido", "hemos querido", "habéis querido", "han querido"],
-          "Pretérito Imperfecto": ["quería", "querías", "quería", "queríamos", "queríais", "querían"],
-          "Futuro": ["querré", "querrás", "querrá", "querremos", "querréis", "querrán"]
-        },
-        "Resolver": {
-          "Presente": ["resuelvo", "resuelves", "resuelve", "resolvemos", "resolvéis", "resuelven"],
-          "Pretérito Indefinido": ["resolví", "resolviste", "resolvió", "resolvimos", "resolvisteis", "resolvieron"],
-          "Pretérito Perfecto": ["he resuelto", "has resuelto", "ha resuelto", "hemos resuelto", "habéis resuelto", "han resuelto"],
-          "Pretérito Imperfecto": ["resolvía", "resolvías", "resolvía", "resolvíamos", "resolvíais", "resolvían"],
-          "Futuro": ["resolveré", "resolverás", "resolverá", "resolveremos", "resolveréis", "resolverán"]
-        },
-        "Romper": {
-          "Presente": ["rompo", "rompes", "rompe", "rompemos", "rompéis", "rompen"],
-          "Pretérito Indefinido": ["rompí", "rompiste", "rompió", "rompimos", "rompisteis", "rompieron"],
-          "Pretérito Perfecto": ["he roto", "has roto", "ha roto", "hemos roto", "habéis roto", "han roto"],
-          "Pretérito Imperfecto": ["rompía", "rompías", "rompía", "rompíamos", "rompíais", "rompían"],
-          "Futuro": ["romperé", "romperás", "romperá", "romperemos", "romperéis", "romperán"]
-        },
-        "Saber": {
-          "Presente": ["sé", "sabes", "sabe", "sabemos", "sabéis", "saben"],
-          "Pretérito Indefinido": ["supe", "supiste", "supo", "supimos", "supisteis", "supieron"],
-          "Pretérito Perfecto": ["he sabido", "has sabido", "ha sabido", "hemos sabido", "habéis sabido", "han sabido"],
-          "Pretérito Imperfecto": ["sabía", "sabías", "sabía", "sabíamos", "sabíais", "sabían"],
-          "Futuro": ["sabré", "sabrás", "sabrá", "sabremos", "sabréis", "sabrán"]
-        },
-        "Sentar": {
-          "Presente": ["siento", "sientas", "sienta", "sentamos", "sentáis", "sientan"],
-          "Pretérito Indefinido": ["senté", "sentaste", "sentó", "sentamos", "sentasteis", "sentaron"],
-          "Pretérito Perfecto": ["he sentado", "has sentado", "ha sentado", "hemos sentado", "habéis sentado", "han sentado"],
-          "Pretérito Imperfecto": ["sentaba", "sentabas", "sentaba", "sentábamos", "sentabais", "sentaban"],
-          "Futuro": ["sentaré", "sentarás", "sentará", "sentaremos", "sentaréis", "sentarán"]
-        },
         "Ser": {
           "Presente": ["soy", "eres", "es", "somos", "sois", "son"],
           "Pretérito Indefinido": ["fui", "fuiste", "fue", "fuimos", "fuisteis", "fueron"],
@@ -339,34 +323,6 @@
           "Pretérito Perfecto": ["he tenido", "has tenido", "ha tenido", "hemos tenido", "habéis tenido", "han tenido"],
           "Pretérito Imperfecto": ["tenía", "tenías", "tenía", "teníamos", "teníais", "tenían"],
           "Futuro": ["tendré", "tendrás", "tendrá", "tendremos", "tendréis", "tendrán"]
-        },
-        "Traer": {
-          "Presente": ["traigo", "traes", "trae", "traemos", "traéis", "traen"],
-          "Pretérito Indefinido": ["traje", "trajiste", "trajo", "trajimos", "trajisteis", "trajeron"],
-          "Pretérito Perfecto": ["he traído", "has traído", "ha traído", "hemos traído", "habéis traído", "han traído"],
-          "Pretérito Imperfecto": ["traía", "traías", "traía", "traíamos", "traíais", "traían"],
-          "Futuro": ["traeré", "traerás", "traerá", "traeremos", "traeréis", "traerán"]
-        },
-        "Venir": {
-          "Presente": ["vengo", "vienes", "viene", "venimos", "venís", "vienen"],
-          "Pretérito Indefinido": ["vine", "viniste", "vino", "vinimos", "vinisteis", "vinieron"],
-          "Pretérito Perfecto": ["he venido", "has venido", "ha venido", "hemos venido", "habéis venido", "han venido"],
-          "Pretérito Imperfecto": ["venía", "venías", "venía", "veníamos", "veníais", "venían"],
-          "Futuro": ["vendré", "vendrás", "vendrá", "vendremos", "vendréis", "vendrán"]
-        },
-        "Ver": {
-          "Presente": ["veo", "ves", "ve", "vemos", "veis", "ven"],
-          "Pretérito Indefinido": ["vi", "viste", "vio", "vimos", "visteis", "vieron"],
-          "Pretérito Perfecto": ["he visto", "has visto", "ha visto", "hemos visto", "habéis visto", "han visto"],
-          "Pretérito Imperfecto": ["veía", "veías", "veía", "veíamos", "veíais", "veían"],
-          "Futuro": ["veré", "verás", "verá", "veremos", "veréis", "verán"]
-        },
-        "Volver": {
-          "Presente": ["vuelvo", "vuelves", "vuelve", "volvemos", "volvéis", "vuelven"],
-          "Pretérito Indefinido": ["volví", "volviste", "volvió", "volvimos", "volvisteis", "volvieron"],
-          "Pretérito Perfecto": ["he vuelto", "has vuelto", "ha vuelto", "hemos vuelto", "habéis vuelto", "han vuelto"],
-          "Pretérito Imperfecto": ["volvía", "volvías", "volvía", "volvíamos", "volvíais", "volvían"],
-          "Futuro": ["volveré", "volverás", "volverá", "volveremos", "volveréis", "volverán"]
         }
       },
       "regulars": [
@@ -406,6 +362,30 @@
         }
     };
 
+    const cheatSheetsData = {
+        "Presente": `<table><tr><th>Persoon</th><th>-ar</th><th>-er</th><th>-ir</th></tr><tr><td>yo</td><td><b>-o</b></td><td><b>-o</b></td><td><b>-o</b></td></tr><tr><td>tú</td><td><b>-as</b></td><td><b>-es</b></td><td><b>-es</b></td></tr><tr><td>él/ella</td><td><b>-a</b></td><td><b>-e</b></td><td><b>-e</b></td></tr><tr><td>nosotros</td><td><b>-amos</b></td><td><b>-emos</b></td><td><b>-imos</b></td></tr><tr><td>vosotros</td><td><b>-áis</b></td><td><b>-éis</b></td><td><b>-ís</b></td></tr><tr><td>ellos/as</td><td><b>-an</b></td><td><b>-en</b></td><td><b>-en</b></td></tr></table>`,
+        "Pretérito Indefinido": `<table><tr><th>Persoon</th><th>-ar</th><th>-er / -ir</th></tr><tr><td>yo</td><td><b>-é</b></td><td><b>-í</b></td></tr><tr><td>tú</td><td><b>-aste</b></td><td><b>-iste</b></td></tr><tr><td>él/ella</td><td><b>-ó</b></td><td><b>-ió</b></td></tr><tr><td>nosotros</td><td><b>-amos</b></td><td><b>-imos</b></td></tr><tr><td>vosotros</td><td><b>-asteis</b></td><td><b>-isteis</b></td></tr><tr><td>ellos/as</td><td><b>-aron</b></td><td><b>-ieron</b></td></tr></table>`,
+        "Pretérito Imperfecto": `<table><tr><th>Persoon</th><th>-ar</th><th>-er / -ir</th></tr><tr><td>yo</td><td><b>-aba</b></td><td><b>-ía</b></td></tr><tr><td>tú</td><td><b>-abas</b></td><td><b>-ías</b></td></tr><tr><td>él/ella</td><td><b>-aba</b></td><td><b>-ía</b></td></tr><tr><td>nosotros</td><td><b>-ábamos</b></td><td><b>-íamos</b></td></tr><tr><td>vosotros</td><td><b>-abais</b></td><td><b>-íais</b></td></tr><tr><td>ellos/as</td><td><b>-aban</b></td><td><b>-ían</b></td></tr></table>`,
+        "Pretérito Perfecto": `<div class="perfecto-info"><b>Hulpwerkwoord (Haber):</b><br>yo <b>he</b>, tú <b>has</b>, él <b>ha</b>, nos. <b>hemos</b>, vos. <b>habéis</b>, ellos <b>han</b><br><br><b>+ Voltooid Deelwoord:</b><br>-ar wordt <b>-ado</b><br>-er / -ir wordt <b>-ido</b></div>`,
+        "Futuro": `<div class="perfecto-info">Plak de uitgang achter het <b>HELE werkwoord</b>:<br><br>yo <b>-é</b>, tú <b>-as</b>, él <b>-á</b>, nos. <b>-emos</b>, vos. <b>-éis</b>, ellos <b>-án</b></div>`
+    };
+
+    function openCheatSheet() {
+        if (!currentTense) return; 
+        document.getElementById('tenseSelect').value = currentTense;
+        document.getElementById('cheatSheet').style.display = 'flex';
+        changeCheatTense();
+    }
+
+    function closeCheatSheet(e) {
+        document.getElementById('cheatSheet').style.display = 'none';
+    }
+
+    function changeCheatTense() {
+        const selectedTense = document.getElementById('tenseSelect').value;
+        document.getElementById('cheatDataBox').innerHTML = cheatSheetsData[selectedTense];
+    }
+
     function conjugateRegular(verb, tense, personIdx) {
         const type = verb.slice(-2).toLowerCase();
         const stem = verb.slice(0, -2);
@@ -434,6 +414,8 @@
         let verb, tense, personIdx = Math.floor(Math.random() * 6);
         const tenses = ["Presente", "Pretérito Indefinido", "Pretérito Perfecto", "Pretérito Imperfecto", "Futuro"];
         tense = tenses[Math.floor(Math.random() * tenses.length)];
+
+        currentTense = tense;
 
         if (useRegular) {
             verb = verbData.regulars[Math.floor(Math.random() * verbData.regulars.length)];
@@ -485,7 +467,7 @@
 
     inputField.addEventListener('keypress', (e) => { if (e.key === 'Enter') checkAnswer(); });
 
-    // We starten direct de eerste vraag lokaal op!
+    // Start direct onmiddellijk op het scherm!
     nextQuestion();
 </script>
 
