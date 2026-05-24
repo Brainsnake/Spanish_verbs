@@ -226,8 +226,9 @@
 <script>
     const inputField = document.getElementById('answer');
     let correctAttempts = 0, totalAttempts = 0;
-    let currentTense = ""; 
+    let currentTense = ""; // Houdt bij welke tijd NU actief gevraagd wordt
 
+    // --- DE ZACHTE REPARATIE TEGEN SCROLLEN BIJ FOCUS ---
     const lockScroll = () => { window.scrollTo(0, 0); };
 
     // ALLE WERKWOORDEN DIRECT LOKAAL INGEBOUWD (Geen downloads meer nodig!)
@@ -241,11 +242,18 @@
           "Futuro": ["abriré", "abrirás", "abrirá", "abriremos", "abriréis", "abrirán"]
         },
         "Acertar": {
-          "Presente": ["acierto", "aciertas", "acienta", "acertamos", "acertáis", "aciertan"],
+          "Presente": ["acierto", "aciertas", "acierta", "acertamos", "acertáis", "aciertan"],
           "Pretérito Indefinido": ["acerté", "acertaste", "acertó", "acertamos", "acertasteis", "acertaron"],
           "Pretérito Perfecto": ["he acertado", "has acertado", "ha acertado", "hemos acertado", "habéis acertado", "han acertado"],
           "Pretérito Imperfecto": ["acertaba", "acertabas", "acertaba", "acertábamos", "acertabais", "acertaban"],
           "Futuro": ["acertaré", "acertarás", "acertará", "acertaremos", "acertaréis", "acertarán"]
+        },
+		"Acostar": {
+          "Presente": ["acuesto", "acuestas", "acuesta", "acostamos", "acostáis", "acuestan"],
+          "Pretérito Indefinido": ["acosté", "acostaste", "acostó", "acostamos", "acostasteis", "acostaron"],
+          "Pretérito Perfecto": ["he acostado", "has acostado", "ha acostado", "hemos acostado", "habéis acostado", "han acostado"],
+          "Pretérito Imperfecto": ["acostaba", "acostabas", "acostaba", "acostábamos", "acostabais", "acostaban"],
+          "Futuro": ["acostaré", "acostarás", "acostará", "acostaremos", "acostaréis", "acostarán"]
         },
         "Andar": {
           "Presente": ["ando", "andas", "anda", "andamos", "andáis", "andan"],
@@ -286,7 +294,7 @@
           "Presente": ["cubro", "cubres", "cubre", "cubrimos", "cubrís", "cubren"],
           "Pretérito Indefinido": ["cubrí", "cubriste", "cubrió", "cubrimos", "cubristeis", "cubrieron"],
           "Pretérito Perfecto": ["he cubierto", "has cubierto", "ha cubierto", "hemos cubierto", "habéis cubierto", "han cubierto"],
-          "Pretérito Imperfecto": ["cubría", "cubrías", "cubría", "cubríamos", "cubriais", "cubrían"],
+          "Pretérito Imperfecto": ["cubría", "cubrías", "cubría", "cubríamos", "cubríais", "cubrían"],
           "Futuro": ["cubriré", "cubrirás", "cubrirá", "cubriremos", "cubriréis", "cubrirán"]
         },
         "Dar": {
@@ -314,9 +322,16 @@
           "Presente": ["despierto", "despiertas", "despierta", "despertamos", "despertáis", "despiertan"],
           "Pretérito Indefinido": ["desperté", "despertaste", "despertó", "despertamos", "despertasteis", "despertaron"],
           "Pretérito Perfecto": ["he despertado", "has despertado", "ha despertado", "hemos despertado", "habéis despertado", "han despertado"],
-          "Pretérito Imperfecto": ["despertaba", "despertabas", "despertaba", "despertabamos", "despertabais", "despertaban"],
+          "Pretérito Imperfecto": ["despertaba", "despertabas", "despertaba", "despertábamos", "despertabais", "despertaban"],
           "Futuro": ["despertaré", "despertarás", "despertará", "despertaremos", "despertaréis", "despertarán"]
         },
+		"Dormir": {
+	      "Presente": ["duermo", "duermes", "duerme", "dormimos", "dormís", "duermen"],
+	      "Pretérito Indefinido": ["dormí", "dormiste", "durmió", "dormimos", "dormisteis", "durmieron"],
+	      "Pretérito Perfecto": ["he dormido", "has dormido", "ha dormido", "hemos dormido", "habéis dormido", "han dormido"],
+	      "Pretérito Imperfecto": ["dormía", "dormías", "dormía", "dormíamos", "dormíais", "dormían"],
+	      "Futuro": ["dormiré", "dormirás", "dormirá", "dormiremos", "dormiréis", "dormirán"]
+	    },
 	    "Empezar": {
           "Presente": ["empiezo", "empiezas", "empieza", "empezamos", "empezáis", "empiezan"],
           "Pretérito Indefinido": ["empecé", "empezaste", "empezó", "empezamos", "empezasteis", "empezaron"],
@@ -357,7 +372,7 @@
 	      "Pretérito Indefinido": ["hube", "hubiste", "hubo", "hubimos", "hubisteis", "hubieron"],
 	      "Pretérito Perfecto": ["he habido", "has habido", "ha habido", "hemos habido", "habéis habido", "han habido"],
 	      "Pretérito Imperfecto": ["había", "habías", "había", "habíamos", "habíais", "habían"],
-	      "Futuro": ["habré", "habrés", "habrá", "habremos", "habréis", "habrán"]
+	      "Futuro": ["habré", "habrás", "habrá", "habremos", "habréis", "habrán"]
 	    },
 	    "Hacer": {
 	      "Presente": ["hago", "haces", "hace", "hacemos", "hacéis", "hacen"],
@@ -485,59 +500,102 @@
 	      "Pretérito Imperfecto": ["veía", "veías", "veía", "veíamos", "veíais", "veían"],
 	      "Futuro": ["veré", "verás", "verá", "veremos", "veréis", "verán"]
 	    },
+		"Vestir": {
+	      "Presente": ["visto", "vistes", "viste", "vestimos", "vestís", "visten"],
+	      "Pretérito Indefinido": ["vestí", "vestiste", "vistió", "vestimos", "vestisteis", "vistieron"],
+	      "Pretérito Perfecto": ["he vestido", "has vestido", "ha vestido", "hemos vestido", "habéis vestido", "han vestido"],
+	      "Pretérito Imperfecto": ["vestía", "vestías", "vestía", "vestíamos", "vestíais", "vestían"],
+	      "Futuro": ["vestiré", "vestirás", "vestirá", "vestiremos", "vestiréis", "vestirán"]
+	    },
 	    "Volver": {
 	      "Presente": ["vuelvo", "vuelves", "vuelve", "volvemos", "volvéis", "vuelven"],
 	      "Pretérito Indefinido": ["volví", "volviste", "volvió", "volvimos", "volvisteis", "volvieron"],
 	      "Pretérito Perfecto": ["he vuelto", "has vuelto", "ha vuelto", "hemos vuelto", "habéis vuelto", "han vuelto"],
 	      "Pretérito Imperfecto": ["volvía", "volvías", "volvía", "volvíamos", "volvíais", "volvían"],
 	      "Futuro": ["volveré", "volverás", "volverá", "volveremos", "volveréis", "volverán"]
-        }
+        },
+		// HIER VOEG JE DE -SE WERKWOORDEN TOE ALS VERWIJZING:
+        "Abrirse": "Abrir",
+        "Acostarse": "Acostar",
+        "Caberse": "Caber",
+        "Comenzarse": "Comenzar",
+        "Cubrirse": "Cubrir",
+        "Darse": "Dar",
+        "Decirse": "Decir",
+        "Descubrirse": "Descubrir",
+        "Despertarse": "Despertar",
+        "Dormirse": "Dormir",
+        "Empezarse": "Empezar",
+        "Hacerse": "Hacer",
+        "Irse": "Ir",
+        "Morirse": "Morir",
+        "Negarse": "Negar",
+        "Pensarse": "Pensar",
+        "Poderse": "Poder",
+        "Ponerse": "Poner",
+        "Resolverse": "Resolver",
+        "Romperse": "Romper",
+        "Saberse": "Saber",
+        "Sentarse": "Sentar",
+        "Tenerse": "Tener",
+        "Traerse": "Traer",
+        "Venirse": "Venir",
+        "Verse": "Ver",
+        "Vestirse": "Vestir",
+        "Volverse": "Volver"
       },
+		// HIER VOEG JE DE REGELMATIGE WERKWOORDEN TOE:
       "regulars": [
-        "Abrir", "Aprender", "Bailar", "Beber", "Buscar", "Cantar", "Comer", 
+        "Aprender", "Bailar", "Beber", "Buscar", "Cantar", "Comer", 
         "Comprar", "Correr", "Escuchar", "Estudiar", "Hablar", 
-        "Llegar", "Pagar", "Trabajar", "Vender", "Viajar", "Vivir"
+        "Llegar", "Pagar", "Trabajar", "Vender", "Viajar", "Vivir",
+        "Mudarse"
       ]
     };
 
     const pronouns = ["yo", "tú", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
+    const reflexives = ["me", "te", "se", "nos", "os", "se"];
     let currentCorrect = "";
     let showingError = false;
 
+    // --- BIJ INPUT FOCUS EN BLUR: SCROLL LOCK TRIGGERS ---
     inputField.addEventListener('focus', () => setTimeout(lockScroll, 50));
     inputField.addEventListener('blur', () => setTimeout(lockScroll, 50));
     window.visualViewport.addEventListener('resize', lockScroll);
     window.visualViewport.addEventListener('scroll', () => { if (window.scrollY !== 0) lockScroll(); });
 
+    // --- DATA VOOR REGELMATIGE UITGANGEN ---
     const endings = {
         "ar": {
             "Presente": ["o", "as", "a", "amos", "áis", "an"],
             "Pretérito Indefinido": ["é", "aste", "ó", "amos", "asteis", "aron"],
             "Pretérito Imperfecto": ["aba", "abas", "aba", "ábamos", "abais", "aban"],
-            "Futuro": ["aré", "arás", "ará", "aremos", "aréis", "arán"]
+            "Futuro": ["é", "ás", "á", "emos", "éis", "án"]
         },
         "er": {
             "Presente": ["o", "es", "e", "emos", "éis", "en"],
             "Pretérito Indefinido": ["í", "iste", "ió", "imos", "isteis", "ieron"],
             "Pretérito Imperfecto": ["ía", "ías", "ía", "íamos", "íais", "ían"],
-            "Futuro": ["eré", "erás", "erá", "eremos", "eréis", "erán"]
+            "Futuro": ["é", "ás", "á", "emos", "éis", "án"]
         },
         "ir": {
             "Presente": ["o", "es", "e", "imos", "ís", "en"],
             "Pretérito Indefinido": ["í", "iste", "ió", "imos", "isteis", "ieron"],
             "Pretérito Imperfecto": ["ía", "ías", "ía", "íamos", "íais", "ían"],
-            "Futuro": ["iré", "irás", "irá", "iremos", "iréis", "irán"]
+            "Futuro": ["é", "ás", "á", "emos", "éis", "án"]
         }
     };
 
-    const cheatSheetsData = {
-        "Presente": `<table><tr><th>Persoon</th><th>-ar</th><th>-er</th><th>-ir</th></tr><tr><td>yo</td><td><b>-o</b></td><td><b>-o</b></td><td><b>-o</b></td></tr><tr><td>tú</td><td><b>-as</b></td><td><b>-es</b></td><td><b>-es</b></td></tr><tr><td>él/ella</td><td><b>-a</b></td><td><b>-e</b></td><td><b>-e</b></td></tr><tr><td>nosotros</td><td><b>-amos</b></td><td><b>-emos</b></td><td><b>-imos</b></td></tr><tr><td>vosotros</td><td><b>-áis</b></td><td><b>-éis</b></td><td><b>-ís</b></td></tr><tr><td>ellos/as</td><td><b>-an</b></td><td><b>-en</b></td><td><b>-en</b></td></tr></table>`,
-        "Pretérito Indefinido": `<table><tr><th>Persoon</th><th>-ar</th><th>-er / -ir</th></tr><tr><td>yo</td><td><b>-é</b></td><td><b>-í</b></td></tr><tr><td>tú</td><td><b>-aste</b></td><td><b>-iste</b></td></tr><tr><td>él/ella</td><td><b>-ó</b></td><td><b>-ió</b></td></tr><tr><td>nosotros</td><td><b>-amos</b></td><td><b>-imos</b></td></tr><tr><td>vosotros</td><td><b>-asteis</b></td><td><b>-isteis</b></td></tr><tr><td>ellos/as</td><td><b>-aron</b></td><td><b>-ieron</b></td></tr></table>`,
-        "Pretérito Imperfecto": `<table><tr><th>Persoon</th><th>-ar</th><th>-er / -ir</th></tr><tr><td>yo</td><td><b>-aba</b></td><td><b>-ía</b></td></tr><tr><td>tú</td><td><b>-abas</b></td><td><b>-ías</b></td></tr><tr><td>él/ella</td><td><b>-aba</b></td><td><b>-ía</b></td></tr><tr><td>nosotros</td><td><b>-ábamos</b></td><td><b>-íamos</b></td></tr><tr><td>vosotros</td><td><b>-abais</b></td><td><b>-íais</b></td></tr><tr><td>ellos/as</td><td><b>-aban</b></td><td><b>-ían</b></td></tr></table>`,
-        "Pretérito Perfecto": `<div class="perfecto-info"><b>Hulpwerkwoord (Haber):</b><br>yo <b>he</b>, tú <b>has</b>, él <b>ha</b>, nos. <b>hemos</b>, vos. <b>habéis</b>, ellos <b>han</b><br><br><b>+ Voltooid Deelwoord:</b><br>-ar wordt <b>-ado</b><br>-er / -ir wordt <b>-ido</b></div>`,
-        "Futuro": `<div class="perfecto-info">Plak de uitgang achter het <b>HELE werkwoord</b>:<br><br>yo <b>-é</b>, tú <b>-as</b>, él <b>-á</b>, nos. <b>-emos</b>, vos. <b>-éis</b>, ellos <b>-án</b></div>`
+    // --- HTML CODES PER TABBLAD VOOR HET SPIEKBRIEFJE ---
+	const cheatSheetsData = {
+        "Presente": `<table><tr><th>Persoon</th><th class="refl-column">Refl.</th><th>-ar</th><th>-er</th><th>-ir</th></tr><tr><td>yo</td><td class="refl-column">me</td><td><b>-o</b></td><td><b>-o</b></td><td><b>-o</b></td></tr><tr><td>tú</td><td class="refl-column">te</td><td><b>-as</b></td><td><b>-es</b></td><td><b>-es</b></td></tr><tr><td>él/ella</td><td class="refl-column">se</td><td><b>-a</b></td><td><b>-e</b></td><td><b>-e</b></td></tr><tr><td>nosotros</td><td class="refl-column">nos</td><td><b>-amos</b></td><td><b>-emos</b></td><td><b>-imos</b></td></tr><tr><td>vosotros</td><td class="refl-column">os</td><td><b>-áis</b></td><td><b>-éis</b></td><td><b>-ís</b></td></tr><tr><td>ellos/as</td><td class="refl-column">se</td><td><b>-an</b></td><td><b>-en</b></td><td><b>-en</b></td></tr></table>`,
+        "Pretérito Indefinido": `<table><tr><th>Persoon</th><th class="refl-column">Refl.</th><th>-ar</th><th>-er / -ir</th></tr><tr><td>yo</td><td class="refl-column">me</td><td><b>-é</b></td><td><b>-í</b></td></tr><tr><td>tú</td><td class="refl-column">te</td><td><b>-aste</b></td><td><b>-iste</b></td></tr><tr><td>él/ella</td><td class="refl-column">se</td><td><b>-ó</b></td><td><b>-ió</b></td></tr><tr><td>nosotros</td><td class="refl-column">nos</td><td><b>-amos</b></td><td><b>-imos</b></td></tr><tr><td>vosotros</td><td class="refl-column">os</td><td><b>-asteis</b></td><td><b>-isteis</b></td></tr><tr><td>ellos/as</td><td class="refl-column">se</td><td><b>-aron</b></td><td><b>-ieron</b></td></tr></table>`,
+        "Pretérito Imperfecto": `<table><tr><th>Persoon</th><th class="refl-column">Refl.</th><th>-ar</th><th>-er / -ir</th></tr><tr><td>yo</td><td class="refl-column">me</td><td><b>-aba</b></td><td><b>-ía</b></td></tr><tr><td>tú</td><td class="refl-column">te</td><td><b>-abas</b></td><td><b>-ías</b></td></tr><tr><td>él/ella</td><td class="refl-column">se</td><td><b>-aba</b></td><td><b>-ía</b></td></tr><tr><td>nosotros</td><td class="refl-column">nos</td><td><b>-ábamos</b></td><td><b>-íamos</b></td></tr><tr><td>vosotros</td><td class="refl-column">os</td><td><b>-abais</b></td><td><b>-íais</b></td></tr><tr><td>ellos/as</td><td class="refl-column">se</td><td><b>-aban</b></td><td><b>-ían</b></td></tr></table>`,
+        "Pretérito Perfecto": `<div class="perfecto-info"><span class="refl-text"><b>Wederkerend:</b> me, te, se, nos, os, se vóór de vorm.<br><br></span><b>Hulpwerkwoord (Haber):</b><br>yo <b>he</b>, tú <b>has</b>, él <b>ha</b>, nos. <b>hemos</b>, vos. <b>habéis</b>, ellos <b>han</b><br><br><b>+ Voltooid Deelwoord:</b> -ar → <b>-ado</b> | -er/-ir → <b>-ido</b></div>`,
+        "Futuro": `<div class="perfecto-info"><span class="refl-text">Reflexive vóór het hele werkwoord. <br><br></span>Plak de uitgang achter het <b>HELE werkwoord</b>:<br><br>yo <b>-é</b>, tú <b>-ás</b>, él <b>-á</b>, nos. <b>-emos</b>, vos. <b>-éis</b>, ellos <b>-án</b></div>`
     };
 
+    // --- COMMUNICATIE LOGICA OVERLAY OPENEN/SLUITEN ---
     function openCheatSheet() {
         if (!currentTense) return; 
         document.getElementById('tenseSelect').value = currentTense;
@@ -549,24 +607,59 @@
         document.getElementById('cheatSheet').style.display = 'none';
     }
 
+    // --- FUNCTIE DIE GEGEVENS VERANDERT EN WEDERKERENDE INFO DYNAMISCH FILTERT ---
     function changeCheatTense() {
         const selectedTense = document.getElementById('tenseSelect').value;
-        document.getElementById('cheatDataBox').innerHTML = cheatSheetsData[selectedTense];
+        const dataBox = document.getElementById('cheatDataBox');
+        
+        // Zet eerst de HTML erin
+        dataBox.innerHTML = cheatSheetsData[selectedTense];
+        
+        // Controleer welk werkwoord er actueel op het scherm staat
+        const currentVerb = document.getElementById('verb').innerText.toLowerCase();
+        const isReflexive = currentVerb.endsWith("se") && currentVerb !== "ser";
+        
+        // Als het werkwoord NIET wederkerend is, verbergen we de kolommen en teksten
+        if (!isReflexive) {
+            // Verberg de tabelcellen/kolommen van de reflexivos
+            const reflColumns = dataBox.querySelectorAll('.refl-column');
+            reflColumns.forEach(el => el.style.display = 'none');
+            
+            // Verberg de specifieke tekstblokjes bij Perfecto en Futuro
+            const reflTexts = dataBox.querySelectorAll('.refl-text');
+            reflTexts.forEach(el => el.style.display = 'none');
+		}
     }
 
+    // --- ALGORITME OM REGELMATIGE WERKWOORDEN DYNAMISCH TE VERVOEGEN ---
     function conjugateRegular(verb, tense, personIdx) {
-        const type = verb.slice(-2).toLowerCase();
-        const stem = verb.slice(0, -2);
+        let isReflexive = false;
+        let workingVerb = verb;
+
+        // Is het een wederkerend regelmatig werkwoord?
+        if (verb.toLowerCase().endsWith("se")) {
+            isReflexive = true;
+            workingVerb = verb.slice(0, -2); // strip 'se'
+        }
+
+        const type = workingVerb.slice(-2).toLowerCase(); // ar, er of ir
+        const stem = workingVerb.slice(0, -2);
+        let baseForm = "";
         
         if (tense === "Pretérito Perfecto") {
             const participle = type === "ar" ? "ado" : "ido";
             const aux = ["he", "has", "ha", "hemos", "habéis", "han"];
-            return `${aux[personIdx]} ${stem}${participle}`;
+            baseForm = `${aux[personIdx]} ${stem}${participle}`;
+        } else if (tense === "Futuro") {
+            baseForm = workingVerb.toLowerCase() + endings[type][tense][personIdx];
+        } else {
+            baseForm = stem + endings[type][tense][personIdx];
         }
-        
-        return stem + endings[type][tense][personIdx];
-    }
 
+        return isReflexive ? `${reflexives[personIdx]} ${baseForm}` : baseForm;
+		}
+
+    // --- UPDATER VOOR DE INTERFACE SCORE-TELLER ---
     function updateScoreDisplay() {
         document.getElementById('correct-count').innerText = correctAttempts;
         document.getElementById('total-count').innerText = totalAttempts;
@@ -574,6 +667,7 @@
         document.getElementById('percentage').innerText = perc;
     }
 
+    // --- GENERATOR VOOR DE VOLGENDE LOGISCHE VRAAG ---
     function nextQuestion() {
         showingError = false;
         const hasRegulars = verbData.regulars && verbData.regulars.length > 0;
@@ -588,10 +682,18 @@
         if (useRegular) {
             verb = verbData.regulars[Math.floor(Math.random() * verbData.regulars.length)];
             currentCorrect = conjugateRegular(verb, tense, personIdx);
-        } else {
+		} else {
             const irregulars = Object.keys(verbData.irregulars);
             verb = irregulars[Math.floor(Math.random() * irregulars.length)];
-            currentCorrect = verbData.irregulars[verb][tense][personIdx];
+
+            // Kijk nu EERST of het een string-verwijzing is (alias)
+            let lookupName = (typeof verbData.irregulars[verb] === "string") ? verbData.irregulars[verb] : verb;
+            
+            // Check of de geselecteerde VRAAGVORM op 'se' eindigt
+            let isReflexive = verb.toLowerCase().endsWith("se") && verb.toLowerCase() !== "ser";
+            
+            let answer = verbData.irregulars[lookupName][tense][personIdx];
+            currentCorrect = isReflexive ? `${reflexives[personIdx]} ${answer}` : answer;
         }
         
         document.getElementById('verb').innerText = verb;
@@ -606,8 +708,9 @@
         setTimeout(() => { inputField.focus(); }, 100);
     }
 
+    // --- CONTROLE LOGICA VAN HET ANTWOORD ---
     function checkAnswer() {
-        const userAns = inputField.value.trim().toLowerCase();
+        const userAns = inputField.value.trim().toLowerCase().replace(/\s+/g, ' '); 
         const feedback = document.getElementById('feedback');
         const btn = document.getElementById('mainButton');
 
@@ -635,7 +738,7 @@
 
     inputField.addEventListener('keypress', (e) => { if (e.key === 'Enter') checkAnswer(); });
 
-    // Start direct onmiddellijk op het scherm!
+    // --- INITIALISATIE: START DIRECT OP HET SCHERM ---
     nextQuestion();
 </script>
 
