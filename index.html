@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Spaans met Score</title>
+    <title>Spaanse werkwoorden vervoegen</title>
     <style>
         /* Voorkom scrollen en zet de basis vast */
         html, body {
@@ -41,22 +41,22 @@
             z-index: 10;
         }
 
-        /* --- STYLING VOOR DE KEUZEKNOPPEN --- */
+/* --- STYLING VOOR DE KEUZEKNOPPEN --- */
         .mode-selector {
             display: flex;
             background-color: #cbd5e0;
             border-radius: 8px;
-            padding: 3px;
+            padding: 2px;
             margin-bottom: 20px;
-            width: 80%;
-            max-width: 320px;
+            width: 65%; /* Was 80% - nu smaller zodat hij wegblijft van de spiekbrief-knop */
+            max-width: 240px; /* Was 320px */
             z-index: 5;
         }
 
         .mode-btn {
             flex: 1;
-            font-size: 0.9rem !important;
-            padding: 8px 10px !important;
+            font-size: 0.8rem !important; /* Was 0.9rem - tekst iets compacter */
+            padding: 6px 8px !important; /* Was 8px 10px - knop is nu minder hoog en breed */
             margin-top: 0 !important;
             background: none !important;
             border: none !important;
@@ -67,7 +67,7 @@
             box-shadow: none !important;
             transition: background-color 0.2s, color 0.2s;
         }
-
+	/* Deze zorgt ervoor dat de actieve knop �cht groen wordt en blijft */
         .mode-btn.active {
             background-color: #48bb78 !important;
             color: white !important;
@@ -286,12 +286,33 @@
           "Pretérito Imperfecto": ["acertaba", "acertabas", "acertaba", "acertábamos", "acertabais", "acertaban"],
           "Futuro": ["acertaré", "acertarás", "acertará", "acertaremos", "acertaréis", "acertarán"]
         },
+		"Acordar": {
+          "Presente": ["acuerdo", "acuerdas", "acuerda", "acordamos", "acordáis", "acuerdan"],
+          "Pretérito Indefinido": ["acordé", "acordaste", "acordó", "acordamos", "acordasteis", "acordaron"],
+          "Pretérito Perfecto": ["he acordado", "has acordado", "ha acordado", "hemos acordado", "habéis acordado", "han acordado"],
+          "Pretérito Imperfecto": ["acordaba", "acordabas", "acordaba", "acordábamos", "acordabais", "acordaban"],
+          "Futuro": ["acordaré", "acordarás", "acordará", "acordaremos", "acordaréis", "acordarán"]
+        },
 		"Acostar": {
           "Presente": ["acuesto", "acuestas", "acuesta", "acostamos", "acostáis", "acuestan"],
           "Pretérito Indefinido": ["acosté", "acostaste", "acostó", "acostamos", "acostasteis", "acostaron"],
           "Pretérito Perfecto": ["he acostado", "has acostado", "ha acostado", "hemos acostado", "habéis acostado", "han acostado"],
           "Pretérito Imperfecto": ["acostaba", "acostabas", "acostaba", "acostábamos", "acostabais", "acostaban"],
           "Futuro": ["acostaré", "acostarás", "acostará", "acostaremos", "acostaréis", "acostarán"]
+        },
+		"Advertir": {
+          "Presente": ["advierto", "adviertes", "advierte", "advertimos", "advertís", "advierten"],
+          "Pretérito Indefinido": ["advertí", "advertiste", "advirtió", "advertimos", "advertisteis", "advirtieron"],
+          "Pretérito Perfecto": ["he advertido", "has advertido", "ha advertido", "hemos advertido", "habéis advertido", "han advertido"],
+          "Pretérito Imperfecto": ["advertía", "advertías", "advertía", "advertíamos", "advertíais", "advertían"],
+          "Futuro": ["advertiré", "advertirás", "advertirá", "advertiremos", "advertiréis", "advertirán"]
+        },
+		"Agregar": {
+          "Presente": ["agrego", "agregas", "agrega", "agregamos", "agregáis", "agregan"],
+          "Pretérito Indefinido": ["agregué", "agregaste", "agregó", "agregamos", "agregasteis", "agregaron"],
+          "Pretérito Perfecto": ["he agregado", "has agregado", "ha agregado", "hemos agregado", "habéis agregado", "han agregado"],
+          "Pretérito Imperfecto": ["agregaba", "agregabas", "agregaba", "agregábamos", "agregabais", "agregaban"],
+          "Futuro": ["agregaré", "agregarás", "agregará", "agregaremos", "agregaréis", "agregarán"]
         },
         "Andar": {
           "Presente": ["ando", "andas", "anda", "andamos", "andáis", "andan"],
@@ -665,7 +686,7 @@
       "regulars": [
         "Aprender", "Arreglar", "Bailar", "Beber", "Borrar", "Buscar", "Callar", "Cantar", "Chupar", "Comer", "Comprar", "Correr", "Deber", "Dejar", "Desear", 
         "Escuchar", "Esperar", "Estudiar", "Gastar", "Hablar", "Hibernar", "Intentar", 
-        "Llegar", "Malgastar", "Meter", "Mudarse", "Olvidar", "Pagar", "Prestar", "Preguntar", "Reparar", "Saludar", "Trabajar", "Vender", "Viajar", "Vivir"
+        "Llegar", "Malgastar", "Meter", "Mudar", "Olvidar", "Pagar", "Preguntar", "Prestar", "Reparar", "Saludar", "Trabajar", "Vender", "Viajar", "Vivir"
         ]
     };
 
