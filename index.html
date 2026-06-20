@@ -22,7 +22,7 @@
             align-items: center;
             width: 100%;
             height: 100%;
-            padding-top: 40px; /* Ruimte onder Dynamic Island */
+            padding-top: 30px; /* Ruimte onder Dynamic Island */
             box-sizing: border-box;
             position: relative;
         }
@@ -39,6 +39,38 @@
             padding: 5px;
             margin: 0;
             z-index: 10;
+        }
+
+        /* --- STYLING VOOR DE KEUZEKNOPPEN --- */
+        .mode-selector {
+            display: flex;
+            background-color: #cbd5e0;
+            border-radius: 8px;
+            padding: 3px;
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 320px;
+            z-index: 5;
+        }
+
+        .mode-btn {
+            flex: 1;
+            font-size: 0.9rem !important;
+            padding: 8px 10px !important;
+            margin-top: 0 !important;
+            background: none !important;
+            border: none !important;
+            border-radius: 6px !important;
+            cursor: pointer !important;
+            color: #4a5568 !important;
+            font-weight: bold !important;
+            box-shadow: none !important;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .mode-btn.active {
+            background-color: #48bb78 !important;
+            color: white !important;
         }
 
         h1 { 
@@ -117,7 +149,7 @@
             width: 94%;
             max-width: 380px;
             height: auto; 
-            max-height: 43%; /* Halveert de hoogte zodat de vraag erboven past */
+            max-height: 43%; /* Halveert de hoogte zodat de vraag erboven past */ 
             border-radius: 16px;
             padding: 15px;
             margin-bottom: 20px; 
@@ -192,6 +224,11 @@
 <div class="container">
     <button class="help-btn" onclick="openCheatSheet()">💡</button>
 
+    <div class="mode-selector">
+        <button id="btnModeAll" class="mode-btn active" onclick="setPracticeMode('all')">Alles</button>
+        <button id="btnModeIrregular" class="mode-btn" onclick="setPracticeMode('irregular')">Alleen onregelmatig</button>
+    </div>
+
     <h1 id="verb">Laden...</h1>
     <p id="info"></p>
     
@@ -226,12 +263,13 @@
 <script>
     const inputField = document.getElementById('answer');
     let correctAttempts = 0, totalAttempts = 0;
-    let currentTense = ""; // Houdt bij welke tijd NU actief gevraagd wordt
+    let currentTense = ""; // Houdt bij welke tijd NU actief gevraagd wordt 
+    let practiceMode = "all"; // Kan 'all' of 'irregular' zijn
 
     // --- DE ZACHTE REPARATIE TEGEN SCROLLEN BIJ FOCUS ---
     const lockScroll = () => { window.scrollTo(0, 0); };
 
-    // ALLE WERKWOORDEN DIRECT LOKAAL INGEBOUWD (Geen downloads meer nodig!)
+    // ALLE WERKWOORDEN DIRECT LOKAAL INGEBOUWD
     let verbData = {
       "irregulars": {
         "Abrir": {
@@ -242,7 +280,7 @@
           "Futuro": ["abriré", "abrirás", "abrirá", "abriremos", "abriréis", "abrirán"]
         },
         "Acertar": {
-          "Presente": ["acierto", "aciertas", "acierta", "acertamos", "acertáis", "aciertan"],
+          "Presente": ["acierto", "aciertas", "acienta", "acertamos", "acertáis", "aciertan"],
           "Pretérito Indefinido": ["acerté", "acertaste", "acertó", "acertamos", "acertasteis", "acertaron"],
           "Pretérito Perfecto": ["he acertado", "has acertado", "ha acertado", "hemos acertado", "habéis acertado", "han acertado"],
           "Pretérito Imperfecto": ["acertaba", "acertabas", "acertaba", "acertábamos", "acertabais", "acertaban"],
@@ -665,13 +703,21 @@
     };
 
     // --- HTML CODES PER TABBLAD VOOR HET SPIEKBRIEFJE ---
-	const cheatSheetsData = {
+    const cheatSheetsData = {
         "Presente": `<table><tr><th>Persoon</th><th class="refl-column">Refl.</th><th>-ar</th><th>-er</th><th>-ir</th></tr><tr><td>yo</td><td class="refl-column">me</td><td><b>-o</b></td><td><b>-o</b></td><td><b>-o</b></td></tr><tr><td>tú</td><td class="refl-column">te</td><td><b>-as</b></td><td><b>-es</b></td><td><b>-es</b></td></tr><tr><td>él/ella</td><td class="refl-column">se</td><td><b>-a</b></td><td><b>-e</b></td><td><b>-e</b></td></tr><tr><td>nosotros</td><td class="refl-column">nos</td><td><b>-amos</b></td><td><b>-emos</b></td><td><b>-imos</b></td></tr><tr><td>vosotros</td><td class="refl-column">os</td><td><b>-áis</b></td><td><b>-éis</b></td><td><b>-ís</b></td></tr><tr><td>ellos/as</td><td class="refl-column">se</td><td><b>-an</b></td><td><b>-en</b></td><td><b>-en</b></td></tr></table>`,
         "Pretérito Indefinido": `<table><tr><th>Persoon</th><th class="refl-column">Refl.</th><th>-ar</th><th>-er / -ir</th></tr><tr><td>yo</td><td class="refl-column">me</td><td><b>-é</b></td><td><b>-í</b></td></tr><tr><td>tú</td><td class="refl-column">te</td><td><b>-aste</b></td><td><b>-iste</b></td></tr><tr><td>él/ella</td><td class="refl-column">se</td><td><b>-ó</b></td><td><b>-ió</b></td></tr><tr><td>nosotros</td><td class="refl-column">nos</td><td><b>-amos</b></td><td><b>-imos</b></td></tr><tr><td>vosotros</td><td class="refl-column">os</td><td><b>-asteis</b></td><td><b>-isteis</b></td></tr><tr><td>ellos/as</td><td class="refl-column">se</td><td><b>-aron</b></td><td><b>-ieron</b></td></tr></table>`,
         "Pretérito Imperfecto": `<table><tr><th>Persoon</th><th class="refl-column">Refl.</th><th>-ar</th><th>-er / -ir</th></tr><tr><td>yo</td><td class="refl-column">me</td><td><b>-aba</b></td><td><b>-ía</b></td></tr><tr><td>tú</td><td class="refl-column">te</td><td><b>-abas</b></td><td><b>-ías</b></td></tr><tr><td>él/ella</td><td class="refl-column">se</td><td><b>-aba</b></td><td><b>-ía</b></td></tr><tr><td>nosotros</td><td class="refl-column">nos</td><td><b>-ábamos</b></td><td><b>-íamos</b></td></tr><tr><td>vosotros</td><td class="refl-column">os</td><td><b>-abais</b></td><td><b>-íais</b></td></tr><tr><td>ellos/as</td><td class="refl-column">se</td><td><b>-aban</b></td><td><b>-ían</b></td></tr></table>`,
         "Pretérito Perfecto": `<div class="perfecto-info"><span class="refl-text"><b>Wederkerend:</b> me, te, se, nos, os, se vóór de vorm.<br><br></span><b>Hulpwerkwoord (Haber):</b><br>yo <b>he</b>, tú <b>has</b>, él <b>ha</b>, nos. <b>hemos</b>, vos. <b>habéis</b>, ellos <b>han</b><br><br><b>+ Voltooid Deelwoord:</b> -ar → <b>-ado</b> | -er/-ir → <b>-ido</b></div>`,
         "Futuro": `<div class="perfecto-info"><span class="refl-text">Reflexive vóór het hele werkwoord. <br><br></span>Plak de uitgang achter het <b>HELE werkwoord</b>:<br><br>yo <b>-é</b>, tú <b>-ás</b>, él <b>-á</b>, nos. <b>-emos</b>, vos. <b>-éis</b>, ellos <b>-án</b></div>`
     };
+
+    // --- FUNCTIE VOOR HET WISSELEN VAN MODUS VIA DE KEUZEKNOPPEN ---
+    function setPracticeMode(mode) {
+        practiceMode = mode;
+        document.getElementById('btnModeAll').classList.toggle('active', mode === 'all');
+        document.getElementById('btnModeIrregular').classList.toggle('active', mode === 'irregular');
+        nextQuestion();
+    }
 
     // --- COMMUNICATIE LOGICA OVERLAY OPENEN/SLUITEN ---
     function openCheatSheet() {
@@ -715,6 +761,7 @@
         let workingVerb = verb;
 
         // Is het een wederkerend regelmatig werkwoord?
+
         if (verb.toLowerCase().endsWith("se")) {
             isReflexive = true;
             workingVerb = verb.slice(0, -2); // strip 'se'
@@ -735,7 +782,7 @@
         }
 
         return isReflexive ? `${reflexives[personIdx]} ${baseForm}` : baseForm;
-		}
+	}
 
     // --- UPDATER VOOR DE INTERFACE SCORE-TELLER ---
     function updateScoreDisplay() {
@@ -745,11 +792,13 @@
         document.getElementById('percentage').innerText = perc;
     }
 
-    // --- GENERATOR VOOR DE VOLGENDE LOGISCHE VRAAG ---
+    // --- GENERATOR VOOR DE VOLGENDE LOGISCHE VRAAG (AANGEPAST OP PRACTICE MODE) ---
     function nextQuestion() {
         showingError = false;
         const hasRegulars = verbData.regulars && verbData.regulars.length > 0;
-        const useRegular = Math.random() > 0.5 && hasRegulars;
+        
+        // Als practiceMode 'irregular' is, mag useRegular NOOIT true worden!
+        const useRegular = practiceMode === 'all' && Math.random() > 0.5 && hasRegulars;
         
         let verb, tense, personIdx = Math.floor(Math.random() * 6);
         const tenses = ["Presente", "Pretérito Indefinido", "Pretérito Perfecto", "Pretérito Imperfecto", "Futuro"];
@@ -766,7 +815,7 @@
 
             // Kijk nu EERST of het een string-verwijzing is (alias)
             let lookupName = (typeof verbData.irregulars[verb] === "string") ? verbData.irregulars[verb] : verb;
-            
+
             // Check of de geselecteerde VRAAGVORM op 'se' eindigt
             let isReflexive = verb.toLowerCase().endsWith("se") && verb.toLowerCase() !== "ser";
             
