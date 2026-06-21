@@ -222,7 +222,7 @@
 <body>
 
 <div class="container">
-    <button class="help-btn" onclick="openCheatSheet()">ðŸ’¡</button>
+    <button class="help-btn" onclick="openCheatSheet()">💡</button>
 
     <div class="mode-selector">
         <button id="btnModeAll" class="mode-btn active" onclick="setPracticeMode('all')">Todo</button>
@@ -245,7 +245,7 @@
 
 <div id="cheatSheet" class="overlay" onclick="closeCheatSheet(event)" style="display: none;">
     <div class="overlay-content" onclick="event.stopPropagation()">
-        <span class="close-btn" onclick="closeCheatSheet(event)">Ã—</span>
+        <span class="close-btn" onclick="closeCheatSheet(event)">×</span>
         <h2>Spiekbriefje Uitgangen</h2>
         
         <select id="tenseSelect" class="tab-select" onchange="changeCheatTense()">
@@ -730,7 +730,7 @@
     ]
     };
 
-    const pronouns = ["yo", "tÃº", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
+    const pronouns = ["yo", "tú", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
     const reflexives = ["me", "te", "se", "nos", "os", "se"];
     let currentCorrect = "";
     let showingError = false;
@@ -911,12 +911,12 @@
 
         if (userAns === currentCorrect.toLowerCase()) {
             correctAttempts++;
-            feedback.innerHTML = "<span style='color:green'>âœ… Â¡Muy bien!</span>";
+            feedback.innerHTML = "<span style='color:green'>✅ ¡Muy bien!</span>";
             inputField.style.backgroundColor = "#c6f6d5";
             updateScoreDisplay();
             setTimeout(nextQuestion, 1200);
         } else {
-            feedback.innerHTML = `<span style="color:red">âŒ ${currentCorrect}</span>`;
+            feedback.innerHTML = `<span style="color:red">❌ ${currentCorrect}</span>`;
             inputField.style.backgroundColor = "#fed7d7";
             btn.innerText = "Siguiente";
             showingError = true;
