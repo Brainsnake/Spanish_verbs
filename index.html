@@ -225,8 +225,8 @@
     <button class="help-btn" onclick="openCheatSheet()">💡</button>
 
     <div class="mode-selector">
-        <button id="btnModeAll" class="mode-btn active" onclick="setPracticeMode('all')">Alles</button>
-        <button id="btnModeIrregular" class="mode-btn" onclick="setPracticeMode('irregular')">Alleen onregelmatig</button>
+        <button id="btnModeAll" class="mode-btn active" onclick="setPracticeMode('all')">Todo</button>
+        <button id="btnModeIrregular" class="mode-btn" onclick="setPracticeMode('irregular')">Irregulares</button>
     </div>
 
     <h1 id="verb">Laden...</h1>
@@ -236,7 +236,7 @@
 
     <input type="text" id="answer" placeholder="Typ..." autocomplete="off" autocapitalize="none" spellcheck="false">
     <br>
-    <button id="mainButton" onclick="checkAnswer()">Controleer</button>
+    <button id="mainButton" onclick="checkAnswer()">Comprobar</button>
 
     <div id="score-container">
         Score: <span id="correct-count">0</span>/<span id="total-count">0</span> (<span id="percentage">0</span>%)
@@ -850,7 +850,7 @@
         inputField.value = "";
         inputField.style.backgroundColor = "white";
         document.getElementById('feedback').innerText = "";
-        document.getElementById('mainButton').innerText = "Controleer";
+        document.getElementById('mainButton').innerText = "Comprobar";
         
         lockScroll();
         setTimeout(() => { inputField.focus(); }, 100);
@@ -878,7 +878,7 @@
         } else {
             feedback.innerHTML = `<span style="color:red">❌ ${currentCorrect}</span>`;
             inputField.style.backgroundColor = "#fed7d7";
-            btn.innerText = "Volgende";
+            btn.innerText = "Siguiente";
             showingError = true;
             updateScoreDisplay();
         }
