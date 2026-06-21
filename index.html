@@ -250,9 +250,9 @@
         
         <select id="tenseSelect" class="tab-select" onchange="changeCheatTense()">
             <option value="Presente">Presente</option>
-            <option value="PretÃ©rito Indefinido">PretÃ©rito Indefinido</option>
-            <option value="PretÃ©rito Imperfecto">PretÃ©rito Imperfecto</option>
-            <option value="PretÃ©rito Perfecto">PretÃ©rito Perfecto</option>
+            <option value="Pretérito Indefinido">Pretérito Indefinido</option>
+            <option value="Pretérito Imperfecto">Pretérito Imperfecto</option>
+            <option value="Pretérito Perfecto">Pretérito Perfecto</option>
             <option value="Futuro">Futuro</option>
         </select>
 
@@ -273,371 +273,400 @@
     let verbData = {
       "irregulars": {
         "Abrir": {
-          "Presente": ["abro", "abres", "abre", "abrimos", "abrÃ­s", "abren"],
-          "PretÃ©rito Indefinido": ["abrÃ­", "abriste", "abriÃ³", "abrimos", "abristeis", "abrieron"],
-          "PretÃ©rito Perfecto": ["he abierto", "has abierto", "ha abierto", "hemos abierto", "habÃ©is abierto", "han abierto"],
-          "PretÃ©rito Imperfecto": ["abrÃ­a", "abrÃ­as", "abrÃ­a", "abrÃ­amos", "abrÃ­ais", "abrÃ­an"],
-          "Futuro": ["abrirÃ©", "abrirÃ¡s", "abrirÃ¡", "abriremos", "abrirÃ©is", "abrirÃ¡n"]
+          "Presente": ["abro", "abres", "abre", "abrimos", "abrís", "abren"],
+          "Pretérito Indefinido": ["abrí", "abriste", "abrió", "abrimos", "abristeis", "abrieron"],
+          "Pretérito Perfecto": ["he abierto", "has abierto", "ha abierto", "hemos abierto", "habéis abierto", "han abierto"],
+          "Pretérito Imperfecto": ["abría", "abrías", "abría", "abríamos", "abríais", "abrían"],
+          "Futuro": ["abriré", "abrirás", "abrirá", "abriremos", "abriréis", "abrirán"]
         },
         "Acertar": {
-          "Presente": ["acierto", "aciertas", "acienta", "acertamos", "acertÃ¡is", "aciertan"],
-          "PretÃ©rito Indefinido": ["acertÃ©", "acertaste", "acertÃ³", "acertamos", "acertasteis", "acertaron"],
-          "PretÃ©rito Perfecto": ["he acertado", "has acertado", "ha acertado", "hemos acertado", "habÃ©is acertado", "han acertado"],
-          "PretÃ©rito Imperfecto": ["acertaba", "acertabas", "acertaba", "acertÃ¡bamos", "acertabais", "acertaban"],
-          "Futuro": ["acertarÃ©", "acertarÃ¡s", "acertarÃ¡", "acertaremos", "acertarÃ©is", "acertarÃ¡n"]
+          "Presente": ["acierto", "aciertas", "acierta", "acertamos", "acertáis", "aciertan"],
+          "Pretérito Indefinido": ["acerté", "acertaste", "acertó", "acertamos", "acertasteis", "acertaron"],
+          "Pretérito Perfecto": ["he acertado", "has acertado", "ha acertado", "hemos acertado", "habéis acertado", "han acertado"],
+          "Pretérito Imperfecto": ["acertaba", "acertabas", "acertaba", "acertábamos", "acertabais", "acertaban"],
+          "Futuro": ["acertaré", "acertarás", "acertará", "acertaremos", "acertaréis", "acertarán"]
         },
 		"Acordar": {
-          "Presente": ["acuerdo", "acuerdas", "acuerda", "acordamos", "acordÃ¡is", "acuerdan"],
-          "PretÃ©rito Indefinido": ["acordÃ©", "acordaste", "acordÃ³", "acordamos", "acordasteis", "acordaron"],
-          "PretÃ©rito Perfecto": ["he acordado", "has acordado", "ha acordado", "hemos acordado", "habÃ©is acordado", "han acordado"],
-          "PretÃ©rito Imperfecto": ["acordaba", "acordabas", "acordaba", "acordÃ¡bamos", "acordabais", "acordaban"],
-          "Futuro": ["acordarÃ©", "acordarÃ¡s", "acordarÃ¡", "acordaremos", "acordarÃ©is", "acordarÃ¡n"]
+          "Presente": ["acuerdo", "acuerdas", "acuerda", "acordamos", "acordáis", "acuerdan"],
+          "Pretérito Indefinido": ["acordé", "acordaste", "acordó", "acordamos", "acordasteis", "acordaron"],
+          "Pretérito Perfecto": ["he acordado", "has acordado", "ha acordado", "hemos acordado", "habéis acordado", "han acordado"],
+          "Pretérito Imperfecto": ["acordaba", "acordabas", "acordaba", "acordábamos", "acordabais", "acordaban"],
+          "Futuro": ["acordaré", "acordarás", "acordará", "acordaremos", "acordaréis", "acordarán"]
         },
 		"Acostar": {
-          "Presente": ["acuesto", "acuestas", "acuesta", "acostamos", "acostÃ¡is", "acuestan"],
-          "PretÃ©rito Indefinido": ["acostÃ©", "acostaste", "acostÃ³", "acostamos", "acostasteis", "acostaron"],
-          "PretÃ©rito Perfecto": ["he acostado", "has acostado", "ha acostado", "hemos acostado", "habÃ©is acostado", "han acostado"],
-          "PretÃ©rito Imperfecto": ["acostaba", "acostabas", "acostaba", "acostÃ¡bamos", "acostabais", "acostaban"],
-          "Futuro": ["acostarÃ©", "acostarÃ¡s", "acostarÃ¡", "acostaremos", "acostarÃ©is", "acostarÃ¡n"]
+          "Presente": ["acuesto", "acuestas", "acuesta", "acostamos", "acostáis", "acuestan"],
+          "Pretérito Indefinido": ["acosté", "acostaste", "acostó", "acostamos", "acostasteis", "acostaron"],
+          "Pretérito Perfecto": ["he acostado", "has acostado", "ha acostado", "hemos acostado", "habéis acostado", "han acostado"],
+          "Pretérito Imperfecto": ["acostaba", "acostabas", "acostaba", "acostábamos", "acostabais", "acostaban"],
+          "Futuro": ["acostaré", "acostarás", "acostará", "acostaremos", "acostaréis", "acostarán"]
         },
 		"Advertir": {
-          "Presente": ["advierto", "adviertes", "advierte", "advertimos", "advertÃ­s", "advierten"],
-          "PretÃ©rito Indefinido": ["advertÃ­", "advertiste", "advirtiÃ³", "advertimos", "advertisteis", "advirtieron"],
-          "PretÃ©rito Perfecto": ["he advertido", "has advertido", "ha advertido", "hemos advertido", "habÃ©is advertido", "han advertido"],
-          "PretÃ©rito Imperfecto": ["advertÃ­a", "advertÃ­as", "advertÃ­a", "advertÃ­amos", "advertÃ­ais", "advertÃ­an"],
-          "Futuro": ["advertirÃ©", "advertirÃ¡s", "advertirÃ¡", "advertiremos", "advertirÃ©is", "advertirÃ¡n"]
+          "Presente": ["advierto", "adviertes", "advierte", "advertimos", "advertís", "advierten"],
+          "Pretérito Indefinido": ["advertí", "advertiste", "advirtió", "advertimos", "advertisteis", "advirtieron"],
+          "Pretérito Perfecto": ["he advertido", "has advertido", "ha advertido", "hemos advertido", "habéis advertido", "han advertido"],
+          "Pretérito Imperfecto": ["advertía", "advertías", "advertía", "advertíamos", "advertíais", "advertían"],
+          "Futuro": ["advertiré", "advertirás", "advertirá", "advertiremos", "advertiréis", "advertirán"]
         },
 		"Agregar": {
-          "Presente": ["agrego", "agregas", "agrega", "agregamos", "agregÃ¡is", "agregan"],
-          "PretÃ©rito Indefinido": ["agreguÃ©", "agregaste", "agregÃ³", "agregamos", "agregasteis", "agregaron"],
-          "PretÃ©rito Perfecto": ["he agregado", "has agregado", "ha agregado", "hemos agregado", "habÃ©is agregado", "han agregado"],
-          "PretÃ©rito Imperfecto": ["agregaba", "agregabas", "agregaba", "agregÃ¡bamos", "agregabais", "agregaban"],
-          "Futuro": ["agregarÃ©", "agregarÃ¡s", "agregarÃ¡", "agregaremos", "agregarÃ©is", "agregarÃ¡n"]
+          "Presente": ["agrego", "agregas", "agrega", "agregamos", "agregáis", "agregan"],
+          "Pretérito Indefinido": ["agregué", "agregaste", "agregó", "agregamos", "agregasteis", "agregaron"],
+          "Pretérito Perfecto": ["he agregado", "has agregado", "ha agregado", "hemos agregado", "habéis agregado", "han agregado"],
+          "Pretérito Imperfecto": ["agregaba", "agregabas", "agregaba", "agregábamos", "agregabais", "agregaban"],
+          "Futuro": ["agregaré", "agregarás", "agregará", "agregaremos", "agregaréis", "agregarán"]
         },
         "Andar": {
-          "Presente": ["ando", "andas", "anda", "andamos", "andÃ¡is", "andan"],
-          "PretÃ©rito Indefinido": ["anduve", "anduviste", "anduvo", "anduvimos", "anduvisteis", "anduvieron"],
-          "PretÃ©rito Perfecto": ["he andado", "has andado", "ha andado", "hemos andado", "habÃ©is andado", "han andado"],
-          "PretÃ©rito Imperfecto": ["andaba", "andabas", "andaba", "andÃ¡bamos", "andabais", "andaban"],
-          "Futuro": ["andarÃ©", "andarÃ¡s", "andarÃ¡", "andaremos", "andarÃ©is", "andarÃ¡n"]
+          "Presente": ["ando", "andas", "anda", "andamos", "andáis", "andan"],
+          "Pretérito Indefinido": ["anduve", "anduviste", "anduvo", "anduvimos", "anduvisteis", "anduvieron"],
+          "Pretérito Perfecto": ["he andado", "has andado", "ha andado", "hemos andado", "habéis andado", "han andado"],
+          "Pretérito Imperfecto": ["andaba", "andabas", "andaba", "andábamos", "andabais", "andaban"],
+          "Futuro": ["andaré", "andarás", "andará", "andaremos", "andaréis", "andarán"]
         },
 		"Apagar": {
-          "Presente": ["apago", "apagas", "apaga", "apagamos", "apagÃ¡is", "apagan"],
-          "PretÃ©rito Indefinido": ["apaguÃ©", "apagaste", "apagÃ³", "apagamos", "apagasteis", "apagaron"],
-          "PretÃ©rito Perfecto": ["he apagado", "has apagado", "ha apagado", "hemos apagado", "habÃ©is apagado", "han apagado"],
-          "PretÃ©rito Imperfecto": ["apagaba", "apagabas", "apagaba", "apagÃ¡bamos", "apagabais", "apagaban"],
-          "Futuro": ["apagarÃ©", "apagarÃ¡s", "apagarÃ¡", "apagaremos", "apagarÃ©is", "apagarÃ¡n"]
+          "Presente": ["apago", "apagas", "apaga", "apagamos", "apagáis", "apagan"],
+          "Pretérito Indefinido": ["apagué", "apagaste", "apagó", "apagamos", "apagasteis", "apagaron"],
+          "Pretérito Perfecto": ["he apagado", "has apagado", "ha apagado", "hemos apagado", "habéis apagado", "han apagado"],
+          "Pretérito Imperfecto": ["apagaba", "apagabas", "apagaba", "apagábamos", "apagabais", "apagaban"],
+          "Futuro": ["apagaré", "apagarás", "apagará", "apagaremos", "apagaréis", "apagarán"]
         },
 		"Apetecer": {
-          "Presente": ["apetezco", "apeteces", "apetece", "apetecemos", "apetecÃ©is", "apetecen"],
-          "PretÃ©rito Indefinido": ["apetecÃ­", "apeteciste", "apeteciÃ³", "apetecimos", "apetecisteis", "apetecieron"],
-          "PretÃ©rito Perfecto": ["he apetecido", "has apetecido", "ha apetecido", "hemos apetecido", "habÃ©is apetecido", "han apetecido"],
-          "PretÃ©rito Imperfecto": ["apetecÃ­a", "apetecÃ­as", "apetecÃ­a", "apetecÃ­amos", "apetecÃ­ais", "apetecÃ­an"],
-          "Futuro": ["apetecerÃ©", "apetecerÃ¡s", "apetecerÃ¡", "apeteceremos", "apetecerÃ©is", "apetecerÃ¡n"]
+          "Presente": ["apetezco", "apeteces", "apetece", "apetecemos", "apetecéis", "apetecen"],
+          "Pretérito Indefinido": ["apetecí", "apeteciste", "apeteció", "apetecimos", "apetecisteis", "apetecieron"],
+          "Pretérito Perfecto": ["he apetecido", "has apetecido", "ha apetecido", "hemos apetecido", "habéis apetecido", "han apetecido"],
+          "Pretérito Imperfecto": ["apetecía", "apetecías", "apetecía", "apetecíamos", "apetecíais", "apetecían"],
+          "Futuro": ["apeteceré", "apetecerás", "apetecerá", "apeteceremos", "apeteceréis", "apetecerán"]
         },
 		"Arrancar": {
-          "Presente": ["arranco", "arrancas", "arranca", "arrancamos", "arrancÃ¡is", "arrancan"],
-          "PretÃ©rito Indefinido": ["arranquÃ©", "arrancaste", "arrancÃ³", "arrancamos", "arrancasteis", "arrancaron"],
-          "PretÃ©rito Perfecto": ["he arrancado", "has arrancado", "ha arrancado", "hemos arrancado", "habÃ©is arrancado", "han arrancado"],
-          "PretÃ©rito Imperfecto": ["arrancaba", "arrancabas", "arrancaba", "arrancÃ¡bamos", "arrancabais", "arrancaban"],
-          "Futuro": ["arrancarÃ©", "arrancarÃ¡s", "arrancarÃ¡", "arrancaremos", "arrancarÃ©is", "arrancarÃ¡n"]
+          "Presente": ["arranco", "arrancas", "arranca", "arrancamos", "arrancáis", "arrancan"],
+          "Pretérito Indefinido": ["arranqué", "arrancaste", "arrancó", "arrancamos", "arrancasteis", "arrancaron"],
+          "Pretérito Perfecto": ["he arrancado", "has arrancado", "ha arrancado", "hemos arrancado", "habéis arrancado", "han arrancado"],
+          "Pretérito Imperfecto": ["arrancaba", "arrancabas", "arrancaba", "arrancábamos", "arrancabais", "arrancaban"],
+          "Futuro": ["arrancaré", "arrancarás", "arrancará", "arrancaremos", "arrancaréis", "arrancarán"]
         },
         "Atravesar": {
-          "Presente": ["atravieso", "atraviesas", "atraviesa", "atravesamos", "atravesÃ¡is", "atraviesan"],
-          "PretÃ©rito Indefinido": ["atravesÃ©", "atravesaste", "atravesÃ³", "atravesamos", "atravesasteis", "atravesaron"],
-          "PretÃ©rito Perfecto": ["he atravesado", "has atravesado", "ha atravesado", "hemos atravesado", "habÃ©is atravesado", "han atravesado"],
-          "PretÃ©rito Imperfecto": ["atravesaba", "atravesabas", "atravesaba", "atravesÃ¡bamos", "atravesabais", "atravesaban"],
-          "Futuro": ["atravesarÃ©", "atravesarÃ¡s", "atravesarÃ¡", "atravesaremos", "atravesarÃ©is", "atravesarÃ¡n"]
+          "Presente": ["atravieso", "atraviesas", "atraviesa", "atravesamos", "atravesáis", "atraviesan"],
+          "Pretérito Indefinido": ["atravesé", "atravesaste", "atravesó", "atravesamos", "atravesasteis", "atravesaron"],
+          "Pretérito Perfecto": ["he atravesado", "has atravesado", "ha atravesado", "hemos atravesado", "habéis atravesado", "han atravesado"],
+          "Pretérito Imperfecto": ["atravesaba", "atravesabas", "atravesaba", "atravesábamos", "atravesabais", "atravesaban"],
+          "Futuro": ["atravesaré", "atravesarás", "atravesará", "atravesaremos", "atravesaréis", "atravesarán"]
         },
         "Caber": {
-          "Presente": ["quepo", "cabes", "cabe", "cabemos", "cabÃ©is", "caben"],
-          "PretÃ©rito Indefinido": ["cupe", "cupiste", "cupo", "cupimos", "cupisteis", "cupieron"],
-          "PretÃ©rito Perfecto": ["he cabido", "has cabido", "ha cabido", "hemos cabido", "habÃ©is cabido", "han cabido"],
-          "PretÃ©rito Imperfecto": ["cabÃ­a", "cabÃ­as", "cabÃ­a", "cabÃ­amos", "cabÃ­ais", "cabÃ­an"],
-          "Futuro": ["cabrÃ©", "cabrÃ¡s", "cabrÃ¡", "cabremos", "cabrÃ©is", "cabrÃ¡n"]
+          "Presente": ["quepo", "cabes", "cabe", "cabemos", "cabéis", "caben"],
+          "Pretérito Indefinido": ["cupe", "cupiste", "cupo", "cupimos", "cupisteis", "cupieron"],
+          "Pretérito Perfecto": ["he cabido", "has cabido", "ha cabido", "hemos cabido", "habéis cabido", "han cabido"],
+          "Pretérito Imperfecto": ["cabía", "cabías", "cabía", "cabíamos", "cabíais", "cabían"],
+          "Futuro": ["cabré", "cabrás", "cabrá", "cabremos", "cabréis", "cabrán"]
         },
         "Calentar": {
-          "Presente": ["caliento", "calientas", "calienta", "calentamos", "calentÃ¡is", "calientan"],
-          "PretÃ©rito Indefinido": ["calentÃ©", "calentaste", "calentÃ³", "calentamos", "calentasteis", "calentaron"],
-          "PretÃ©rito Perfecto": ["he calentado", "has calentado", "ha calentado", "hemos calentado", "habÃ©is calentado", "han calentado"],
-          "PretÃ©rito Imperfecto": ["calentaba", "calentabas", "calentaba", "calentÃ¡bamos", "calentabais", "calentaban"],
-          "Futuro": ["calentarÃ©", "calentarÃ¡s", "calentarÃ¡", "calentaremos", "calentarÃ©is", "calentarÃ¡n"]
+          "Presente": ["caliento", "calientas", "calienta", "calentamos", "calentáis", "calientan"],
+          "Pretérito Indefinido": ["calenté", "calentaste", "calentó", "calentamos", "calentasteis", "calentaron"],
+          "Pretérito Perfecto": ["he calentado", "has calentado", "ha calentado", "hemos calentado", "habéis calentado", "han calentado"],
+          "Pretérito Imperfecto": ["calentaba", "calentabas", "calentaba", "calentábamos", "calentabais", "calentaban"],
+          "Futuro": ["calentaré", "calentarás", "calentará", "calentaremos", "calentaréis", "calentarán"]
         },
         "Comenzar": {
-          "Presente": ["comienzo", "comienzas", "comienza", "comenzamos", "comenzÃ¡is", "comienzan"],
-          "PretÃ©rito Indefinido": ["comencÃ©", "comenzaste", "comenzÃ³", "comenzamos", "comenzasteis", "comenzaron"],
-          "PretÃ©rito Perfecto": ["he comenzado", "has comenzado", "ha comenzado", "hemos comenzado", "habÃ©is comenzado", "han comenzado"],
-          "PretÃ©rito Imperfecto": ["comenzaba", "comenzabas", "comenzaba", "comenzÃ¡bamos", "comenzabais", "comenzaban"],
-          "Futuro": ["comenzarÃ©", "comenzarÃ¡s", "comenzarÃ¡", "comenzaremos", "comenzarÃ©is", "comenzarÃ¡n"]
+          "Presente": ["comienzo", "comienzas", "comienza", "comenzamos", "comenzáis", "comienzan"],
+          "Pretérito Indefinido": ["comencé", "comenzaste", "comenzó", "comenzamos", "comenzasteis", "comenzaron"],
+          "Pretérito Perfecto": ["he comenzado", "has comenzado", "ha comenzado", "hemos comenzado", "habéis comenzado", "han comenzado"],
+          "Pretérito Imperfecto": ["comenzaba", "comenzabas", "comenzaba", "comenzábamos", "comenzabais", "comenzaban"],
+          "Futuro": ["comenzaré", "comenzarás", "comenzará", "comenzaremos", "comenzaréis", "comenzarán"]
+        },
+		"Conducir": {
+          "Presente": ["conduzco", "conduces", "conduce", "conducemos", "conducéis", "conducen"],
+          "Pretérito Indefinido": ["conduje", "condujiste", "condujo", "condujimos", "condujisteis", "condujeron"],
+          "Pretérito Perfecto": ["he conducido", "has conducido", "ha conducido", "hemos conducido", "habéis conducido", "han conducido"],
+          "Pretérito Imperfecto": ["conducía", "conducías", "conducía", "conducíamos", "conducíais", "conducían"],
+          "Futuro": ["conduciré", "conducirás", "conducirá", "conduciremos", "conduciréis", "conducirán"]
         },
         "Cubrir": {
-          "Presente": ["cubro", "cubres", "cubre", "cubrimos", "cubrÃ­s", "cubren"],
-          "PretÃ©rito Indefinido": ["cubrÃ­", "cubriste", "cubriÃ³", "cubrimos", "cubristeis", "cubrieron"],
-          "PretÃ©rito Perfecto": ["he cubierto", "has cubierto", "ha cubierto", "hemos cubierto", "habÃ©is cubierto", "han cubierto"],
-          "PretÃ©rito Imperfecto": ["cubrÃ­a", "cubrÃ­as", "cubrÃ­a", "cubrÃ­amos", "cubrÃ­ais", "cubrÃ­an"],
-          "Futuro": ["cubrirÃ©", "cubrirÃ¡s", "cubrirÃ¡", "cubriremos", "cubrirÃ©is", "cubrirÃ¡n"]
+          "Presente": ["cubro", "cubres", "cubre", "cubrimos", "cubrís", "cubren"],
+          "Pretérito Indefinido": ["cubrí", "cubriste", "cubrió", "cubrimos", "cubristeis", "cubrieron"],
+          "Pretérito Perfecto": ["he cubierto", "has cubierto", "ha cubierto", "hemos cubierto", "habéis cubierto", "han cubierto"],
+          "Pretérito Imperfecto": ["cubría", "cubrías", "cubría", "cubríamos", "cubríais", "cubrían"],
+          "Futuro": ["cubriré", "cubrirás", "cubrirá", "cubriremos", "cubriréis", "cubrirán"]
         },
         "Dar": {
           "Presente": ["doy", "das", "da", "damos", "dais", "dan"],
-          "PretÃ©rito Indefinido": ["di", "diste", "dio", "dimos", "disteis", "dieron"],
-          "PretÃ©rito Perfecto": ["he dado", "has dado", "ha dado", "hemos dado", "habÃ©is dado", "han dado"],
-          "PretÃ©rito Imperfecto": ["daba", "dabas", "daba", "dÃ¡bamos", "dabais", "daban"],
-          "Futuro": ["darÃ©", "darÃ¡s", "darÃ¡", "daremos", "darÃ©is", "darÃ¡n"]
+          "Pretérito Indefinido": ["di", "diste", "dio", "dimos", "disteis", "dieron"],
+          "Pretérito Perfecto": ["he dado", "has dado", "ha dado", "hemos dado", "habéis dado", "han dado"],
+          "Pretérito Imperfecto": ["daba", "dabas", "daba", "dábamos", "dabais", "daban"],
+          "Futuro": ["daré", "darás", "dará", "daremos", "daréis", "darán"]
         },
         "Decir": {
-          "Presente": ["digo", "dices", "dice", "decimos", "decÃ­s", "dicen"],
-          "PretÃ©rito Indefinido": ["dije", "dijiste", "dijo", "dijimos", "dijisteis", "dijeron"],
-          "PretÃ©rito Perfecto": ["he dicho", "has dicho", "ha dicho", "hemos dicho", "habÃ©is dicho", "han dicho"],
-          "PretÃ©rito Imperfecto": ["decÃ­a", "decÃ­as", "decÃ­a", "decÃ­amos", "decÃ­ais", "decÃ­an"],
-          "Futuro": ["dirÃ©", "dirÃ¡s", "dirÃ¡", "diremos", "dirÃ©is", "dirÃ¡n"]
+          "Presente": ["digo", "dices", "dice", "decimos", "decís", "dicen"],
+          "Pretérito Indefinido": ["dije", "dijiste", "dijo", "dijimos", "dijisteis", "dijeron"],
+          "Pretérito Perfecto": ["he dicho", "has dicho", "ha dicho", "hemos dicho", "habéis dicho", "han dicho"],
+          "Pretérito Imperfecto": ["decía", "decías", "decía", "decíamos", "decíais", "decían"],
+          "Futuro": ["diré", "dirás", "dirá", "diremos", "diréis", "dirán"]
         },
         "Descubrir": {
-          "Presente": ["descubro", "descubres", "descubre", "descubrimos", "descubrÃ­s", "descubren"],
-          "PretÃ©rito Indefinido": ["descubrÃ­", "descubriste", "descubriÃ³", "descubrimos", "descubristeis", "descubrieron"],
-          "PretÃ©rito Perfecto": ["he descubierto", "has descubierto", "ha descubierto", "hemos descubierto", "habÃ©is descubierto", "han descubierto"],
-          "PretÃ©rito Imperfecto": ["descubrÃ­a", "descubrÃ­as", "descubrÃ­a", "descubrÃ­amos", "descubrÃ­ais", "descubrÃ­an"],
-          "Futuro": ["descubrirÃ©", "descubrirÃ¡s", "descubrirÃ¡", "descubriremos", "descubrirÃ©is", "descubrirÃ¡n"]
+          "Presente": ["descubro", "descubres", "descubre", "descubrimos", "descubrís", "descubren"],
+          "Pretérito Indefinido": ["descubrí", "descubriste", "descubrió", "descubrimos", "descubristeis", "descubrieron"],
+          "Pretérito Perfecto": ["he descubierto", "has descubierto", "ha descubierto", "hemos descubierto", "habéis descubierto", "han descubierto"],
+          "Pretérito Imperfecto": ["descubría", "descubrías", "descubría", "descubríamos", "descubríais", "descubrían"],
+          "Futuro": ["descubriré", "descubrirás", "descubrirá", "descubriremos", "descubriréis", "descubrirán"]
         },
 	    "Despertar": {
-          "Presente": ["despierto", "despiertas", "despierta", "despertamos", "despertÃ¡is", "despiertan"],
-          "PretÃ©rito Indefinido": ["despertÃ©", "despertaste", "despertÃ³", "despertamos", "despertasteis", "despertaron"],
-          "PretÃ©rito Perfecto": ["he despertado", "has despertado", "ha despertado", "hemos despertado", "habÃ©is despertado", "han despertado"],
-          "PretÃ©rito Imperfecto": ["despertaba", "despertabas", "despertaba", "despertÃ¡bamos", "despertabais", "despertaban"],
-          "Futuro": ["despertarÃ©", "despertarÃ¡s", "despertarÃ¡", "despertaremos", "despertarÃ©is", "despertarÃ¡n"]
+          "Presente": ["despierto", "despiertas", "despierta", "despertamos", "despertáis", "despiertan"],
+          "Pretérito Indefinido": ["desperté", "despertaste", "despertó", "despertamos", "despertasteis", "despertaron"],
+          "Pretérito Perfecto": ["he despertado", "has despertado", "ha despertado", "hemos despertado", "habéis despertado", "han despertado"],
+          "Pretérito Imperfecto": ["despertaba", "despertabas", "despertaba", "despertábamos", "despertabais", "despertaban"],
+          "Futuro": ["despertaré", "despertarás", "despertará", "despertaremos", "despertaréis", "despertarán"]
         },
 		"Dormir": {
-	      "Presente": ["duermo", "duermes", "duerme", "dormimos", "dormÃ­s", "duermen"],
-	      "PretÃ©rito Indefinido": ["dormÃ­", "dormiste", "durmiÃ³", "dormimos", "dormisteis", "durmieron"],
-	      "PretÃ©rito Perfecto": ["he dormido", "has dormido", "ha dormido", "hemos dormido", "habÃ©is dormido", "han dormido"],
-	      "PretÃ©rito Imperfecto": ["dormÃ­a", "dormÃ­as", "dormÃ­a", "dormÃ­amos", "dormÃ­ais", "dormÃ­an"],
-	      "Futuro": ["dormirÃ©", "dormirÃ¡s", "dormirÃ¡", "dormiremos", "dormirÃ©is", "dormirÃ¡n"]
+	      "Presente": ["duermo", "duermes", "duerme", "dormimos", "dormís", "duermen"],
+	      "Pretérito Indefinido": ["dormí", "dormiste", "durmió", "dormimos", "dormisteis", "durmieron"],
+	      "Pretérito Perfecto": ["he dormido", "has dormido", "ha dormido", "hemos dormido", "habéis dormido", "han dormido"],
+	      "Pretérito Imperfecto": ["dormía", "dormías", "dormía", "dormíamos", "dormíais", "dormían"],
+	      "Futuro": ["dormiré", "dormirás", "dormirá", "dormiremos", "dormiréis", "dormirán"]
 	    },
 	    "Empezar": {
-          "Presente": ["empiezo", "empiezas", "empieza", "empezamos", "empezÃ¡is", "empiezan"],
-          "PretÃ©rito Indefinido": ["empecÃ©", "empezaste", "empezÃ³", "empezamos", "empezasteis", "empezaron"],
-          "PretÃ©rito Perfecto": ["he empezado", "has empezado", "ha empezado", "hemos empezado", "habÃ©is empezado", "han empezado"],
-          "PretÃ©rito Imperfecto": ["empezaba", "empezabas", "empezaba", "empezÃ¡bamos", "empezabais", "empezaban"],
-          "Futuro": ["empezarÃ©", "empezarÃ¡s", "empezarÃ¡", "empezaremos", "empezarÃ©is", "empezarÃ¡n"]
+          "Presente": ["empiezo", "empiezas", "empieza", "empezamos", "empezáis", "empiezan"],
+          "Pretérito Indefinido": ["empecé", "empezaste", "empezó", "empezamos", "empezasteis", "empezaron"],
+          "Pretérito Perfecto": ["he empezado", "has empezado", "ha empezado", "hemos empezado", "habéis empezado", "han empezado"],
+          "Pretérito Imperfecto": ["empezaba", "empezabas", "empezaba", "empezábamos", "empezabais", "empezaban"],
+          "Futuro": ["empezaré", "empezarás", "empezará", "empezaremos", "empezaréis", "empezarán"]
         },
 		"Encender": {
-          "Presente": ["enciendo", "enciendes", "enciende", "encendemos", "encendÃ©is", "encienden"],
-          "PretÃ©rito Indefinido": ["encendÃ­", "encendiste", "encendiÃ³", "encendimos", "encendisteis", "encendieron"],
-          "PretÃ©rito Perfecto": ["he encendido", "has encendido", "ha encendido", "hemos encendido", "habÃ©is encendido", "han encendido"],
-          "PretÃ©rito Imperfecto": ["encendÃ­a", "encendÃ­as", "encendÃ­a", "encendÃ­amos", "encendÃ­ais", "encendÃ­an"],
-          "Futuro": ["encenderÃ©", "encenderÃ¡s", "encenderÃ¡", "encenderemos", "encenderÃ©is", "encenderÃ¡n"]
+          "Presente": ["enciendo", "enciendes", "enciende", "encendemos", "encendéis", "encienden"],
+          "Pretérito Indefinido": ["encendí", "encendiste", "encendió", "encendimos", "encendisteis", "encendieron"],
+          "Pretérito Perfecto": ["he encendido", "has encendido", "ha encendido", "hemos encendido", "habéis encendido", "han encendido"],
+          "Pretérito Imperfecto": ["encendía", "encendías", "encendía", "encendíamos", "encendíais", "encendían"],
+          "Futuro": ["encenderé", "encenderás", "encenderá", "encenderemos", "encenderéis", "encenderán"]
         },
         "Encerrar": {
-          "Presente": ["encierro", "encierras", "encierra", "encerramos", "encerrÃ¡is", "encierran"],
-          "PretÃ©rito Indefinido": ["encerrÃ©", "encerraste", "encerrÃ³", "encerramos", "encerrasteis", "encerraron"],
-          "PretÃ©rito Perfecto": ["he encerrado", "has encerrado", "ha encerrado", "hemos encerrado", "habÃ©is encerrado", "han encerrado"],
-          "PretÃ©rito Imperfecto": ["encerraba", "encerrabas", "encerraba", "encerrÃ¡bamos", "encerrabais", "encerraban"],
-          "Futuro": ["encerrarÃ©", "encerrarÃ¡s", "encerrarÃ¡", "encerraremos", "encerrarÃ©is", "encerrarÃ¡n"]
+          "Presente": ["encierro", "encierras", "encierra", "encerramos", "encerráis", "encierran"],
+          "Pretérito Indefinido": ["encerré", "encerraste", "encerró", "encerramos", "encerrasteis", "encerraron"],
+          "Pretérito Perfecto": ["he encerrado", "has encerrado", "ha encerrado", "hemos encerrado", "habéis encerrado", "han encerrado"],
+          "Pretérito Imperfecto": ["encerraba", "encerrabas", "encerraba", "encerrábamos", "encerrabais", "encerraban"],
+          "Futuro": ["encerraré", "encerrarás", "encerrará", "encerraremos", "encerraréis", "encerrarán"]
+        },
+		"Encontrar": {
+          "Presente": ["encuentro", "encuentras", "encuentra", "encontramos", "encontráis", "encuentran"],
+          "Pretérito Indefinido": ["encontré", "encontraste", "encontró", "encontramos", "encontrasteis", "encontraron"],
+          "Pretérito Perfecto": ["he encontrado", "has encontrado", "ha encontrado", "hemos encontrado", "habéis encontrado", "han encontrado"],
+          "Pretérito Imperfecto": ["encontraba", "encontrabas", "encontraba", "encontrábamos", "encontrabais", "encontraban"],
+          "Futuro": ["encontraré", "encontrarás", "encontrará", "encontraremos", "encontraréis", "encontrarán"]
         },
 		"Enfriar": {
-          "Presente": ["enfrÃ­o", "enfrÃ­as", "enfrÃ­a", "enfriamos", "enfriÃ¡is", "enfrÃ­an"],
-          "PretÃ©rito Indefinido": ["enfriÃ©", "enfriaste", "enfriÃ³", "enfriamos", "enfriasteis", "enfriaron"],
-          "PretÃ©rito Perfecto": ["he enfriado", "has enfriado", "ha enfriado", "hemos enfriado", "habÃ©is enfriado", "han enfriado"],
-          "PretÃ©rito Imperfecto": ["enfriaba", "enfriabas", "enfriaba", "enfriÃ¡bamos", "enfriabais", "enfriaban"],
-          "Futuro": ["enfriarÃ©", "enfriarÃ¡s", "enfriarÃ¡", "enfriaremos", "enfriarÃ©is", "enfriarÃ¡n"]
+          "Presente": ["enfrío", "enfrías", "enfría", "enfriamos", "enfriáis", "enfrían"],
+          "Pretérito Indefinido": ["enfrié", "enfriaste", "enfrió", "enfriamos", "enfriasteis", "enfriaron"],
+          "Pretérito Perfecto": ["he enfriado", "has enfriado", "ha enfriado", "hemos enfriado", "habéis enfriado", "han enfriado"],
+          "Pretérito Imperfecto": ["enfriaba", "enfriabas", "enfriaba", "enfriábamos", "enfriabais", "enfriaban"],
+          "Futuro": ["enfriaré", "enfriarás", "enfriará", "enfriaremos", "enfriaréis", "enfriarán"]
         },
         "Escribir": {
-          "Presente": ["escribo", "escribes", "escribe", "escribimos", "escribÃ­s", "escriben"],
-          "PretÃ©rito Indefinido": ["escribÃ­", "escribiste", "escribiÃ³", "escribimos", "escribisteis", "escribieron"],
-          "PretÃ©rito Perfecto": ["he escrito", "has escrito", "ha escrito", "hemos escrito", "habÃ©is escrito", "han escrito"],
-          "PretÃ©rito Imperfecto": ["escribÃ­a", "escribÃ­as", "escribÃ­a", "escribÃ­amos", "escribÃ­ais", "escribÃ­an"],
-          "Futuro": ["escribirÃ©", "escribirÃ¡s", "escribirÃ¡", "escribiremos", "escribirÃ©is", "escribirÃ¡n"]
+          "Presente": ["escribo", "escribes", "escribe", "escribimos", "escribís", "escriben"],
+          "Pretérito Indefinido": ["escribí", "escribiste", "escribió", "escribimos", "escribisteis", "escribieron"],
+          "Pretérito Perfecto": ["he escrito", "has escrito", "ha escrito", "hemos escrito", "habéis escrito", "han escrito"],
+          "Pretérito Imperfecto": ["escribía", "escribías", "escribía", "escribíamos", "escribíais", "escribían"],
+          "Futuro": ["escribiré", "escribirás", "escribirá", "escribiremos", "escribiréis", "escribirán"]
         },
 	    "Estar": {
-          "Presente": ["estoy", "estÃ¡s", "estÃ¡", "estamos", "estÃ¡is", "estÃ¡n"],
-          "PretÃ©rito Indefinido": ["estuve", "estuviste", "estuvo", "estuvimos", "estuvisteis", "estuvieron"],
-	      "PretÃ©rito Perfecto": ["he estado", "has estado", "ha estado", "hemos estado", "habÃ©is estado", "han estado"],
-	      "PretÃ©rito Imperfecto": ["estaba", "estabas", "estaba", "estÃ¡bamos", "estabais", "estaban"],
-	      "Futuro": ["estarÃ©", "estarÃ¡s", "estarÃ¡", "estaremos", "estarÃ©is", "estarÃ¡n"]
+          "Presente": ["estoy", "estás", "está", "estamos", "estáis", "están"],
+          "Pretérito Indefinido": ["estuve", "estuviste", "estuvo", "estuvimos", "estuvisteis", "estuvieron"],
+	      "Pretérito Perfecto": ["he estado", "has estado", "ha estado", "hemos estado", "habéis estado", "han estado"],
+	      "Pretérito Imperfecto": ["estaba", "estabas", "estaba", "estábamos", "estabais", "estaban"],
+	      "Futuro": ["estaré", "estarás", "estará", "estaremos", "estaréis", "estarán"]
         },
         "Gobernar": {
-	      "Presente": ["gobierno", "gobiernas", "gobierna", "gobernamos", "gobernÃ¡is", "gobiernan"],
-	      "PretÃ©rito Indefinido": ["gobernÃ©", "gobernaste", "gobernÃ³", "gobernamos", "gobernasteis", "gobernaron"],
-	      "PretÃ©rito Perfecto": ["he gobernado", "has gobernado", "ha gobernado", "hemos gobernado", "habÃ©is gobernado", "han gobernado"],
-	      "PretÃ©rito Imperfecto": ["gobernaba", "gobernabas", "gobernaba", "gobernÃ¡bamos", "gobernabais", "gobernaban"],
-	      "Futuro": ["gobernarÃ©", "gobernarÃ¡s", "gobernarÃ¡", "gobernaremos", "gobernarÃ©is", "gobernarÃ¡n"]
+	      "Presente": ["gobierno", "gobiernas", "gobierna", "gobernamos", "gobernáis", "gobiernan"],
+	      "Pretérito Indefinido": ["goberné", "gobernaste", "gobernó", "gobernamos", "gobernasteis", "gobernaron"],
+	      "Pretérito Perfecto": ["he gobernado", "has gobernado", "ha gobernado", "hemos gobernado", "habéis gobernado", "han gobernado"],
+	      "Pretérito Imperfecto": ["gobernaba", "gobernabas", "gobernaba", "gobernábamos", "gobernabais", "gobernaban"],
+	      "Futuro": ["gobernaré", "gobernarás", "gobernará", "gobernaremos", "gobernaréis", "gobernarán"]
 	    },
 	    "Haber": {
-	      "Presente": ["he", "has", "ha", "hemos", "habÃ©is", "han"],
-	      "PretÃ©rito Indefinido": ["hube", "hubiste", "hubo", "hubimos", "hubisteis", "hubieron"],
-	      "PretÃ©rito Perfecto": ["he habido", "has habido", "ha habido", "hemos habido", "habÃ©is habido", "han habido"],
-	      "PretÃ©rito Imperfecto": ["habÃ­a", "habÃ­as", "habÃ­a", "habÃ­amos", "habÃ­ais", "habÃ­an"],
-	      "Futuro": ["habrÃ©", "habrÃ¡s", "habrÃ¡", "habremos", "habrÃ©is", "habrÃ¡n"]
+	      "Presente": ["he", "has", "ha", "hemos", "habéis", "han"],
+	      "Pretérito Indefinido": ["hube", "hubiste", "hubo", "hubimos", "hubisteis", "hubieron"],
+	      "Pretérito Perfecto": ["he habido", "has habido", "ha habido", "hemos habido", "habéis habido", "han habido"],
+	      "Pretérito Imperfecto": ["había", "habías", "había", "habíamos", "habíais", "habían"],
+	      "Futuro": ["habré", "habrás", "habrá", "habremos", "habréis", "habrán"]
 	    },
 	    "Hacer": {
-	      "Presente": ["hago", "haces", "hace", "hacemos", "hacÃ©is", "hacen"],
-	      "PretÃ©rito Indefinido": ["hice", "hiciste", "hizo", "hicimos", "hicisteis", "hicieron"],
-	      "PretÃ©rito Perfecto": ["he hecho", "has hecho", "ha hecho", "hemos hecho", "habÃ©is hecho", "han hecho"],
-	      "PretÃ©rito Imperfecto": ["hacÃ­a", "hacÃ­as", "hacÃ­a", "hacÃ­amos", "hacÃ­ais", "hacÃ­an"],
-	      "Futuro": ["harÃ©", "harÃ¡s", "harÃ¡", "haremos", "harÃ©is", "harÃ¡n"]
+	      "Presente": ["hago", "haces", "hace", "hacemos", "hacéis", "hacen"],
+	      "Pretérito Indefinido": ["hice", "hiciste", "hizo", "hicimos", "hicisteis", "hicieron"],
+	      "Pretérito Perfecto": ["he hecho", "has hecho", "ha hecho", "hemos hecho", "habéis hecho", "han hecho"],
+	      "Pretérito Imperfecto": ["hacía", "hacías", "hacía", "hacíamos", "hacíais", "hacían"],
+	      "Futuro": ["haré", "harás", "hará", "haremos", "haréis", "harán"]
 	    },
 		"Invernar": {
-          "Presente": ["invierno", "inviernas", "invierna", "invernamos", "invernÃ¡is", "inviernan"],
-          "PretÃ©rito Indefinido": ["invernÃ©", "invernaste", "invernÃ³", "invernamos", "invernasteis", "invernaron"],
-          "PretÃ©rito Perfecto": ["he invernado", "has invernado", "ha invernado", "hemos invernado", "habÃ©is invernado", "han invernado"],
-          "PretÃ©rito Imperfecto": ["invernaba", "invernabas", "invernaba", "invernÃ¡bamos", "invernabais", "invernaban"],
-          "Futuro": ["invernarÃ©", "invernarÃ¡s", "invernarÃ¡", "invernaremos", "invernarÃ©is", "invernarÃ¡n"]
+          "Presente": ["invierno", "inviernas", "invierna", "invernamos", "invernáis", "inviernan"],
+          "Pretérito Indefinido": ["inverné", "invernaste", "invernó", "invernamos", "invernasteis", "invernaron"],
+          "Pretérito Perfecto": ["he invernado", "has invernado", "ha invernado", "hemos invernado", "habéis invernado", "han invernado"],
+          "Pretérito Imperfecto": ["invernaba", "invernabas", "invernaba", "invernábamos", "invernabais", "invernaban"],
+          "Futuro": ["invernaré", "invernarás", "invernará", "invernaremos", "invernaréis", "invernarán"]
         },
 	    "Ir": {
 	      "Presente": ["voy", "vas", "va", "vamos", "vais", "van"],
-	      "PretÃ©rito Indefinido": ["fui", "fuiste", "fue", "fuimos", "fuisteis", "fueron"],
-	      "PretÃ©rito Perfecto": ["he ido", "has ido", "ha ido", "hemos ido", "habÃ©is ido", "han ido"],
-	      "PretÃ©rito Imperfecto": ["iba", "ibas", "iba", "Ã­bamos", "ibais", "iban"],
-	      "Futuro": ["irÃ©", "irÃ¡s", "irÃ¡", "iremos", "irÃ©is", "irÃ¡n"]
+	      "Pretérito Indefinido": ["fui", "fuiste", "fue", "fuimos", "fuisteis", "fueron"],
+	      "Pretérito Perfecto": ["he ido", "has ido", "ha ido", "hemos ido", "habéis ido", "han ido"],
+	      "Pretérito Imperfecto": ["iba", "ibas", "iba", "íbamos", "ibais", "iban"],
+	      "Futuro": ["iré", "irás", "irá", "iremos", "iréis", "irán"]
 	    },
 	    "Morir": {
-	      "Presente": ["muero", "mueres", "muere", "morimos", "morÃ­s", "mueren"],
-	      "PretÃ©rito Indefinido": ["morÃ­", "moriste", "muriÃ³", "morimos", "moristeis", "murieron"],
-	      "PretÃ©rito Perfecto": ["he muerto", "has muerto", "ha muerto", "hemos muerto", "habÃ©is muerto", "han muerto"],
-	      "PretÃ©rito Imperfecto": ["morÃ­a", "morÃ­as", "morÃ­a", "morÃ­amos", "morÃ­ais", "morÃ­an"],
-	      "Futuro": ["morirÃ©", "morirÃ¡s", "morirÃ¡", "moriremos", "morirÃ©is", "morirÃ¡n"]
+	      "Presente": ["muero", "mueres", "muere", "morimos", "morís", "mueren"],
+	      "Pretérito Indefinido": ["morí", "moriste", "murió", "morimos", "moristeis", "murieron"],
+	      "Pretérito Perfecto": ["he muerto", "has muerto", "ha muerto", "hemos muerto", "habéis muerto", "han muerto"],
+	      "Pretérito Imperfecto": ["moría", "morías", "moría", "moríamos", "moríais", "morían"],
+	      "Futuro": ["moriré", "morirás", "morirá", "moriremos", "moriréis", "morirán"]
 	    },
 	    "Negar": {
-	      "Presente": ["niego", "niegas", "niega", "negamos", "negÃ¡is", "niegan"],
-	      "PretÃ©rito Indefinido": ["neguÃ©", "negaste", "negÃ³", "negamos", "negasteis", "negaron"],
-	      "PretÃ©rito Perfecto": ["he negado", "has negado", "ha negado", "hemos negado", "habÃ©is negado", "han negado"],
-	      "PretÃ©rito Imperfecto": ["negaba", "negabas", "negaba", "negÃ¡bamos", "negabais", "negaban"],
-	      "Futuro": ["negarÃ©", "negarÃ¡s", "negarÃ¡", "negaremos", "negarÃ©is", "negarÃ¡n"]
+	      "Presente": ["niego", "niegas", "niega", "negamos", "negáis", "niegan"],
+	      "Pretérito Indefinido": ["negué", "negaste", "negó", "negamos", "negasteis", "negaron"],
+	      "Pretérito Perfecto": ["he negado", "has negado", "ha negado", "hemos negado", "habéis negado", "han negado"],
+	      "Pretérito Imperfecto": ["negaba", "negabas", "negaba", "negábamos", "negabais", "negaban"],
+	      "Futuro": ["negaré", "negarás", "negará", "negaremos", "negaréis", "negarán"]
 	    },
-	    "OÃ­r": {
-	      "Presente": ["oigo", "oyes", "oye", "oÃ­mos", "oÃ­s", "oyen"],
-	      "PretÃ©rito Indefinido": ["oÃ­", "oÃ­ste", "oyÃ³", "oÃ­mos", "oÃ­steis", "oyeron"],
-	      "PretÃ©rito Perfecto": ["he oÃ­do", "has oÃ­do", "ha oÃ­do", "hemos oÃ­do", "habÃ©is oÃ­do", "han oÃ­do"],
-	      "PretÃ©rito Imperfecto": ["oÃ­a", "oÃ­as", "oÃ­a", "oÃ­amos", "oÃ­ais", "oÃ­an"],
-	      "Futuro": ["oirÃ©", "oirÃ¡s", "oirÃ¡", "oiremos", "oirÃ©is", "oirÃ¡n"]
+	    "Oír": {
+	      "Presente": ["oigo", "oyes", "oye", "oímos", "oís", "oyen"],
+	      "Pretérito Indefinido": ["oí", "oíste", "oyó", "oímos", "oísteis", "oyeron"],
+	      "Pretérito Perfecto": ["he oído", "has oído", "ha oído", "hemos oído", "habéis oído", "han oído"],
+	      "Pretérito Imperfecto": ["oía", "oías", "oía", "oíamos", "oíais", "oían"],
+	      "Futuro": ["oiré", "oirás", "oirá", "oiremos", "oiréis", "oirán"]
 	    },
 		"Pedir": {
-          "Presente": ["pido", "pides", "pide", "pedimos", "pedÃ­s", "piden"],
-          "PretÃ©rito Indefinido": ["pedÃ­", "pediste", "pidiÃ³", "pedimos", "pedisteis", "pidieron"],
-          "PretÃ©rito Perfecto": ["he pedido", "has pedido", "ha pedido", "hemos pedido", "habÃ©is pedido", "han pedido"],
-          "PretÃ©rito Imperfecto": ["pedÃ­a", "pedÃ­as", "pedÃ­a", "pedÃ­amos", "pedÃ­ais", "pedÃ­an"],
-          "Futuro": ["pedirÃ©", "pedirÃ¡s", "pedirÃ¡", "pediremos", "pedirÃ©is", "pedirÃ¡n"]
+          "Presente": ["pido", "pides", "pide", "pedimos", "pedís", "piden"],
+          "Pretérito Indefinido": ["pedí", "pediste", "pidió", "pedimos", "pedisteis", "pidieron"],
+          "Pretérito Perfecto": ["he pedido", "has pedido", "ha pedido", "hemos pedido", "habéis pedido", "han pedido"],
+          "Pretérito Imperfecto": ["pedía", "pedías", "pedía", "pedíamos", "pedíais", "pedían"],
+          "Futuro": ["pediré", "pedirás", "pedirá", "pediremos", "pediréis", "pedirán"]
         },
 	    "Pensar": {
-	      "Presente": ["pienso", "piensas", "piensa", "pensamos", "pensÃ¡is", "piensan"],
-	      "PretÃ©rito Indefinido": ["pensÃ©", "pensaste", "pensÃ³", "pensamos", "pensasteis", "pensaron"],
-	      "PretÃ©rito Perfecto": ["he pensado", "has pensado", "ha pensado", "hemos pensado", "habÃ©is pensado", "han pensado"],
-	      "PretÃ©rito Imperfecto": ["pensaba", "pensabas", "pensaba", "pensÃ¡bamos", "pensabais", "pensaban"],
-	      "Futuro": ["pensarÃ©", "pensarÃ¡s", "pensarÃ¡", "pensaremos", "pensarÃ©is", "pensarÃ¡n"]
+	      "Presente": ["pienso", "piensas", "piensa", "pensamos", "pensáis", "piensan"],
+	      "Pretérito Indefinido": ["pensé", "pensaste", "pensó", "pensamos", "pensasteis", "pensaron"],
+	      "Pretérito Perfecto": ["he pensado", "has pensado", "ha pensado", "hemos pensado", "habéis pensado", "han pensado"],
+	      "Pretérito Imperfecto": ["pensaba", "pensabas", "pensaba", "pensábamos", "pensabais", "pensaban"],
+	      "Futuro": ["pensaré", "pensarás", "pensará", "pensaremos", "pensaréis", "pensarán"]
 	    },
 	    "Poder": {
-	      "Presente": ["puedo", "puedes", "puede", "podemos", "podÃ©is", "pueden"],
-	      "PretÃ©rito Indefinido": ["pude", "pudiste", "pudo", "pudimos", "pudisteis", "pudieron"],
-	      "PretÃ©rito Perfecto": ["he podido", "has podido", "ha podido", "hemos podido", "habÃ©is podido", "han podido"],
-	      "PretÃ©rito Imperfecto": ["podÃ­a", "podÃ­as", "podÃ­a", "podÃ­amos", "podÃ­ais", "podÃ­an"],
-	      "Futuro": ["podrÃ©", "podrÃ¡s", "podrÃ¡", "podremos", "podrÃ©is", "podrÃ¡n"]
+	      "Presente": ["puedo", "puedes", "puede", "podemos", "podéis", "pueden"],
+	      "Pretérito Indefinido": ["pude", "pudiste", "pudo", "pudimos", "pudisteis", "pudieron"],
+	      "Pretérito Perfecto": ["he podido", "has podido", "ha podido", "hemos podido", "habéis podido", "han podido"],
+	      "Pretérito Imperfecto": ["podía", "podías", "podía", "podíamos", "podíais", "podían"],
+	      "Futuro": ["podré", "podrás", "podrá", "podremos", "podréis", "podrán"]
 	    },
 	    "Poner": {
-	      "Presente": ["pongo", "pones", "pone", "ponemos", "ponÃ©is", "ponen"],
-	      "PretÃ©rito Indefinido": ["puse", "pusiste", "puso", "pusimos", "pusisteis", "pusieron"],
-	      "PretÃ©rito Perfecto": ["he puesto", "has puesto", "ha puesto", "hemos puesto", "habÃ©is puesto", "han puesto"],
-	      "PretÃ©rito Imperfecto": ["ponÃ­a", "ponÃ­as", "ponÃ­a", "ponÃ­amos", "ponÃ­ais", "ponÃ­an"],
-	      "Futuro": ["pondrÃ©", "pondrÃ¡s", "pondrÃ¡", "pondremos", "pondrÃ©is", "pondrÃ¡n"]
+	      "Presente": ["pongo", "pones", "pone", "ponemos", "ponéis", "ponen"],
+	      "Pretérito Indefinido": ["puse", "pusiste", "puso", "pusimos", "pusisteis", "pusieron"],
+	      "Pretérito Perfecto": ["he puesto", "has puesto", "ha puesto", "hemos puesto", "habéis puesto", "han puesto"],
+	      "Pretérito Imperfecto": ["ponía", "ponías", "ponía", "poníamos", "poníais", "ponían"],
+	      "Futuro": ["pondré", "pondrás", "pondrá", "pondremos", "pondréis", "pondrán"]
 	    },
 		"Preferir": {
-          "Presente": ["prefiero", "prefieres", "prefiere", "preferimos", "preferÃ­s", "prefieren"],
-          "PretÃ©rito Indefinido": ["preferÃ­", "preferiste", "prefiriÃ³", "preferimos", "preferisteis", "prefirieron"],
-          "PretÃ©rito Perfecto": ["he preferido", "has preferido", "ha preferido", "hemos preferido", "habÃ©is preferido", "han preferido"],
-          "PretÃ©rito Imperfecto": ["preferÃ­a", "preferÃ­as", "preferÃ­a", "preferÃ­amos", "preferÃ­ais", "preferÃ­an"],
-          "Futuro": ["preferirÃ©", "preferirÃ¡s", "preferirÃ¡", "preferiremos", "preferirÃ©is", "preferirÃ¡n"]
+          "Presente": ["prefiero", "prefieres", "prefiere", "preferimos", "preferís", "prefieren"],
+          "Pretérito Indefinido": ["preferí", "preferiste", "prefirió", "preferimos", "preferisteis", "prefirieron"],
+          "Pretérito Perfecto": ["he preferido", "has preferido", "ha preferido", "hemos preferido", "habéis preferido", "han preferido"],
+          "Pretérito Imperfecto": ["prefería", "preferías", "prefería", "preferíamos", "preferíais", "preferían"],
+          "Futuro": ["preferiré", "preferirás", "preferirá", "preferiremos", "preferiréis", "preferirán"]
         },
 	    "Querer": {
-	      "Presente": ["quiero", "quieres", "quiere", "queremos", "querÃ©is", "quieren"],
-	      "PretÃ©rito Indefinido": ["quise", "quisiste", "quiso", "quisimos", "quisisteis", "quisieron"],
-	      "PretÃ©rito Perfecto": ["he querido", "has querido", "ha querido", "hemos querido", "habÃ©is querido", "han querido"],
-	      "PretÃ©rito Imperfecto": ["querÃ­a", "querÃ­as", "querÃ­a", "querÃ­amos", "querÃ­ais", "querÃ­an"],
-	      "Futuro": ["querrÃ©", "querrÃ¡s", "querrÃ¡", "querremos", "querrÃ©is", "querrÃ¡n"]
+	      "Presente": ["quiero", "quieres", "quiere", "queremos", "queréis", "quieren"],
+	      "Pretérito Indefinido": ["quise", "quisiste", "quiso", "quisimos", "quisisteis", "quisieron"],
+	      "Pretérito Perfecto": ["he querido", "has querido", "ha querido", "hemos querido", "habéis querido", "han querido"],
+	      "Pretérito Imperfecto": ["quería", "querías", "quería", "queríamos", "queríais", "querían"],
+	      "Futuro": ["querré", "querrás", "querrá", "querremos", "querréis", "querrán"]
 	    },
 	    "Resolver": {
-	      "Presente": ["resuelvo", "resuelves", "resuelve", "resolvemos", "resolvÃ©is", "resuelven"],
-	      "PretÃ©rito Indefinido": ["resolvÃ­", "resolviste", "resolviÃ³", "resolvimos", "resolvisteis", "resolvieron"],
-	      "PretÃ©rito Perfecto": ["he resuelto", "has resuelto", "ha resuelto", "hemos resuelto", "habÃ©is resuelto", "han resuelto"],
-	      "PretÃ©rito Imperfecto": ["resolvÃ­a", "resolvÃ­as", "resolvÃ­a", "resolvÃ­amos", "resolvÃ­ais", "resolvÃ­an"],
-	      "Futuro": ["resolverÃ©", "resolverÃ¡s", "resolverÃ¡", "resolveremos", "resolverÃ©is", "resolverÃ¡n"]
+	      "Presente": ["resuelvo", "resuelves", "resuelve", "resolvemos", "resolvéis", "resuelven"],
+	      "Pretérito Indefinido": ["resolví", "resolviste", "resolvió", "resolvimos", "resolvisteis", "resolvieron"],
+	      "Pretérito Perfecto": ["he resuelto", "has resuelto", "ha resuelto", "hemos resuelto", "habéis resuelto", "han resuelto"],
+	      "Pretérito Imperfecto": ["resolvía", "resolvías", "resolvía", "resolvíamos", "resolvíais", "resolvían"],
+	      "Futuro": ["resolveré", "resolverás", "resolverá", "resolveremos", "resolveréis", "resolverán"]
 	    },
 	    "Romper": {
-	      "Presente": ["rompo", "rompes", "rompe", "rompemos", "rompÃ©is", "rompen"],
-	      "PretÃ©rito Indefinido": ["rompÃ­", "rompiste", "rompiÃ³", "rompimos", "rompisteis", "rompieron"],
-	      "PretÃ©rito Perfecto": ["he roto", "has roto", "ha roto", "hemos roto", "habÃ©is roto", "han roto"],
-	      "PretÃ©rito Imperfecto": ["rompÃ­a", "rompÃ­as", "rompÃ­a", "rompÃ­amos", "rompÃ­ais", "rompÃ­an"],
-	      "Futuro": ["romperÃ©", "romperÃ¡s", "romperÃ¡", "romperemos", "romperÃ©is", "romperÃ¡n"]
+	      "Presente": ["rompo", "rompes", "rompe", "rompemos", "rompéis", "rompen"],
+	      "Pretérito Indefinido": ["rompí", "rompiste", "rompió", "rompimos", "rompisteis", "rompieron"],
+	      "Pretérito Perfecto": ["he roto", "has roto", "ha roto", "hemos roto", "habéis roto", "han roto"],
+	      "Pretérito Imperfecto": ["rompía", "rompías", "rompía", "rompíamos", "rompíais", "rompían"],
+	      "Futuro": ["romperé", "romperás", "romperá", "romperemos", "romperéis", "romperán"]
 	    },
 	    "Saber": {
-	      "Presente": ["sÃ©", "sabes", "sabe", "sabemos", "sabÃ©is", "saben"],
-	      "PretÃ©rito Indefinido": ["supe", "supiste", "supo", "supimos", "supisteis", "supieron"],
-	      "PretÃ©rito Perfecto": ["he sabido", "has sabido", "ha sabido", "hemos sabido", "habÃ©is sabido", "han sabido"],
-	      "PretÃ©rito Imperfecto": ["sabÃ­a", "sabÃ­as", "sabÃ­a", "sabÃ­amos", "sabÃ­ais", "sabÃ­an"],
-	      "Futuro": ["sabrÃ©", "sabrÃ¡s", "sabrÃ¡", "sabremos", "sabrÃ©is", "sabrÃ¡n"]
+	      "Presente": ["sé", "sabes", "sabe", "sabemos", "sabéis", "saben"],
+	      "Pretérito Indefinido": ["supe", "supiste", "supo", "supimos", "supisteis", "supieron"],
+	      "Pretérito Perfecto": ["he sabido", "has sabido", "ha sabido", "hemos sabido", "habéis sabido", "han sabido"],
+	      "Pretérito Imperfecto": ["sabía", "sabías", "sabía", "sabíamos", "sabíais", "sabían"],
+	      "Futuro": ["sabré", "sabrás", "sabrá", "sabremos", "sabréis", "sabrán"]
 	    },
 	    "Sentar": {
-	      "Presente": ["siento", "sientas", "sienta", "sentamos", "sentÃ¡is", "sientan"],
-	      "PretÃ©rito Indefinido": ["sentÃ©", "sentaste", "sentÃ³", "sentamos", "sentasteis", "sentaron"],
-	      "PretÃ©rito Perfecto": ["he sentado", "has sentado", "ha sentado", "hemos sentado", "habÃ©is sentado", "han sentado"],
-	      "PretÃ©rito Imperfecto": ["sentaba", "sentabas", "sentaba", "sentÃ¡bamos", "sentabais", "sentaban"],
-	      "Futuro": ["sentarÃ©", "sentarÃ¡s", "sentarÃ¡", "sentaremos", "sentarÃ©is", "sentarÃ¡n"]
+	      "Presente": ["siento", "sientas", "sienta", "sentamos", "sentáis", "sientan"],
+	      "Pretérito Indefinido": ["senté", "sentaste", "sentó", "sentamos", "sentasteis", "sentaron"],
+	      "Pretérito Perfecto": ["he sentado", "has sentado", "ha sentado", "hemos sentado", "habéis sentado", "han sentado"],
+	      "Pretérito Imperfecto": ["sentaba", "sentabas", "sentaba", "sentábamos", "sentabais", "sentaban"],
+	      "Futuro": ["sentaré", "sentarás", "sentará", "sentaremos", "sentaréis", "sentarán"]
 	    },		
         "Ser": {
           "Presente": ["soy", "eres", "es", "somos", "sois", "son"],
-          "PretÃ©rito Indefinido": ["fui", "fuiste", "fue", "fuimos", "fuisteis", "fueron"],
-          "PretÃ©rito Perfecto": ["he sido", "has sido", "ha sido", "hemos sido", "habÃ©is sido", "han sido"],
-          "PretÃ©rito Imperfecto": ["era", "eras", "era", "Ã©ramos", "erais", "eran"],
-          "Futuro": ["serÃ©", "serÃ¡s", "serÃ¡", "seremos", "serÃ©is", "serÃ¡n"]
+          "Pretérito Indefinido": ["fui", "fuiste", "fue", "fuimos", "fuisteis", "fueron"],
+          "Pretérito Perfecto": ["he sido", "has sido", "ha sido", "hemos sido", "habéis sido", "han sido"],
+          "Pretérito Imperfecto": ["era", "eras", "era", "éramos", "erais", "eran"],
+          "Futuro": ["seré", "serás", "será", "seremos", "seréis", "serán"]
+        },
+		"Soltar": {
+          "Presente": ["suelto", "sueltas", "suelta", "soltamos", "soltáis", "sueltan"],
+          "Pretérito Indefinido": ["solté", "soltaste", "soltó", "soltamos", "soltasteis", "soltaron"],
+          "Pretérito Perfecto": ["he soltado", "has soltado", "ha soltado", "hemos soltado", "habéis soltado", "han soltado"],
+          "Pretérito Imperfecto": ["soltaba", "soltabas", "soltaba", "soltábamos", "soltabais", "soltaban"],
+          "Futuro": ["soltaré", "soltarás", "soltará", "soltaremos", "soltaréis", "soltarán"]
         },
         "Tener": {
-          "Presente": ["tengo", "tienes", "tiene", "tenemos", "tenÃ©is", "tienen"],
-          "PretÃ©rito Indefinido": ["tuve", "tuviste", "tuvo", "tuvimos", "tuvisteis", "tuvieron"],
-          "PretÃ©rito Perfecto": ["he tenido", "has tenido", "ha tenido", "hemos tenido", "habÃ©is tenido", "han tenido"],
-          "PretÃ©rito Imperfecto": ["tenÃ­a", "tenÃ­as", "tenÃ­a", "tenÃ­amos", "tenÃ­ais", "tenÃ­an"],
-          "Futuro": ["tendrÃ©", "tendrÃ¡s", "tendrÃ¡", "tendremos", "tendrÃ©is", "tendrÃ¡n"]
+          "Presente": ["tengo", "tienes", "tiene", "tenemos", "tenéis", "tienen"],
+          "Pretérito Indefinido": ["tuve", "tuviste", "tuvo", "tuvimos", "tuvisteis", "tuvieron"],
+          "Pretérito Perfecto": ["he tenido", "has tenido", "ha tenido", "hemos tenido", "habéis tenido", "han tenido"],
+          "Pretérito Imperfecto": ["tenía", "tenías", "tenía", "teníamos", "teníais", "tenían"],
+          "Futuro": ["tendré", "tendrás", "tendrá", "tendremos", "tendréis", "tendrán"]
         },
 		"Tocar": {
-          "Presente": ["toco", "tocas", "toca", "tocamos", "tocÃ¡is", "tocan"],
-          "PretÃ©rito Indefinido": ["toquÃ©", "tocaste", "tocÃ³", "tocamos", "tocasteis", "tocaron"],
-          "PretÃ©rito Perfecto": ["he tocado", "has tocado", "ha tocado", "hemos tocado", "habÃ©is tocado", "han tocado"],
-          "PretÃ©rito Imperfecto": ["tocaba", "tocabas", "tocaba", "tocÃ¡bamos", "tocabais", "tocaban"],
-          "Futuro": ["tocarÃ©", "tocarÃ¡s", "tocarÃ¡", "tocaremos", "tocarÃ©is", "tocarÃ¡n"]
+          "Presente": ["toco", "tocas", "toca", "tocamos", "tocáis", "tocan"],
+          "Pretérito Indefinido": ["toqué", "tocaste", "tocó", "tocamos", "tocasteis", "tocaron"],
+          "Pretérito Perfecto": ["he tocado", "has tocado", "ha tocado", "hemos tocado", "habéis tocado", "han tocado"],
+          "Pretérito Imperfecto": ["tocaba", "tocabas", "tocaba", "tocábamos", "tocabais", "tocaban"],
+          "Futuro": ["tocaré", "tocarás", "tocará", "tocaremos", "tocaréis", "tocarán"]
+        },
+		"Traducir": {
+          "Presente": ["traduzco", "traduces", "traduce", "traducemos", "traducéis", "traducen"],
+          "Pretérito Indefinido": ["traduje", "tradujiste", "tradujo", "tradujimos", "tradujisteis", "tradujeron"],
+          "Pretérito Perfecto": ["he traducido", "has traducido", "ha traducido", "hemos traducido", "habéis traducido", "han traducido"],
+          "Pretérito Imperfecto": ["traducía", "traducías", "traducía", "traducíamos", "traducíais", "traducían"],
+          "Futuro": ["traduciré", "traducirás", "traducirá", "traduceremos", "traduciréis", "traducirán"]
         },
 	    "Traer": {
-	      "Presente": ["traigo", "traes", "trae", "traemos", "traÃ©is", "traen"],
-	      "PretÃ©rito Indefinido": ["traje", "trajiste", "trajo", "trajimos", "trajisteis", "trajeron"],
-	      "PretÃ©rito Perfecto": ["he traÃ­do", "has traÃ­do", "ha traÃ­do", "hemos traÃ­do", "habÃ©is traÃ­do", "han traÃ­do"],
-	      "PretÃ©rito Imperfecto": ["traÃ­a", "traÃ­as", "traÃ­a", "traÃ­amos", "traÃ­ais", "traÃ­an"],
-	      "Futuro": ["traerÃ©", "traerÃ¡s", "traerÃ¡", "traeremos", "traerÃ©is", "traerÃ¡n"]
+	      "Presente": ["traigo", "traes", "trae", "traemos", "traéis", "traen"],
+	      "Pretérito Indefinido": ["traje", "trajiste", "trajo", "trajimos", "trajisteis", "trajeron"],
+	      "Pretérito Perfecto": ["he traído", "has traído", "ha traído", "hemos traído", "habéis traído", "han traído"],
+	      "Pretérito Imperfecto": ["traía", "traías", "traía", "traíamos", "traíais", "traían"],
+	      "Futuro": ["traeré", "traerás", "traerá", "traeremos", "traeréis", "traerán"]
 	    },
 	    "Venir": {
-	      "Presente": ["vengo", "vienes", "viene", "venimos", "venÃ­s", "vienen"],
-	      "PretÃ©rito Indefinido": ["vine", "viniste", "vino", "vinimos", "vinisteis", "vinieron"],
-	      "PretÃ©rito Perfecto": ["he venido", "has venido", "ha venido", "hemos venido", "habÃ©is venido", "han venido"],
-	      "PretÃ©rito Imperfecto": ["venÃ­a", "venÃ­as", "venÃ­a", "venÃ­amos", "venÃ­ais", "venÃ­an"],
-	      "Futuro": ["vendrÃ©", "vendrÃ¡s", "vendrÃ¡", "vendremos", "vendrÃ©is", "vendrÃ¡n"]
+	      "Presente": ["vengo", "vienes", "viene", "venimos", "venís", "vienen"],
+	      "Pretérito Indefinido": ["vine", "viniste", "vino", "vinimos", "vinisteis", "vinieron"],
+	      "Pretérito Perfecto": ["he venido", "has venido", "ha venido", "hemos venido", "habéis venido", "han venido"],
+	      "Pretérito Imperfecto": ["venía", "venías", "venía", "veníamos", "veníais", "venían"],
+	      "Futuro": ["vendré", "vendrás", "vendrá", "vendremos", "vendréis", "vendrán"]
 	    },
 	    "Ver": {
 	      "Presente": ["veo", "ves", "ve", "vemos", "veis", "ven"],
-	      "PretÃ©rito Indefinido": ["vi", "viste", "vio", "vimos", "visteis", "vieron"],
-	      "PretÃ©rito Perfecto": ["he visto", "has visto", "ha visto", "hemos visto", "habÃ©is visto", "han visto"],
-	      "PretÃ©rito Imperfecto": ["veÃ­a", "veÃ­as", "veÃ­a", "veÃ­amos", "veÃ­ais", "veÃ­an"],
-	      "Futuro": ["verÃ©", "verÃ¡s", "verÃ¡", "veremos", "verÃ©is", "verÃ¡n"]
+	      "Pretérito Indefinido": ["vi", "viste", "vio", "vimos", "visteis", "vieron"],
+	      "Pretérito Perfecto": ["he visto", "has visto", "ha visto", "hemos visto", "habéis visto", "han visto"],
+	      "Pretérito Imperfecto": ["veía", "veías", "veía", "veíamos", "veíais", "veían"],
+	      "Futuro": ["veré", "verás", "verá", "veremos", "veréis", "verán"]
 	    },
 		"Vestir": {
-	      "Presente": ["visto", "vistes", "viste", "vestimos", "vestÃ­s", "visten"],
-	      "PretÃ©rito Indefinido": ["vestÃ­", "vestiste", "vistiÃ³", "vestimos", "vestisteis", "vistieron"],
-	      "PretÃ©rito Perfecto": ["he vestido", "has vestido", "ha vestido", "hemos vestido", "habÃ©is vestido", "han vestido"],
-	      "PretÃ©rito Imperfecto": ["vestÃ­a", "vestÃ­as", "vestÃ­a", "vestÃ­amos", "vestÃ­ais", "vestÃ­an"],
-	      "Futuro": ["vestirÃ©", "vestirÃ¡s", "vestirÃ¡", "vestiremos", "vestirÃ©is", "vestirÃ¡n"]
+	      "Presente": ["visto", "vistes", "viste", "vestimos", "vestís", "visten"],
+	      "Pretérito Indefinido": ["vestí", "vestiste", "vistió", "vestimos", "vestisteis", "vistieron"],
+	      "Pretérito Perfecto": ["he vestido", "has vestido", "ha vestido", "hemos vestido", "habéis vestido", "han vestido"],
+	      "Pretérito Imperfecto": ["vestía", "vestías", "vestía", "vestíamos", "vestíais", "vestían"],
+	      "Futuro": ["vestiré", "vestirás", "vestirá", "vestiremos", "vestiréis", "vestirán"]
 	    },
 	    "Volver": {
-	      "Presente": ["vuelvo", "vuelves", "vuelve", "volvemos", "volvÃ©is", "vuelven"],
-	      "PretÃ©rito Indefinido": ["volvÃ­", "volviste", "volviÃ³", "volvimos", "volvisteis", "volvieron"],
-	      "PretÃ©rito Perfecto": ["he vuelto", "has vuelto", "ha vuelto", "hemos vuelto", "habÃ©is vuelto", "han vuelto"],
-	      "PretÃ©rito Imperfecto": ["volvÃ­a", "volvÃ­as", "volvÃ­a", "volvÃ­amos", "volvÃ­ais", "volvÃ­an"],
-	      "Futuro": ["volverÃ©", "volverÃ¡s", "volverÃ¡", "volveremos", "volverÃ©is", "volverÃ¡n"]
+	      "Presente": ["vuelvo", "vuelves", "vuelve", "volvemos", "volvéis", "vuelven"],
+	      "Pretérito Indefinido": ["volví", "volviste", "volvió", "volvimos", "volvisteis", "volvieron"],
+	      "Pretérito Perfecto": ["he vuelto", "has vuelto", "ha vuelto", "hemos vuelto", "habéis vuelto", "han vuelto"],
+	      "Pretérito Imperfecto": ["volvía", "volvías", "volvía", "volvíamos", "volvíais", "volvían"],
+	      "Futuro": ["volveré", "volverás", "volverá", "volveremos", "volveréis", "volverán"]
         },
 		// HIER VOEG JE DE -SE WERKWOORDEN TOE ALS VERWIJZING:
         "Abrirse": "Abrir",
+		"Acordarse": "Acordar"
         "Acostarse": "Acostar",
 		"Apagarse": "Apagar",
 		"Arrancarse": "Arrancar",
@@ -646,6 +675,7 @@
         "Caberse": "Caber",
 		"Calentarse": "Calentar",
         "Comenzarse": "Comenzar",
+		"Conducirse": "Conducir",
         "Cubrirse": "Cubrir",
 		"Chuparse": "Chupar",
         "Darse": "Dar",
@@ -656,6 +686,7 @@
         "Dormirse": "Dormir",
         "Empezarse": "Empezar",
 		"Encenderse": "Encender",
+        "Encontrarse": "Encontrar",
 		"Enfriarse": "Enfriar",
 		"Esperarse": "Esperar",
         "Hacerse": "Hacer",
@@ -675,22 +706,31 @@
         "Saberse": "Saber",
 		"Saludarse": "Saludar",
         "Sentarse": "Sentar",
+		"Soltarse": "Soltar",
         "Tenerse": "Tener",
+		"Traducirse": "Traducir",
         "Traerse": "Traer",
         "Venirse": "Venir",
         "Verse": "Ver",
         "Vestirse": "Vestir",
         "Volverse": "Volver"
       },
-		// HIER VOEG JE DE REGELMATIGE WERKWOORDEN TOE:
-      "regulars": [
-        "Aprender", "Arreglar", "Bailar", "Beber", "Borrar", "Buscar", "Callar", "Cantar", "Chupar", "Comer", "Comprar", "Correr", "Deber", "Dejar", "Desear", 
-        "Escuchar", "Esperar", "Estudiar", "Gastar", "Hablar", "Hibernar", "Intentar", 
-        "Llegar", "Malgastar", "Meter", "Mudar", "Olvidar", "Pagar", "Preguntar", "Prestar", "Reparar", "Saludar", "Trabajar", "Vender", "Viajar", "Vivir"
-        ]
+
+	"regulars": [
+        // Werkwoorden die (ook) wederkerend gebruikt worden:
+        "Arreglarse", "Borrarse", "Callarse", "Chuparse", "Comerse", 
+        "Dejarse", "Esperarse", "Gastarse", "Llegarse", "Meterse", 
+        "Mudarse", "Olvidarse", "Preguntarse", "Saludarse",
+
+        // Puur regelmatige werkwoorden (nooit/zelden wederkerend):
+        "Aprender", "Bailar", "Beber", "Buscar", "Cantar", "Comprar", 
+        "Correr", "Deber", "Desear", "Escuchar", "Estudiar", "Hablar", 
+        "Hibernar", "Intentar", "Malgastar", "Pagar", "Prestar", 
+        "Reparar", "Trabajar", "Vender", "Viajar", "Vivir"
+    ]
     };
 
-    const pronouns = ["yo", "tÃº", "Ã©l/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
+    const pronouns = ["yo", "tÃº", "él/ella/usted", "nosotros/as", "vosotros/as", "ellos/ellas/ustedes"];
     const reflexives = ["me", "te", "se", "nos", "os", "se"];
     let currentCorrect = "";
     let showingError = false;
@@ -704,32 +744,32 @@
     // --- DATA VOOR REGELMATIGE UITGANGEN ---
     const endings = {
         "ar": {
-            "Presente": ["o", "as", "a", "amos", "Ã¡is", "an"],
-            "PretÃ©rito Indefinido": ["Ã©", "aste", "Ã³", "amos", "asteis", "aron"],
-            "PretÃ©rito Imperfecto": ["aba", "abas", "aba", "Ã¡bamos", "abais", "aban"],
-            "Futuro": ["Ã©", "Ã¡s", "Ã¡", "emos", "Ã©is", "Ã¡n"]
+            "Presente": ["o", "as", "a", "amos", "áis", "an"],
+            "Pretérito Indefinido": ["é", "aste", "ó", "amos", "asteis", "aron"],
+            "Pretérito Imperfecto": ["aba", "abas", "aba", "ábamos", "abais", "aban"],
+            "Futuro": ["é", "ás", "á", "emos", "éis", "án"]
         },
         "er": {
-            "Presente": ["o", "es", "e", "emos", "Ã©is", "en"],
-            "PretÃ©rito Indefinido": ["Ã­", "iste", "iÃ³", "imos", "isteis", "ieron"],
-            "PretÃ©rito Imperfecto": ["Ã­a", "Ã­as", "Ã­a", "Ã­amos", "Ã­ais", "Ã­an"],
-            "Futuro": ["Ã©", "Ã¡s", "Ã¡", "emos", "Ã©is", "Ã¡n"]
+            "Presente": ["o", "es", "e", "emos", "éis", "en"],
+            "Pretérito Indefinido": ["í", "iste", "ió", "imos", "isteis", "ieron"],
+            "Pretérito Imperfecto": ["ía", "ías", "ía", "íamos", "íais", "ían"],
+            "Futuro": ["é", "ás", "á", "emos", "éis", "án"]
         },
         "ir": {
-            "Presente": ["o", "es", "e", "imos", "Ã­s", "en"],
-            "PretÃ©rito Indefinido": ["Ã­", "iste", "iÃ³", "imos", "isteis", "ieron"],
-            "PretÃ©rito Imperfecto": ["Ã­a", "Ã­as", "Ã­a", "Ã­amos", "Ã­ais", "Ã­an"],
-            "Futuro": ["Ã©", "Ã¡s", "Ã¡", "emos", "Ã©is", "Ã¡n"]
+            "Presente": ["o", "es", "e", "imos", "ís", "en"],
+            "Pretérito Indefinido": ["í", "iste", "ió", "imos", "isteis", "ieron"],
+            "Pretérito Imperfecto": ["ía", "ías", "ía", "íamos", "íais", "ían"],
+            "Futuro": ["é", "ás", "á", "emos", "éis", "án"]
         }
     };
 
     // --- HTML CODES PER TABBLAD VOOR HET SPIEKBRIEFJE ---
     const cheatSheetsData = {
-        "Presente": `<table><tr><th>Persoon</th><th class="refl-column">Refl.</th><th>-ar</th><th>-er</th><th>-ir</th></tr><tr><td>yo</td><td class="refl-column">me</td><td><b>-o</b></td><td><b>-o</b></td><td><b>-o</b></td></tr><tr><td>tÃº</td><td class="refl-column">te</td><td><b>-as</b></td><td><b>-es</b></td><td><b>-es</b></td></tr><tr><td>Ã©l/ella</td><td class="refl-column">se</td><td><b>-a</b></td><td><b>-e</b></td><td><b>-e</b></td></tr><tr><td>nosotros</td><td class="refl-column">nos</td><td><b>-amos</b></td><td><b>-emos</b></td><td><b>-imos</b></td></tr><tr><td>vosotros</td><td class="refl-column">os</td><td><b>-Ã¡is</b></td><td><b>-Ã©is</b></td><td><b>-Ã­s</b></td></tr><tr><td>ellos/as</td><td class="refl-column">se</td><td><b>-an</b></td><td><b>-en</b></td><td><b>-en</b></td></tr></table>`,
-        "PretÃ©rito Indefinido": `<table><tr><th>Persoon</th><th class="refl-column">Refl.</th><th>-ar</th><th>-er / -ir</th></tr><tr><td>yo</td><td class="refl-column">me</td><td><b>-Ã©</b></td><td><b>-Ã­</b></td></tr><tr><td>tÃº</td><td class="refl-column">te</td><td><b>-aste</b></td><td><b>-iste</b></td></tr><tr><td>Ã©l/ella</td><td class="refl-column">se</td><td><b>-Ã³</b></td><td><b>-iÃ³</b></td></tr><tr><td>nosotros</td><td class="refl-column">nos</td><td><b>-amos</b></td><td><b>-imos</b></td></tr><tr><td>vosotros</td><td class="refl-column">os</td><td><b>-asteis</b></td><td><b>-isteis</b></td></tr><tr><td>ellos/as</td><td class="refl-column">se</td><td><b>-aron</b></td><td><b>-ieron</b></td></tr></table>`,
-        "PretÃ©rito Imperfecto": `<table><tr><th>Persoon</th><th class="refl-column">Refl.</th><th>-ar</th><th>-er / -ir</th></tr><tr><td>yo</td><td class="refl-column">me</td><td><b>-aba</b></td><td><b>-Ã­a</b></td></tr><tr><td>tÃº</td><td class="refl-column">te</td><td><b>-abas</b></td><td><b>-Ã­as</b></td></tr><tr><td>Ã©l/ella</td><td class="refl-column">se</td><td><b>-aba</b></td><td><b>-Ã­a</b></td></tr><tr><td>nosotros</td><td class="refl-column">nos</td><td><b>-Ã¡bamos</b></td><td><b>-Ã­amos</b></td></tr><tr><td>vosotros</td><td class="refl-column">os</td><td><b>-abais</b></td><td><b>-Ã­ais</b></td></tr><tr><td>ellos/as</td><td class="refl-column">se</td><td><b>-aban</b></td><td><b>-Ã­an</b></td></tr></table>`,
-        "PretÃ©rito Perfecto": `<div class="perfecto-info"><span class="refl-text"><b>Wederkerend:</b> me, te, se, nos, os, se vÃ³Ã³r de vorm.<br><br></span><b>Hulpwerkwoord (Haber):</b><br>yo <b>he</b>, tÃº <b>has</b>, Ã©l <b>ha</b>, nos. <b>hemos</b>, vos. <b>habÃ©is</b>, ellos <b>han</b><br><br><b>+ Voltooid Deelwoord:</b> -ar â†’ <b>-ado</b> | -er/-ir â†’ <b>-ido</b></div>`,
-        "Futuro": `<div class="perfecto-info"><span class="refl-text">Reflexive vÃ³Ã³r het hele werkwoord. <br><br></span>Plak de uitgang achter het <b>HELE werkwoord</b>:<br><br>yo <b>-Ã©</b>, tÃº <b>-Ã¡s</b>, Ã©l <b>-Ã¡</b>, nos. <b>-emos</b>, vos. <b>-Ã©is</b>, ellos <b>-Ã¡n</b></div>`
+        "Presente": `<table><tr><th>Persoon</th><th class="refl-column">Refl.</th><th>-ar</th><th>-er</th><th>-ir</th></tr><tr><td>yo</td><td class="refl-column">me</td><td><b>-o</b></td><td><b>-o</b></td><td><b>-o</b></td></tr><tr><td>tÃº</td><td class="refl-column">te</td><td><b>-as</b></td><td><b>-es</b></td><td><b>-es</b></td></tr><tr><td>él/ella</td><td class="refl-column">se</td><td><b>-a</b></td><td><b>-e</b></td><td><b>-e</b></td></tr><tr><td>nosotros</td><td class="refl-column">nos</td><td><b>-amos</b></td><td><b>-emos</b></td><td><b>-imos</b></td></tr><tr><td>vosotros</td><td class="refl-column">os</td><td><b>-áis</b></td><td><b>-éis</b></td><td><b>-ís</b></td></tr><tr><td>ellos/as</td><td class="refl-column">se</td><td><b>-an</b></td><td><b>-en</b></td><td><b>-en</b></td></tr></table>`,
+        "Pretérito Indefinido": `<table><tr><th>Persoon</th><th class="refl-column">Refl.</th><th>-ar</th><th>-er / -ir</th></tr><tr><td>yo</td><td class="refl-column">me</td><td><b>-é</b></td><td><b>-í</b></td></tr><tr><td>tÃº</td><td class="refl-column">te</td><td><b>-aste</b></td><td><b>-iste</b></td></tr><tr><td>él/ella</td><td class="refl-column">se</td><td><b>-ó</b></td><td><b>-ió</b></td></tr><tr><td>nosotros</td><td class="refl-column">nos</td><td><b>-amos</b></td><td><b>-imos</b></td></tr><tr><td>vosotros</td><td class="refl-column">os</td><td><b>-asteis</b></td><td><b>-isteis</b></td></tr><tr><td>ellos/as</td><td class="refl-column">se</td><td><b>-aron</b></td><td><b>-ieron</b></td></tr></table>`,
+        "Pretérito Imperfecto": `<table><tr><th>Persoon</th><th class="refl-column">Refl.</th><th>-ar</th><th>-er / -ir</th></tr><tr><td>yo</td><td class="refl-column">me</td><td><b>-aba</b></td><td><b>-ía</b></td></tr><tr><td>tÃº</td><td class="refl-column">te</td><td><b>-abas</b></td><td><b>-ías</b></td></tr><tr><td>él/ella</td><td class="refl-column">se</td><td><b>-aba</b></td><td><b>-ía</b></td></tr><tr><td>nosotros</td><td class="refl-column">nos</td><td><b>-ábamos</b></td><td><b>-íamos</b></td></tr><tr><td>vosotros</td><td class="refl-column">os</td><td><b>-abais</b></td><td><b>-íais</b></td></tr><tr><td>ellos/as</td><td class="refl-column">se</td><td><b>-aban</b></td><td><b>-ían</b></td></tr></table>`,
+        "Pretérito Perfecto": `<div class="perfecto-info"><span class="refl-text"><b>Wederkerend:</b> me, te, se, nos, os, se vóór de vorm.<br><br></span><b>Hulpwerkwoord (Haber):</b><br>yo <b>he</b>, tÃº <b>has</b>, él <b>ha</b>, nos. <b>hemos</b>, vos. <b>habéis</b>, ellos <b>han</b><br><br><b>+ Voltooid Deelwoord:</b> -ar â†’ <b>-ado</b> | -er/-ir â†’ <b>-ido</b></div>`,
+        "Futuro": `<div class="perfecto-info"><span class="refl-text">Reflexive vóór het hele werkwoord. <br><br></span>Plak de uitgang achter het <b>HELE werkwoord</b>:<br><br>yo <b>-é</b>, tÃº <b>-ás</b>, él <b>-á</b>, nos. <b>-emos</b>, vos. <b>-éis</b>, ellos <b>-án</b></div>`
     };
 
     // --- FUNCTIE VOOR HET WISSELEN VAN MODUS VIA DE KEUZEKNOPPEN ---
@@ -792,9 +832,9 @@
         const stem = workingVerb.slice(0, -2);
         let baseForm = "";
         
-        if (tense === "PretÃ©rito Perfecto") {
+        if (tense === "Pretérito Perfecto") {
             const participle = type === "ar" ? "ado" : "ido";
-            const aux = ["he", "has", "ha", "hemos", "habÃ©is", "han"];
+            const aux = ["he", "has", "ha", "hemos", "habéis", "han"];
             baseForm = `${aux[personIdx]} ${stem}${participle}`;
         } else if (tense === "Futuro") {
             baseForm = workingVerb.toLowerCase() + endings[type][tense][personIdx];
@@ -822,7 +862,7 @@
         const useRegular = practiceMode === 'all' && Math.random() > 0.5 && hasRegulars;
         
         let verb, tense, personIdx = Math.floor(Math.random() * 6);
-        const tenses = ["Presente", "PretÃ©rito Indefinido", "PretÃ©rito Perfecto", "PretÃ©rito Imperfecto", "Futuro"];
+        const tenses = ["Presente", "Pretérito Indefinido", "Pretérito Perfecto", "Pretérito Imperfecto", "Futuro"];
         tense = tenses[Math.floor(Math.random() * tenses.length)];
 
         currentTense = tense;
