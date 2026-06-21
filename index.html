@@ -871,7 +871,16 @@
             verb = verbData.regulars[Math.floor(Math.random() * verbData.regulars.length)];
             currentCorrect = conjugateRegular(verb, tense, personIdx);
 		} else {
-            const irregulars = Object.keys(verbData.irregulars);
+            // Maak een lijst van alle onregelmatige werkwoorden
+            let irregulars = Object.keys(verbData.irregulars);
+            
+            // Als we in 'irregular' modus spelen, filteren we de -se varianten eruit 
+            // zodat je alleen de pure basiswerkwoorden te oefenen krijgt!
+            if (practiceMode === 'irregular') {
+                irregulars = irregulars.filter(v => !v.toLowerCase().endsWith("se") || v.toLowerCase() === "ser");
+            }
+            
+            // Kies nu een willekeurig werkwoord uit de gefilterde lijst
             verb = irregulars[Math.floor(Math.random() * irregulars.length)];
 
             // Kijk nu EERST of het een string-verwijzing is (alias)
