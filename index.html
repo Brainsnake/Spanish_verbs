@@ -853,12 +853,12 @@
         document.getElementById('percentage').innerText = perc;
     }
 
-    // --- GENERATOR VOOR DE VOLGENDE LOGISCHE VRAAG (AANGEPAST OP PRACTICE MODE) ---
+	// --- GENERATOR VOOR DE VOLGENDE LOGISCHE VRAAG (MET GECORRIGEERDE BALANS) ---
     function nextQuestion() {
         showingError = false;
         const hasRegulars = verbData.regulars && verbData.regulars.length > 0;
         
-        // Als practiceMode 'irregular' is, mag useRegular NOOIT true worden!
+        // 1. Bepaal de modus en of we een regelmatig of onregelmatig werkwoord pakken
         const useRegular = practiceMode === 'all' && Math.random() > 0.5 && hasRegulars;
         
         let verb, tense, personIdx = Math.floor(Math.random() * 6);
@@ -868,29 +868,41 @@
         currentTense = tense;
 
         if (useRegular) {
-            verb = verbData.regulars[Math.floor(Math.random() * verbData.regulars.length)];
-            currentCorrect = conjugateRegular(verb, tense, personIdx);
-		} else {
-            // Maak een lijst van alle onregelmatige werkwoorden
-            let irregulars = Object.keys(verbData.irregulars);
+            // Pak een willekeurig werkwoord uit de regulars
+            let chosen = verbData.regulars[Math.floor(Math.random() * verbData.regulars.length)];
             
-            // Als we in 'irregular' modus spelen, filteren we de -se varianten eruit 
-            // zodat je alleen de pure basiswerkwoorden te oefenen krijgt!
-            if (practiceMode === 'irregular') {
-                irregulars = irregulars.filter(v => !v.toLowerCase().endsWith("se") || v.toLowerCase() === "ser");
+            // Als het gekozen werkwoord op 'se' eindigt, is de kans nu 90% dat we hem 
+            // terugveranderen naar de normale vorm (zonder se) om overspoeling te voorkomen!
+            if (chosen.toLowerCase().endsWith("se") && Math.random() > 0.10) {
+                verb = chosen.slice(0, -2); // Maak er bijv. "Arreglar" van i.p.v. "Arreglarse"
+            } else {
+                verb = chosen;
             }
             
-            // Kies nu een willekeurig werkwoord uit de gefilterde lijst
-            verb = irregulars[Math.floor(Math.random() * irregulars.length)];
-
-            // Kijk nu EERST of het een string-verwijzing is (alias)
-            let lookupName = (typeof verbData.irregulars[verb] === "string") ? verbData.irregulars[verb] : verb;
-
-            // Check of de geselecteerde VRAAGVORM op 'se' eindigt
-            let isReflexive = verb.toLowerCase().endsWith("se") && verb.toLowerCase() !== "ser";
+            currentCorrect = conjugateRegular(verb, tense, personIdx);
+        } else {
+            // Maak een lijst van alle onregelmatige werkwoorden, maar filter de -se aliassen er ALTIJD uit voor de basisselectie
+            let irregulars = Object.keys(verbData.irregulars).filter(v => !v.toLowerCase().endsWith("se") || v.toLowerCase() === "ser");
             
-            let answer = verbData.irregulars[lookupName][tense][personIdx];
-            currentCorrect = isReflexive ? `${reflexives[personIdx]} ${answer}` : answer;
+            // Kies een onregelmatig basiswerkwoord (bijv. "Abrir" of "Tener")
+            let baseVerb = irregulars[Math.floor(Math.random() * irregulars.length)];
+            
+            // Bepaal of we de wederkerende variant willen oefenen
+            // In 'irregular' modus NOOIT. In 'all' modus doen we dit in slechts 10% van de gevallen als de variant bestaat!
+            let wantsReflexive = false;
+            if (practiceMode === 'all' && Math.random() < 0.10) {
+                // Check of de -se variant bestaat in je database (bijv. "Abrirse")
+                if (verbData.irregulars[baseVerb + "se"] !== undefined) {
+                    wantsReflexive = true;
+                }
+            }
+            
+            // Zet de definitieve vraag-vorm vast
+            verb = wantsReflexive ? (baseVerb + "se") : baseVerb;
+
+            // Zoek de juiste vervoeging op in het object
+            let answer = verbData.irregulars[baseVerb][tense][personIdx];
+            currentCorrect = wantsReflexive ? `${reflexives[personIdx]} ${answer}` : answer;
         }
         
         document.getElementById('verb').innerText = verb;
