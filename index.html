@@ -884,9 +884,16 @@
             // Maak een lijst van alle onregelmatige werkwoorden, maar filter de -se aliassen er ALTIJD uit voor de basisselectie
             let irregulars = Object.keys(verbData.irregulars).filter(v => !v.toLowerCase().endsWith("se") || v.toLowerCase() === "ser");
             
-            // Kies een onregelmatig basiswerkwoord (bijv. "Abrir" of "Tener")
+            // Kies een onregelmatig basiswerkwoord
             let baseVerb = irregulars[Math.floor(Math.random() * irregulars.length)];
-            
+			
+            // --- UITZONDERING VOOR HABER IN INDEFINIDO ---
+            // Als het werkwoord 'Haber' is en de tijd is 'Pretérito Indefinido', 
+            // dwingen we de persoon ALTIJD naar index 2 (él/ella/usted -> "hubo")
+            if (baseVerb === "Haber" && tense === "Pretérito Indefinido") {
+                personIdx = 2;
+            }
+			
             // Bepaal of we de wederkerende variant willen oefenen
             // In 'irregular' modus NOOIT. In 'all' modus doen we dit in slechts 10% van de gevallen als de variant bestaat!
             let wantsReflexive = false;
